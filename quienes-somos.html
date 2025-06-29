@@ -29,17 +29,18 @@
         .about-hero p { font-size: 1.3rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
         .about-content { background: white; padding: 5rem 0; }
         .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: center; }
-        .profile-image img {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            border: 5px solid white;
-        }
+        .profile-image img { width: 300px; height: 300px; border-radius: 50%; object-fit: cover; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 5px solid white; }
         .story-content h2 { font-size: 2.5rem; margin-bottom: 2rem; color: #333; }
         .story-content p { margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.8; color: #555; }
         .highlight { background: linear-gradient(120deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; }
+        .journey-section { background: #f8f9fa; padding: 4rem 0; }
+        .journey-content { text-align: center; max-width: 800px; margin: 0 auto; }
+        .journey-content h2 { font-size: 2.5rem; margin-bottom: 2rem; color: #333; }
+        .journey-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .journey-step { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
+        .step-number { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(45deg, #667eea, #764ba2); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1rem; }
+        .journey-step h3 { font-size: 1.3rem; margin-bottom: 1rem; color: #333; }
+        .journey-step p { color: #666; line-height: 1.6; }
         footer { background: #2c3e50; color: white; text-align: center; padding: 2rem 0; }
         @media (max-width: 768px) {
             .nav-toggle { display: block; }
@@ -51,6 +52,7 @@
             .about-grid { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
             .profile-image img { width: 200px; height: 200px; }
             .story-content h2 { font-size: 2rem; }
+            .journey-steps { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -58,7 +60,9 @@
     <header>
         <nav class="container">
             <div class="logo">NORDIA</div>
-            <button class="nav-toggle" aria-label="abrir navegación"><span class="hamburger"></span></button>
+            <button class="nav-toggle" aria-label="abrir navegación">
+                <span class="hamburger"></span>
+            </button>
             <ul class="nav-links">
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="quienes-somos.html">Quiénes Somos</a></li>
@@ -71,14 +75,14 @@
         <section class="about-hero">
             <div class="container">
                 <h1>La Historia Detrás de NORDIA</h1>
-                <p>Cómo un profesional de las trincheras se convirtió en el puente entre los problemas de negocio y las soluciones tecnológicas.</p>
+                <p>Cómo un profesional de las trincheras se convirtió en el puente entre los problemas de negocio y las soluciones tecnológicas</p>
             </div>
         </section>
         <section class="about-content">
             <div class="container">
                 <div class="about-grid">
                     <div class="profile-image">
-                        <img src="images/foto_de_perfil.png" alt="Foto de Gonzalo Haedo">
+                         <img src="images/foto_de_perfil.png" alt="Foto de Gonzalo Haedo">
                         <p style="margin-top: 1rem; font-style: italic; color: #666;">Gonzalo Haedo<br>Fundador de NORDIA</p>
                     </div>
                     <div class="story-content">
@@ -87,6 +91,20 @@
                         <p>Durante años, viví los dolores reales de los negocios: procesos manuales que consumen tiempo, sistemas que no se hablan entre sí, y la frustración de saber que <span class="highlight">debería existir una forma más inteligente</span> de hacer las cosas.</p>
                         <p>Fue esa obsesión por la eficiencia lo que me llevó a la tecnología. No por amor a la programación, sino por <span class="highlight">necesidad pura</span>. Necesitaba soluciones que funcionaran en el mundo real, no en presentaciones de PowerPoint.</p>
                         <p>Hoy, esa combinación única me permite hacer algo que pocos pueden: <span class="highlight">entender profundamente tu problema de negocio y construir la solución tecnológica exacta</span> que necesitas, sin complicaciones innecesarias.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="journey-section">
+            <div class="container">
+                <div class="journey-content">
+                    <h2>Mi Ventaja Competitiva: Visión 360°</h2>
+                    <p>Mi trayectoria "no lineal" es en realidad mi mayor fortaleza. Me permite ver lo que otros no pueden ver.</p>
+                    <div class="journey-steps">
+                        <div class="journey-step"><div class="step-number">1</div><h3>Experiencia Operativa</h3><p>Años en logística y ventas me enseñaron cómo funcionan realmente los negocios, más allá de la teoría.</p></div>
+                        <div class="journey-step"><div class="step-number">2</div><h3>Obsesión por la Eficiencia</h3><p>Cada proceso ineficiente que viví se convirtió en una oportunidad de mejora que ahora puedo solucionar.</p></div>
+                        <div class="journey-step"><div class="step-number">3</div><h3>Construcción Tecnológica</h3><p>Aprendí a construir soluciones por necesidad, enfocándome siempre en resultados, no en tecnología por tecnología.</p></div>
+                        <div class="journey-step"><div class="step-number">4</div><h3>El Puente Perfecto</h3><p>Hoy puedo traducir problemas de negocio en soluciones tecnológicas que realmente generan rentabilidad.</p></div>
                     </div>
                 </div>
             </div>
