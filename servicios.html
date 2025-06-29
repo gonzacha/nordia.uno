@@ -5,242 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicios - NORDIA</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #667eea;
-        }
-
-        /* Main Content */
-        main {
-            padding-top: 100px;
-            min-height: 100vh;
-        }
-
-        .services-hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 4rem 0;
-            text-align: center;
-        }
-
-        .services-hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .services-hero p {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .services-content {
-            padding: 5rem 0;
-        }
-
-        .service-section {
-            background: white;
-            margin: 3rem 0;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .service-section:hover {
-            transform: translateY(-5px);
-        }
-
-        .service-header {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 3rem;
-            text-align: center;
-        }
-
-        .service-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .service-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .service-header .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .service-body {
-            padding: 3rem;
-        }
-
-        .service-description {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            color: #555;
-            line-height: 1.8;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .benefit-card {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 15px;
-            border-left: 5px solid #667eea;
-            transition: transform 0.3s ease;
-        }
-
-        .benefit-card:hover {
-            transform: translateX(10px);
-        }
-
-        .benefit-card h4 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .benefit-card p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .cta-section {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            color: white;
-            padding: 4rem 0;
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-section p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: white;
-            color: #ff6b6b;
-            padding: 1rem 2.5rem;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.2);
-        }
-
-        /* Footer */
-        footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        /* Responsive */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+        .logo { font-size: 2rem; font-weight: bold; background: linear-gradient(45deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; z-index: 1001; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: #333; font-weight: 500; transition: color 0.3s ease; }
+        .nav-links a:hover { color: #667eea; }
+        .nav-toggle { display: none; border: none; background: transparent; cursor: pointer; padding: 0; z-index: 1001; }
+        .hamburger { display: block; position: relative; width: 25px; height: 3px; }
+        .hamburger, .hamburger::before, .hamburger::after { background: #333; transition: all 0.3s ease-in-out; }
+        .hamburger::before, .hamburger::after { content: ''; position: absolute; width: 100%; height: 3px; left: 0; }
+        .hamburger::before { top: -8px; }
+        .hamburger::after { bottom: -8px; }
+        .nav-open .hamburger { background: transparent; }
+        .nav-open .hamburger::before { transform: rotate(45deg) translate(5px, 5px); }
+        .nav-open .hamburger::after { transform: rotate(-45deg) translate(5px, -5px); }
+        main { padding-top: 100px; min-height: 100vh; }
+        .services-hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4rem 0; text-align: center; }
+        .services-hero h1 { font-size: 3rem; margin-bottom: 1rem; font-weight: 700; }
+        .services-hero p { font-size: 1.3rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        .services-content { padding: 5rem 0; }
+        .service-section { background: white; margin: 3rem 0; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
+        .service-section:hover { transform: translateY(-5px); }
+        .service-header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 3rem; text-align: center; }
+        .service-icon { font-size: 4rem; margin-bottom: 1rem; }
+        .service-header h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .service-header .subtitle { font-size: 1.2rem; opacity: 0.9; }
+        .service-body { padding: 3rem; }
+        .service-description { font-size: 1.2rem; margin-bottom: 2rem; color: #555; line-height: 1.8; }
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .benefit-card { background: #f8f9fa; padding: 2rem; border-radius: 15px; border-left: 5px solid #667eea; transition: transform 0.3s ease; }
+        .benefit-card:hover { transform: translateX(10px); }
+        .benefit-card h4 { font-size: 1.3rem; margin-bottom: 1rem; color: #333; }
+        .benefit-card p { color: #666; line-height: 1.6; }
+        .cta-section { background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; padding: 4rem 0; text-align: center; margin-top: 4rem; }
+        .cta-section h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .cta-section p { font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9; }
+        .cta-button { display: inline-block; background: white; color: #ff6b6b; padding: 1rem 2.5rem; text-decoration: none; border-radius: 50px; font-size: 1.2rem; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(0,0,0,0.2); }
+        footer { background: #2c3e50; color: white; text-align: center; padding: 2rem 0; }
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .services-hero h1 {
-                font-size: 2rem;
-            }
-
-            .service-header h2 {
-                font-size: 2rem;
-            }
-
-            .benefits-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .service-header,
-            .service-body {
-                padding: 2rem;
-            }
+            .nav-toggle { display: block; }
+            .nav-links { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: center; align-items: center; transform: translateX(100%); transition: transform 0.3s ease-in-out; }
+            .nav-links.active { transform: translateX(0); }
+            .nav-links li { margin: 2rem 0; }
+            .nav-links a { font-size: 1.5rem; font-weight: bold; }
+            .services-hero h1 { font-size: 2rem; }
+            .service-header h2 { font-size: 2rem; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .service-header, .service-body { padding: 2rem; }
         }
     </style>
 </head>
@@ -248,6 +64,7 @@
     <header>
         <nav class="container">
             <div class="logo">NORDIA</div>
+            <button class="nav-toggle" aria-label="abrir navegación"><span class="hamburger"></span></button>
             <ul class="nav-links">
                 <li><a href="index.html">Inicio</a></li>
                 <li><a href="quienes-somos.html">Quiénes Somos</a></li>
@@ -256,7 +73,6 @@
             </ul>
         </nav>
     </header>
-
     <main>
         <section class="services-hero">
             <div class="container">
@@ -264,109 +80,22 @@
                 <p>Soluciones tecnológicas enfocadas en generar resultados medibles y rentabilidad inmediata</p>
             </div>
         </section>
-
         <section class="services-content">
             <div class="container">
-                
-                <!-- Rescate WordPress -->
                 <div class="service-section">
-                    <div class="service-header">
-                        <div class="service-icon">🚨</div>
-                        <h2>Rescate WordPress</h2>
-                        <p class="subtitle">Soluciones urgentes para sitios web en crisis</p>
-                    </div>
-                    <div class="service-body">
-                        <p class="service-description">
-                            ¿Tu sitio web está caído, hackeado o simplemente no funciona como debería? No necesitas empezar desde cero. Rescato sitios WordPress en problemas y los convierto en herramientas de ventas efectivas que realmente generan resultados para tu negocio.
-                        </p>
-                        <div class="benefits-grid">
-                            <div class="benefit-card">
-                                <h4>✅ Intervención Rápida</h4>
-                                <p>Soluciono problemas críticos en 24-48 horas máximo. Tu negocio no puede permitirse estar offline más tiempo del necesario.</p>
-                            </div>
-                            <div class="benefit-card">
-                                <h4>🔧 Diagnóstico Completo</h4>
-                                <p>Identifico la raíz del problema y optimizo todo el sitio para prevenir futuras crisis y mejorar el rendimiento.</p>
-                            </div>
-                            <div class="benefit-card">
-                                <h4>📈 Conversión Mejorada</h4>
-                                <p>No solo reparo, sino que optimizo tu sitio para que genere más leads y ventas de forma automática.</p>
-                            </div>
-                            <div class="benefit-card">
-                                <h4>🛡️ Seguridad Reforzada</h4>
-                                <p>Implemento medidas de seguridad avanzadas para proteger tu sitio de futuras amenazas y ataques.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="service-header"><div class="service-icon">🚨</div><h2>Rescate WordPress</h2><p class="subtitle">Soluciones urgentes para sitios web en crisis</p></div>
+                    <div class="service-body"><p class="service-description">¿Tu sitio web está caído, hackeado o simplemente no funciona como debería? No necesitas empezar desde cero. Rescato sitios WordPress en problemas y los convierto en herramientas de ventas efectivas que realmente generan resultados para tu negocio.</p><div class="benefits-grid"><div class="benefit-card"><h4>🔧 Diagnóstico Completo</h4><p>Identifico la raíz del problema y optimizo todo el sitio para prevenir futuras crisis y mejorar el rendimiento.</p></div><div class="benefit-card"><h4>📈 Conversión Mejorada</h4><p>No solo reparo, sino que optimizo tu sitio para que genere más leads y ventas de forma automática.</p></div></div></div>
                 </div>
-
-                <!-- Automatización de Procesos -->
                 <div class="service-section">
-                    <div class="service-header">
-                        <div class="service-icon">⚙️</div>
-                        <h2>Automatización de Procesos</h2>
-                        <p class="subtitle">Elimina tareas repetitivas y ahorra horas de trabajo</p>
-                    </div>
-                    <div class="service-body">
-                        <p class="service-description">
-                            ¿Pasas horas copiando datos entre sistemas, enviando emails repetitivos o actualizando planillas manualmente? Conecto tus herramientas con automatizaciones inteligentes usando Zapier y Make.com para que trabajes en lo que realmente importa: hacer crecer tu negocio.
-                        </p>
-                        <div class="benefits-grid">
-                            <div class="benefit-card">
-                                <h4>⏰ Ahorro de Tiempo Real</h4>
-                                <p>Recupera entre 5-15 horas semanales que podrás dedicar a actividades estratégicas y generación de ingresos.</p>
-                            </div>
-                            <div class="benefit-card">
-                                <h4>🔗 Integración Perfecta</h4>
-                                <p>Hago que tus sistemas se hablen entre sí: CRM, email marketing, facturación, inventario y más.</p>
-                            </div>
-                            <div class="benefit-card">
-                                <h4>📊 Seguimiento Automático</h4>
-                                <p>Obtienes reportes y notificaciones automáticas para mantener el control sin el trabajo manual.</p>
-                            </div>
-                            <div class="benefit-card">
-                                <h4>💡 Procesos Inteligentes</h4>
-                                <p>Diseño flujos de trabajo que se adaptan y mejoran automáticamente según las necesidades de tu negocio.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="service-header"><div class="service-icon">⚙️</div><h2>Automatización de Procesos</h2><p class="subtitle">Elimina tareas repetitivas y ahorra horas de trabajo</p></div>
+                    <div class="service-body"><p class="service-description">¿Pasas horas copiando datos entre sistemas, enviando emails repetitivos o actualizando planillas manualmente? Conecto tus herramientas con automatizaciones inteligentes usando Zapier y Make.com para que trabajes en lo que realmente importa: hacer crecer tu negocio.</p><div class="benefits-grid"><div class="benefit-card"><h4>⏰ Ahorro de Tiempo Real</h4><p>Recupera entre 5-15 horas semanales que podrás dedicar a actividades estratégicas y generación de ingresos.</p></div><div class="benefit-card"><h4>🔗 Integración Perfecta</h4><p>Hago que tus sistemas se hablen entre sí: CRM, email marketing, facturación, inventario y más.</p></div><div class="benefit-card"><h4>📊 Seguimiento Automático</h4><p>Obtienes reportes y notificaciones automáticas para mantener el control sin el trabajo manual.</p></div></div></div>
                 </div>
-
-                <!-- Landing Pages de Conversión -->
                 <div class="service-section">
-                    <div class="service-header">
-                        <div class="service-icon">🎯</div>
-                        <h2>Landing Pages de Conversión</h2>
-                        <p class="subtitle">Páginas que convierten visitantes en clientes</p>
-                    </div>
-                    <div class="service-body">
-                        <p class="service-description">
-                            ¿Tu sitio web actual no está convirtiendo visitantes en clientes? Creo landing pages específicas que están diseñadas con un solo objetivo: generar leads y ventas. Cada elemento está optimizado para guiar al visitante hacia la acción que necesitas que tome.
-                        </p>
-                        <div class="benefits-grid">
-                            <div class="benefit-card">
-                                <h4>🎨 Diseño Orientado a Conversión</h4>
-                                <p>Cada elemento tiene un propósito: desde los colores hasta la ubicación de los botones, todo está pensado para convertir.</p>
-                            </div>
-                            <div class="benefit-card">
-                                <h4>📱 Optimización Móvil</h4>
-                                <p>Más del 60% de tus visitantes vienen desde el móvil. Mis landing pages funcionan perfectamente en todos los dispositivos.</p>
-                            </div>
-                            <div class="benefit-card">
-                                <h4>📈 Métricas y Optimización</h4>
-                                <p>Implemento tracking avanzado y pruebas A/B para mejorar continuamente la tasa de conversión.</p>
-                            </div>
-                            <div class="benefit-card">
-                                <h4>🚀 Velocidad Optimizada</h4>
-                                <p>Landing pages que cargan en menos de 3 segundos para no perder visitantes por lentitud del sitio.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="service-header"><div class="service-icon">🎯</div><h2>Landing Pages de Conversión</h2><p class="subtitle">Páginas que convierten visitantes en clientes</p></div>
+                    <div class="service-body"><p class="service-description">¿Tu sitio web actual no está convirtiendo visitantes en clientes? Creo landing pages específicas que están diseñadas con un solo objetivo: generar leads y ventas. Cada elemento está optimizado para guiar al visitante hacia la acción que necesitas que tome.</p><div class="benefits-grid"><div class="benefit-card"><h4>🎨 Diseño Orientado a Conversión</h4><p>Cada elemento tiene un propósito: desde los colores hasta la ubicación de los botones, todo está pensado para convertir.</p></div><div class="benefit-card"><h4>📱 Optimización Móvil</h4><p>Más del 60% de tus visitantes vienen desde el móvil. Mis landing pages funcionan perfectamente en todos los dispositivos.</p></div><div class="benefit-card"><h4>📈 Métricas y Optimización</h4><p>Implemento tracking avanzado y pruebas A/B para mejorar continuamente la tasa de conversión.</p></div></div></div>
                 </div>
-
             </div>
         </section>
-
         <section class="cta-section">
             <div class="container">
                 <h2>¿Listo para Transformar tu Negocio?</h2>
@@ -375,11 +104,17 @@
             </div>
         </section>
     </main>
-
     <footer>
         <div class="container">
             <p>&copy; 2025 NORDIA - Gonzalo Haedo. Consultor en Eficiencia Operativa y Tecnología Aplicada.</p>
         </div>
     </footer>
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        const body = document.querySelector('body');
+        navToggle.addEventListener('click', () => { navLinks.classList.toggle('active'); body.classList.toggle('nav-open'); });
+        document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { navLinks.classList.remove('active'); body.classList.remove('nav-open'); }); });
+    </script>
 </body>
 </html>
