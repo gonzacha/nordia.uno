@@ -1,0 +1,475 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from 'firebase/auth';
+import { getFirestore, doc, setDoc, onSnapshot, setLogLevel } from 'firebase/firestore';
+import { ArrowUp, Target, DollarSign, BrainCircuit, HeartPulse, Network, Briefcase, CheckCircle, XCircle, PlusCircle, Trash2, Edit, Save, Sun, Moon } from 'lucide-react';
+
+// --- Firebase Configuration ---
+// These variables will be provided by the environment.
+const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'plan-maestro-2025';
+const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+// --- Initialize Firebase ---
+let app, auth, db;
+try {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+    // setLogLevel('debug'); // Uncomment for detailed logs
+} catch (e) {
+    console.error("Error initializing Firebase:", e);
+}
+
+// --- Initial Data Structure ---
+const initialPlan = {
+  ethos: {
+    declaracionDeVision: "Al cierre de 2025, soy el 'Gonzalo Puma': un profesional que combina la precisión técnica con la mentalidad estratégica de un atleta de élite. Lidero NORDIA como una consultora reconocida, con un pipeline estable de proyectos. Mi reputación se construye sobre la entrega consistente de resultados y mi capacidad para mantener la calma bajo presión.",
+    principiosInnegociables: [
+      { id: 1, principio: "Claridad sobre comodidad" },
+      { id: 2, principio: "Ejecución disciplinada > Ideas perfectas" },
+      { id: 3, principio: "La red es mi activo más valioso" },
+      { id: 4, principio: "Salud = Performance" },
+      { id: 5, principio: "Sistemas sobre motivación" },
+    ],
+  },
+  diagnosticoFinanciero: {
+    ingresos: [{ id: 1, fuente: 'Contrato Diputados', monto: 500000 }],
+    egresosFijos: [{ id: 1, concepto: 'Alquiler', monto: 150000 }],
+    egresosVariables: [{ id: 1, concepto: 'Supermercado', monto: 80000 }],
+    deudas: [{ id: 1, acreedor: 'Tarjeta de Crédito', montoTotal: 100000, pagoMensual: 10000 }],
+  },
+  planDeJuego: {
+    financieras: [{ id: 1, meta: 'Alcanzar un ingreso neto de $X', kpi: 'Ingreso neto mensual', completada: false }],
+    profesionales: [{ id: 1, meta: 'Establecer 5 conexiones genuinas con pares y 2 con mentores en NAVES.', kpi: 'Número de conversaciones de seguimiento', completada: false }],
+    personales: [{ id: 1, meta: 'Realizar 3 sesiones de actividad física de 45 min por semana', kpi: 'Sesiones completadas', completada: false }],
+  },
+  ejecucion: {
+    herramientas: [{ id: 1, nombre: 'Notion' }, { id: 2, nombre: 'Google Calendar' }],
+    ritualSemanal: {
+      diaHora: "Domingo, 20:00 hs",
+      proposito: "Analizar KPIs, celebrar victorias, ajustar tácticas y planificar la semana."
+    }
+  },
+  theme: 'dark',
+};
+
+
+// --- Helper Components ---
+const Section = ({ title, icon, children }) => (
+  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl shadow-lg p-6 mb-8">
+    <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
+      {icon}
+      <span className="ml-3">{title}</span>
+    </h2>
+    {children}
+  </div>
+);
+
+const StatCard = ({ title, value, icon, color }) => (
+  <div className="bg-white/10 p-4 rounded-xl flex items-center">
+    <div className={`p-3 rounded-full mr-4 ${color}`}>
+      {icon}
+    </div>
+    <div>
+      <p className="text-sm text-gray-300">{title}</p>
+      <p className="text-2xl font-bold text-white">{value}</p>
+    </div>
+  </div>
+);
+
+const EditableField = ({ value, onSave, isTextarea = false }) => {
+    const [isEditing, setIsEditing] = useState(false);
+    const [text, setText] = useState(value);
+
+    useEffect(() => {
+        setText(value);
+    }, [value]);
+
+    const handleSave = () => {
+        onSave(text);
+        setIsEditing(false);
+    };
+
+    if (isEditing) {
+        return (
+            <div className="flex flex-col items-end">
+                {isTextarea ? (
+                    <textarea value={text} onChange={(e) => setText(e.target.value)} className="w-full bg-gray-900/80 border border-blue-500 rounded-lg p-2 text-gray-200 focus:ring-2 focus:ring-blue-400 transition" rows="5"></textarea>
+                ) : (
+                    <input type="text" value={text} onChange={(e) => setText(e.target.value)} className="w-full bg-gray-900/80 border border-blue-500 rounded-lg p-2 text-gray-200 focus:ring-2 focus:ring-blue-400 transition" />
+                )}
+                <button onClick={handleSave} className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-lg flex items-center transition-colors">
+                    <Save size={16} className="mr-1" /> Guardar
+                </button>
+            </div>
+        );
+    }
+
+    return (
+        <div className="group flex items-start justify-between">
+            <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">{value}</p>
+            <button onClick={() => setIsEditing(true)} className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-white transition-opacity">
+                <Edit size={16} />
+            </button>
+        </div>
+    );
+};
+
+// --- Main App Component ---
+export default function App() {
+  const [plan, setPlan] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [isAuthReady, setIsAuthReady] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Debounce save function to avoid excessive writes to Firestore
+  const debounce = (func, delay) => {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+  };
+  
+  // Memoized save function
+  const savePlanToFirestore = useCallback(debounce(async (newPlan, uid) => {
+    if (!db || !uid) return;
+    try {
+      const planRef = doc(db, `artifacts/${appId}/users/${uid}/planMaestro/main`);
+      await setDoc(planRef, newPlan, { merge: true });
+    } catch (error) {
+      console.error("Error saving plan to Firestore:", error);
+    }
+  }, 1000), [appId]);
+
+  // Effect for Authentication
+  useEffect(() => {
+    if (!auth) return;
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        setUserId(user.uid);
+        setIsAuthReady(true);
+      } else {
+        try {
+            if(initialAuthToken) {
+                await signInWithCustomToken(auth, initialAuthToken);
+            } else {
+                await signInAnonymously(auth);
+            }
+        } catch (error) {
+            console.error("Error signing in:", error);
+            setIsAuthReady(true); // Still proceed even if auth fails
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Effect for fetching data from Firestore
+  useEffect(() => {
+    if (!isAuthReady || !userId) return;
+
+    const planRef = doc(db, `artifacts/${appId}/users/${userId}/planMaestro/main`);
+    const unsubscribe = onSnapshot(planRef, (docSnap) => {
+      if (docSnap.exists()) {
+        setPlan(docSnap.data());
+      } else {
+        // If no data, set initial plan and save it
+        setPlan(initialPlan);
+        savePlanToFirestore(initialPlan, userId);
+      }
+      setIsLoading(false);
+    }, (error) => {
+      console.error("Error fetching plan from Firestore:", error);
+      setPlan(initialPlan); // Fallback to initial plan on error
+      setIsLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, [isAuthReady, userId]);
+
+  // Effect to save plan whenever it changes
+  useEffect(() => {
+    if (plan && userId && !isLoading) {
+      savePlanToFirestore(plan, userId);
+    }
+  }, [plan, userId, isLoading, savePlanToFirestore]);
+
+  // --- Update Functions ---
+  const updatePlan = (path, value) => {
+    setPlan(prevPlan => {
+      const newPlan = { ...prevPlan };
+      let current = newPlan;
+      for (let i = 0; i < path.length - 1; i++) {
+        current = current[path[i]];
+      }
+      current[path[path.length - 1]] = value;
+      return newPlan;
+    });
+  };
+
+  const handleListChange = (path, newList) => {
+    updatePlan(path, newList);
+  };
+
+  const addListItem = (path) => {
+    setPlan(prevPlan => {
+        const newPlan = { ...prevPlan };
+        let list = newPlan;
+        path.forEach(p => list = list[p]);
+        
+        let newItem = { id: Date.now() };
+        if (path.includes('ingresos')) newItem = {...newItem, fuente: 'Nueva Fuente', monto: 0};
+        if (path.includes('egresosFijos')) newItem = {...newItem, concepto: 'Nuevo Gasto Fijo', monto: 0};
+        if (path.includes('egresosVariables')) newItem = {...newItem, concepto: 'Nuevo Gasto Variable', monto: 0};
+        if (path.includes('deudas')) newItem = {...newItem, acreedor: 'Nuevo Acreedor', montoTotal: 0, pagoMensual: 0};
+        if (path.includes('financieras') || path.includes('profesionales') || path.includes('personales')) newItem = {...newItem, meta: 'Nueva Meta', kpi: 'Nuevo KPI', completada: false};
+        if (path.includes('herramientas')) newItem = {...newItem, nombre: 'Nueva Herramienta'};
+        if (path.includes('principiosInnegociables')) newItem = {...newItem, principio: 'Nuevo Principio'};
+
+        list.push(newItem);
+        return newPlan;
+    });
+  };
+
+  const removeListItem = (path, id) => {
+    setPlan(prevPlan => {
+        const newPlan = { ...prevPlan };
+        let list = newPlan;
+        let parent = newPlan;
+        let lastKey = '';
+        
+        for (const p of path) {
+            parent = list;
+            list = list[p];
+            lastKey = p;
+        }
+
+        const filteredList = list.filter(item => item.id !== id);
+        parent[lastKey] = filteredList;
+
+        return newPlan;
+    });
+  };
+
+  const updateListItem = (path, id, field, value) => {
+    setPlan(prevPlan => {
+        const newPlan = { ...prevPlan };
+        let list = newPlan;
+        path.forEach(p => list = list[p]);
+        const itemIndex = list.findIndex(item => item.id === id);
+        if (itemIndex > -1) {
+            list[itemIndex][field] = value;
+        }
+        return newPlan;
+    });
+  };
+
+  // --- Financial Calculations ---
+  const calculateFinancials = () => {
+    if (!plan?.diagnosticoFinanciero) return { totalIngresos: 0, totalEgresos: 0, flujoDeCaja: 0, tasaAhorro: 0 };
+    const { ingresos, egresosFijos, egresosVariables, deudas } = plan.diagnosticoFinanciero;
+
+    const totalIngresos = ingresos.reduce((sum, item) => sum + Number(item.monto), 0);
+    const totalEgresosFijos = egresosFijos.reduce((sum, item) => sum + Number(item.monto), 0);
+    const totalEgresosVariables = egresosVariables.reduce((sum, item) => sum + Number(item.monto), 0);
+    const totalPagosDeuda = deudas.reduce((sum, item) => sum + Number(item.pagoMensual), 0);
+
+    const totalEgresos = totalEgresosFijos + totalEgresosVariables + totalPagosDeuda;
+    const flujoDeCaja = totalIngresos - totalEgresos;
+    const tasaAhorro = totalIngresos > 0 ? (flujoDeCaja / totalIngresos) * 100 : 0;
+
+    return { totalIngresos, totalEgresos, flujoDeCaja, tasaAhorro };
+  };
+
+  const financials = calculateFinancials();
+
+  const toggleTheme = () => {
+    const newTheme = plan.theme === 'dark' ? 'light' : 'dark';
+    updatePlan(['theme'], newTheme);
+  };
+
+  // --- Render Logic ---
+  if (isLoading) {
+    return <div className="min-h-screen bg-gray-900 flex justify-center items-center text-white">Cargando Plan Maestro...</div>;
+  }
+  
+  if (!plan) {
+    return <div className="min-h-screen bg-gray-900 flex justify-center items-center text-white">No se pudo cargar el plan.</div>;
+  }
+
+  const themeClass = plan.theme === 'dark' ? 'dark bg-gray-900 text-white' : 'bg-gray-100 text-gray-800';
+
+  return (
+    <div className={`min-h-screen font-sans transition-colors duration-500 ${themeClass}`}>
+      <div className="container mx-auto p-4 md:p-8">
+        <header className="text-center mb-12 relative">
+          <h1 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+            Plan Maestro 2025
+          </h1>
+          <p className="text-xl text-gray-400 mt-2">El Atleta de Élite de los Negocios</p>
+          <div className="absolute top-0 right-0">
+            <button onClick={toggleTheme} className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition">
+              {plan.theme === 'dark' ? <Sun className="text-yellow-400"/> : <Moon className="text-gray-800"/>}
+            </button>
+          </div>
+        </header>
+
+        {/* --- ETHOS --- */}
+        <Section title="Ethos: La Visión del Atleta" icon={<BrainCircuit className="text-purple-400" />}>
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold text-white mb-2">Declaración de Visión (El "Gonzalo Puma")</h3>
+            <EditableField 
+                value={plan.ethos.declaracionDeVision} 
+                onSave={(v) => updatePlan(['ethos', 'declaracionDeVision'], v)}
+                isTextarea
+            />
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-2">Principios Innegociables</h3>
+            <ul className="space-y-2">
+              {plan.ethos.principiosInnegociables.map(p => (
+                <li key={p.id} className="flex items-center justify-between group bg-white/5 p-3 rounded-lg">
+                  <input type="text" value={p.principio} onChange={(e) => updateListItem(['ethos', 'principiosInnegociables'], p.id, 'principio', e.target.value)} className="bg-transparent w-full focus:outline-none text-gray-300"/>
+                  <button onClick={() => removeListItem(['ethos', 'principiosInnegociables'], p.id)} className="text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Trash2 size={18}/>
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <button onClick={() => addListItem(['ethos', 'principiosInnegociables'])} className="mt-3 text-blue-400 hover:text-blue-300 flex items-center">
+              <PlusCircle size={18} className="mr-2"/> Añadir Principio
+            </button>
+          </div>
+        </Section>
+
+        {/* --- DIAGNÓSTICO FINANCIERO --- */}
+        <Section title="Diagnóstico Financiero" icon={<DollarSign className="text-green-400" />}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <StatCard title="Ingresos Totales" value={`$${financials.totalIngresos.toLocaleString('es-AR')}`} icon={<ArrowUp size={24}/>} color="bg-green-500/30"/>
+            <StatCard title="Egresos Totales" value={`$${financials.totalEgresos.toLocaleString('es-AR')}`} icon={<ArrowUp size={24} className="transform rotate-180"/>} color="bg-red-500/30"/>
+            <StatCard title="Flujo de Caja Neto" value={`$${financials.flujoDeCaja.toLocaleString('es-AR')}`} icon={<DollarSign size={24}/>} color="bg-blue-500/30"/>
+            <StatCard title="Tasa de Ahorro" value={`${financials.tasaAhorro.toFixed(2)}%`} icon={<Target size={24}/>} color="bg-yellow-500/30"/>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Ingresos */}
+            <div>
+              <h3 className="text-lg font-semibold text-white mb-2">Ingresos Mensuales</h3>
+              {plan.diagnosticoFinanciero.ingresos.map(item => (
+                <div key={item.id} className="flex items-center space-x-2 mb-2 group">
+                  <input type="text" value={item.fuente} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'ingresos'], item.id, 'fuente', e.target.value)} placeholder="Fuente" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-green-500 focus:outline-none"/>
+                  <input type="number" value={item.monto} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'ingresos'], item.id, 'monto', e.target.value)} placeholder="Monto" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-green-500 focus:outline-none"/>
+                  <button onClick={() => removeListItem(['diagnosticoFinanciero', 'ingresos'], item.id)} className="text-red-500 opacity-0 group-hover:opacity-100"><Trash2 size={18}/></button>
+                </div>
+              ))}
+              <button onClick={() => addListItem(['diagnosticoFinanciero', 'ingresos'])} className="mt-2 text-green-400 hover:text-green-300 flex items-center"><PlusCircle size={18} className="mr-2"/> Añadir Ingreso</button>
+            </div>
+            {/* Egresos */}
+            <div>
+              <h3 className="text-lg font-semibold text-white mb-2">Egresos Fijos</h3>
+              {plan.diagnosticoFinanciero.egresosFijos.map(item => (
+                <div key={item.id} className="flex items-center space-x-2 mb-2 group">
+                  <input type="text" value={item.concepto} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'egresosFijos'], item.id, 'concepto', e.target.value)} placeholder="Concepto" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+                  <input type="number" value={item.monto} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'egresosFijos'], item.id, 'monto', e.target.value)} placeholder="Monto" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+                  <button onClick={() => removeListItem(['diagnosticoFinanciero', 'egresosFijos'], item.id)} className="text-red-500 opacity-0 group-hover:opacity-100"><Trash2 size={18}/></button>
+                </div>
+              ))}
+              <button onClick={() => addListItem(['diagnosticoFinanciero', 'egresosFijos'])} className="mt-2 text-red-400 hover:text-red-300 flex items-center"><PlusCircle size={18} className="mr-2"/> Añadir Gasto Fijo</button>
+            </div>
+             <div>
+              <h3 className="text-lg font-semibold text-white mb-2">Egresos Variables</h3>
+              {plan.diagnosticoFinanciero.egresosVariables.map(item => (
+                <div key={item.id} className="flex items-center space-x-2 mb-2 group">
+                  <input type="text" value={item.concepto} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'egresosVariables'], item.id, 'concepto', e.target.value)} placeholder="Concepto" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+                  <input type="number" value={item.monto} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'egresosVariables'], item.id, 'monto', e.target.value)} placeholder="Monto" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+                  <button onClick={() => removeListItem(['diagnosticoFinanciero', 'egresosVariables'], item.id)} className="text-red-500 opacity-0 group-hover:opacity-100"><Trash2 size={18}/></button>
+                </div>
+              ))}
+              <button onClick={() => addListItem(['diagnosticoFinanciero', 'egresosVariables'])} className="mt-2 text-red-400 hover:text-red-300 flex items-center"><PlusCircle size={18} className="mr-2"/> Añadir Gasto Variable</button>
+            </div>
+             <div>
+              <h3 className="text-lg font-semibold text-white mb-2">Deudas</h3>
+              {plan.diagnosticoFinanciero.deudas.map(item => (
+                <div key={item.id} className="flex flex-col space-y-2 mb-4 p-3 bg-white/5 rounded-lg group">
+                    <div className="flex items-center space-x-2">
+                        <input type="text" value={item.acreedor} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'deudas'], item.id, 'acreedor', e.target.value)} placeholder="Acreedor" className="bg-white/10 p-2 rounded-lg w-full focus:ring-2 focus:ring-yellow-500 focus:outline-none"/>
+                         <button onClick={() => removeListItem(['diagnosticoFinanciero', 'deudas'], item.id)} className="text-red-500 opacity-0 group-hover:opacity-100"><Trash2 size={18}/></button>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <input type="number" value={item.montoTotal} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'deudas'], item.id, 'montoTotal', e.target.value)} placeholder="Monto Total" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-yellow-500 focus:outline-none"/>
+                        <input type="number" value={item.pagoMensual} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'deudas'], item.id, 'pagoMensual', e.target.value)} placeholder="Pago Mensual" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-yellow-500 focus:outline-none"/>
+                    </div>
+                </div>
+              ))}
+              <button onClick={() => addListItem(['diagnosticoFinanciero', 'deudas'])} className="mt-2 text-yellow-400 hover:text-yellow-300 flex items-center"><PlusCircle size={18} className="mr-2"/> Añadir Deuda</button>
+            </div>
+          </div>
+        </Section>
+        
+        {/* --- PLAN DE JUEGO --- */}
+        <Section title="Plan de Juego: Metas" icon={<Target className="text-blue-400" />}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Metas Financieras */}
+                <div className="bg-white/5 p-4 rounded-xl">
+                    <h3 className="font-bold text-lg mb-3 flex items-center text-green-400"><DollarSign size={20} className="mr-2"/>Financieras</h3>
+                    {plan.planDeJuego.financieras.map(meta => <GoalItem key={meta.id} meta={meta} path={['planDeJuego', 'financieras']} onUpdate={updateListItem} onRemove={removeListItem} />)}
+                    <button onClick={() => addListItem(['planDeJuego', 'financieras'])} className="mt-3 text-green-400 hover:text-green-300 flex items-center text-sm"><PlusCircle size={16} className="mr-1"/>Añadir Meta</button>
+                </div>
+                {/* Metas Profesionales */}
+                <div className="bg-white/5 p-4 rounded-xl">
+                    <h3 className="font-bold text-lg mb-3 flex items-center text-purple-400"><Briefcase size={20} className="mr-2"/>Profesionales</h3>
+                    {plan.planDeJuego.profesionales.map(meta => <GoalItem key={meta.id} meta={meta} path={['planDeJuego', 'profesionales']} onUpdate={updateListItem} onRemove={removeListItem} />)}
+                     <button onClick={() => addListItem(['planDeJuego', 'profesionales'])} className="mt-3 text-purple-400 hover:text-purple-300 flex items-center text-sm"><PlusCircle size={16} className="mr-1"/>Añadir Meta</button>
+                </div>
+                {/* Metas Personales */}
+                <div className="bg-white/5 p-4 rounded-xl">
+                    <h3 className="font-bold text-lg mb-3 flex items-center text-red-400"><HeartPulse size={20} className="mr-2"/>Personales</h3>
+                    {plan.planDeJuego.personales.map(meta => <GoalItem key={meta.id} meta={meta} path={['planDeJuego', 'personales']} onUpdate={updateListItem} onRemove={removeListItem} />)}
+                     <button onClick={() => addListItem(['planDeJuego', 'personales'])} className="mt-3 text-red-400 hover:text-red-300 flex items-center text-sm"><PlusCircle size={16} className="mr-1"/>Añadir Meta</button>
+                </div>
+            </div>
+        </Section>
+
+      </div>
+       <footer className="text-center p-4 text-gray-500 text-sm">
+            <p>UserID: {userId || 'Not authenticated'}</p>
+            <p>Diseñado para el Atleta de Élite de los Negocios. © 2025</p>
+        </footer>
+    </div>
+  );
+}
+
+const GoalItem = ({ meta, path, onUpdate, onRemove }) => {
+    const toggleComplete = () => {
+        onUpdate(path, meta.id, 'completada', !meta.completada);
+    };
+
+    return (
+        <div className="group mb-3 bg-white/5 p-3 rounded-lg transition-all hover:bg-white/10">
+            <div className="flex items-start">
+                <button onClick={toggleComplete} className="mr-3 mt-1">
+                    {meta.completada ? <CheckCircle className="text-green-500"/> : <XCircle className="text-gray-500 group-hover:text-white"/>}
+                </button>
+                <div className="flex-1">
+                    <input 
+                        type="text"
+                        value={meta.meta}
+                        onChange={(e) => onUpdate(path, meta.id, 'meta', e.target.value)}
+                        className={`bg-transparent w-full focus:outline-none ${meta.completada ? 'line-through text-gray-500' : 'text-gray-200'}`}
+                    />
+                    <input 
+                        type="text"
+                        value={meta.kpi}
+                        onChange={(e) => onUpdate(path, meta.id, 'kpi', e.target.value)}
+                        className={`text-xs bg-transparent w-full focus:outline-none mt-1 ${meta.completada ? 'text-gray-600' : 'text-gray-400'}`}
+                        placeholder="KPI"
+                    />
+                </div>
+                 <button onClick={() => onRemove(path, meta.id)} className="text-red-500 opacity-0 group-hover:opacity-100 ml-2">
+                    <Trash2 size={16}/>
+                </button>
+            </div>
+        </div>
+    );
+};
