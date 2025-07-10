@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Maestro 2025</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Firebase SDKs (v9 Compatibility) -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
+
+    <!-- React Libraries -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel to compile JSX in the browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap');
+        body { 
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .auth-card {
+            background-color: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // --- Firebase Configuration ---
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+            // PASTE YOUR FIREBASE CONFIG OBJECT HERE IF RUNNING LOCALLY
+            apiKey: "AIza...",
+            authDomain: "your-project.firebaseapp.com",
+            projectId: "your-project",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "...",
+            appId: "1:..."
+        };
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'plan-maestro-2025';
+
+        // --- Initialize Firebase (using v9 compat libraries) ---
+        let auth, db;
+        try {
+            firebase.initializeApp(firebaseConfig);
+            auth = firebase.auth();
+            db = firebase.firestore();
+        } catch (e) {
+            console.error("Error initializing Firebase:", e);
+        }
+
+        // --- Initial Data Structure (for new users) ---
+        const initialPlan = {
+          ethos: {
+            declaracionDeVision: "Al cierre de 2025, soy el 'Gonzalo Puma': un profesional que combina la precisión técnica con la mentalidad estratégica de un atleta de élite. Lidero NORDIA como una consultora reconocida, con un pipeline estable de proyectos. Mi reputación se construye sobre la entrega consistente de resultados y mi capacidad para mantener la calma bajo presión.",
+            principiosInnegociables: [
+              { id: Date.now() + 1, principio: "Claridad sobre comodidad" },
+              { id: Date.now() + 2, principio: "Ejecución disciplinada > Ideas perfectas" },
+              { id: Date.now() + 3, principio: "La red es mi activo más valioso" },
+            ],
+          },
+          diagnosticoFinanciero: {
+            ingresos: [{ id: Date.now() + 4, fuente: 'Contrato Ejemplo', monto: 500000 }],
+            egresosFijos: [{ id: Date.now() + 5, concepto: 'Alquiler Ejemplo', monto: 150000 }],
+            egresosVariables: [{ id: Date.now() + 6, concepto: 'Supermercado Ejemplo', monto: 80000 }],
+            deudas: [],
+          },
+          planDeJuego: {
+            financieras: [{ id: Date.now() + 7, meta: 'Alcanzar un ingreso neto de $X', kpi: 'Ingreso neto mensual', completada: false }],
+            profesionales: [{ id: Date.now() + 8, meta: 'Establecer 5 conexiones genuinas en NAVES', kpi: 'Número de conversaciones', completada: false }],
+            personales: [{ id: Date.now() + 9, meta: 'Realizar 3 sesiones de actividad física por semana', kpi: 'Sesiones completadas', completada: false }],
+          },
+        };
+        
+        // --- Helper Functions ---
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // --- React Components ---
+        const { useState, useEffect, useCallback } = React;
+
+        // Icon components using Lucide data attributes
+        const Icon = ({ name, className, size = 24 }) => React.createElement('i', { 
+            'data-lucide': name,
+            className: className,
+            style: { width: size, height: size }
+        });
+
+        // Main App: Manages authentication state and views
+        function App() {
+            const [user, setUser] = useState(null);
+            const [loading, setLoading] = useState(true);
+            const [view, setView] = useState('login'); // 'login', 'register'
+
+            useEffect(() => {
+                if (!auth) {
+                    setLoading(false);
+                    return;
+                }
+                const unsubscribe = auth.onAuthStateChanged((user) => {
+                    setUser(user);
+                    setLoading(false);
+                });
+                return () => unsubscribe();
+            }, []);
+            
+            useEffect(() => {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            });
+
+            const handleRegister = async (email, password) => {
+                try {
+                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                    const planRef = db.collection(`artifacts/${appId}/users`).doc(userCredential.user.uid).collection('planMaestro').doc('main');
+                    await planRef.set(initialPlan);
+                } catch (error) {
+                    alert("Error al registrar: " + error.message);
+                }
+            };
+
+            const handleLogin = async (email, password) => {
+                try {
+                    await auth.signInWithEmailAndPassword(email, password);
+                } catch (error) {
+                    alert("Error al iniciar sesión: " + error.message);
+                }
+            };
+
+            const handleLogout = async () => {
+                try {
+                    await auth.signOut();
+                } catch (error) {
+                    alert("Error al cerrar sesión: " + error.message);
+                }
+            };
+
+            if (loading) {
+                return <div className="min-h-screen flex items-center justify-center text-white">Cargando...</div>;
+            }
+
+            if (!user) {
+                return (
+                    <div className="min-h-screen flex items-center justify-center bg-gray-900 bg-cover bg-center" style={{backgroundImage: 'url(https://images.unsplash.com/photo-1589874309332-9471b452c6a4?q=80&w=2574&auto=format&fit=crop)'}}>
+                        <div className="w-full max-w-md p-8 space-y-8 rounded-2xl auth-card">
+                            {view === 'login' ? (
+                                <LoginScreen onLogin={handleLogin} setView={setView} />
+                            ) : (
+                                <RegisterScreen onRegister={handleRegister} setView={setView} />
+                            )}
+                        </div>
+                    </div>
+                );
+            }
+
+            return <Dashboard user={user} onLogout={handleLogout} />;
+        }
+        
+        function LoginScreen({ onLogin, setView }) {
+            const [email, setEmail] = useState('');
+            const [password, setPassword] = useState('');
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                onLogin(email, password);
+            };
+
+            return (
+                <div>
+                    <h2 className="text-center text-3xl font-extrabold text-white">Iniciar Sesión</h2>
+                    <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+                        <div className="rounded-md shadow-sm -space-y-px">
+                            <div>
+                                <input id="email-address" name="email" type="email" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-600 bg-gray-800 text-gray-200 placeholder-gray-400 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Correo electrónico" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            </div>
+                            <div>
+                                <input id="password" name="password" type="password" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-600 bg-gray-800 text-gray-200 placeholder-gray-400 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Entrar
+                            </button>
+                        </div>
+                    </form>
+                    <p className="mt-2 text-center text-sm text-gray-400">
+                        ¿No tienes cuenta?{' '}
+                        <button onClick={() => setView('register')} className="font-medium text-blue-400 hover:text-blue-300">
+                            Regístrate
+                        </button>
+                    </p>
+                </div>
+            );
+        }
+
+        function RegisterScreen({ onRegister, setView }) {
+            const [email, setEmail] = useState('');
+            const [password, setPassword] = useState('');
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                onRegister(email, password);
+            };
+
+            return (
+                 <div>
+                    <h2 className="text-center text-3xl font-extrabold text-white">Crear Cuenta</h2>
+                    <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+                         <div className="rounded-md shadow-sm -space-y-px">
+                            <div>
+                                <input name="email" type="email" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-600 bg-gray-800 text-gray-200 placeholder-gray-400 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Correo electrónico" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            </div>
+                            <div>
+                                <input name="password" type="password" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-600 bg-gray-800 text-gray-200 placeholder-gray-400 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Contraseña (mín. 6 caracteres)" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Registrarse
+                            </button>
+                        </div>
+                    </form>
+                     <p className="mt-2 text-center text-sm text-gray-400">
+                        ¿Ya tienes cuenta?{' '}
+                        <button onClick={() => setView('login')} className="font-medium text-blue-400 hover:text-blue-300">
+                            Inicia Sesión
+                        </button>
+                    </p>
+                </div>
+            );
+        }
+        
+        // --- HELPER COMPONENTS for Dashboard ---
+        const Section = ({ title, icon, children }) => (
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl shadow-lg p-6 mb-8">
+            <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
+              {icon}
+              <span className="ml-3">{title}</span>
+            </h2>
+            {children}
+          </div>
+        );
+
+        const StatCard = ({ title, value, icon, color }) => (
+          <div className="bg-white/10 p-4 rounded-xl flex items-center">
+            <div className={`p-3 rounded-full mr-4 ${color}`}>
+              {icon}
+            </div>
+            <div>
+              <p className="text-sm text-gray-300">{title}</p>
+              <p className="text-2xl font-bold text-white">{value}</p>
+            </div>
+          </div>
+        );
+
+        const EditableField = ({ value, onSave, isTextarea = false }) => {
+            const [isEditing, setIsEditing] = useState(false);
+            const [text, setText] = useState(value);
+
+            useEffect(() => { setText(value); }, [value]);
+
+            const handleSave = () => {
+                onSave(text);
+                setIsEditing(false);
+            };
+
+            if (isEditing) {
+                return (
+                    <div className="flex flex-col items-end">
+                        {isTextarea ? (
+                            <textarea value={text} onChange={(e) => setText(e.target.value)} className="w-full bg-gray-900/80 border border-blue-500 rounded-lg p-2 text-gray-200 focus:ring-2 focus:ring-blue-400 transition" rows="5"></textarea>
+                        ) : (
+                            <input type="text" value={text} onChange={(e) => setText(e.target.value)} className="w-full bg-gray-900/80 border border-blue-500 rounded-lg p-2 text-gray-200 focus:ring-2 focus:ring-blue-400 transition" />
+                        )}
+                        <button onClick={handleSave} className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-lg flex items-center transition-colors">
+                            <Icon name="save" size={16} className="mr-1" /> Guardar
+                        </button>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="group flex items-start justify-between">
+                    <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">{value}</p>
+                    <button onClick={() => setIsEditing(true)} className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-white transition-opacity ml-4">
+                        <Icon name="edit" size={16} />
+                    </button>
+                </div>
+            );
+        };
+
+        const GoalItem = ({ meta, path, onUpdate, onRemove }) => {
+            const toggleComplete = () => {
+                onUpdate(path, meta.id, 'completada', !meta.completada);
+            };
+
+            return (
+                <div className="group mb-3 bg-white/5 p-3 rounded-lg transition-all hover:bg-white/10">
+                    <div className="flex items-start">
+                        <button onClick={toggleComplete} className="mr-3 mt-1 flex-shrink-0">
+                            {meta.completada ? <Icon name="check-circle" className="text-green-500"/> : <Icon name="x-circle" className="text-gray-500 group-hover:text-white"/>}
+                        </button>
+                        <div className="flex-1">
+                            <input 
+                                type="text"
+                                value={meta.meta}
+                                onChange={(e) => onUpdate(path, meta.id, 'meta', e.target.value)}
+                                className={`bg-transparent w-full focus:outline-none ${meta.completada ? 'line-through text-gray-500' : 'text-gray-200'}`}
+                            />
+                            <input 
+                                type="text"
+                                value={meta.kpi}
+                                onChange={(e) => onUpdate(path, meta.id, 'kpi', e.target.value)}
+                                className={`text-xs bg-transparent w-full focus:outline-none mt-1 ${meta.completada ? 'text-gray-600' : 'text-gray-400'}`}
+                                placeholder="KPI"
+                            />
+                        </div>
+                         <button onClick={() => onRemove(path, meta.id)} className="text-red-500 opacity-0 group-hover:opacity-100 ml-2 flex-shrink-0">
+                            <Icon name="trash-2" size={16}/>
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- THE FULL DASHBOARD COMPONENT ---
+        function Dashboard({ user, onLogout }) {
+            const [plan, setPlan] = useState(null);
+            const [isLoading, setIsLoading] = useState(true);
+
+            const savePlanToFirestore = useCallback(debounce(async (newPlan, uid) => {
+                if (!db || !uid) return;
+                try {
+                    const planRef = db.collection(`artifacts/${appId}/users`).doc(uid).collection('planMaestro').doc('main');
+                    await planRef.set(newPlan, { merge: true });
+                } catch (error) {
+                    console.error("Error saving plan:", error);
+                }
+            }, 1000), []);
+
+            useEffect(() => {
+                if (!user) return;
+                const planRef = db.collection(`artifacts/${appId}/users`).doc(user.uid).collection('planMaestro').doc('main');
+                const unsubscribe = planRef.onSnapshot((docSnap) => {
+                    if (docSnap.exists) {
+                        setPlan(docSnap.data());
+                    } else {
+                        setPlan(initialPlan);
+                    }
+                    setIsLoading(false);
+                }, (error) => {
+                    console.error("Error fetching plan:", error);
+                    setIsLoading(false);
+                });
+                return () => unsubscribe();
+            }, [user]);
+
+            useEffect(() => {
+                if (plan && user && !isLoading) {
+                    savePlanToFirestore(plan, user.uid);
+                }
+            }, [plan, user, isLoading, savePlanToFirestore]);
+
+            useEffect(() => {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            });
+
+            const updatePlan = (path, value) => {
+                setPlan(prevPlan => {
+                  const newPlan = JSON.parse(JSON.stringify(prevPlan)); // Deep copy
+                  let current = newPlan;
+                  for (let i = 0; i < path.length - 1; i++) {
+                    current = current[path[i]];
+                  }
+                  current[path[path.length - 1]] = value;
+                  return newPlan;
+                });
+            };
+
+            const addListItem = (path) => {
+                setPlan(prevPlan => {
+                    const newPlan = JSON.parse(JSON.stringify(prevPlan));
+                    let list = newPlan;
+                    path.forEach(p => list = list[p]);
+                    
+                    let newItem = { id: Date.now() };
+                    if (path.includes('ingresos')) newItem = {...newItem, fuente: 'Nueva Fuente', monto: 0};
+                    if (path.includes('egresosFijos')) newItem = {...newItem, concepto: 'Nuevo Gasto Fijo', monto: 0};
+                    if (path.includes('egresosVariables')) newItem = {...newItem, concepto: 'Nuevo Gasto Variable', monto: 0};
+                    if (path.includes('deudas')) newItem = {...newItem, acreedor: 'Nuevo Acreedor', montoTotal: 0, pagoMensual: 0};
+                    if (path.includes('financieras') || path.includes('profesionales') || path.includes('personales')) newItem = {...newItem, meta: 'Nueva Meta', kpi: 'Nuevo KPI', completada: false};
+                    if (path.includes('principiosInnegociables')) newItem = {...newItem, principio: 'Nuevo Principio'};
+
+                    list.push(newItem);
+                    return newPlan;
+                });
+            };
+
+            const removeListItem = (path, id) => {
+                setPlan(prevPlan => {
+                    const newPlan = JSON.parse(JSON.stringify(prevPlan));
+                    let list = newPlan;
+                    let parent = newPlan;
+                    let lastKey = '';
+                    
+                    for (const p of path) {
+                        parent = list;
+                        list = list[p];
+                        lastKey = p;
+                    }
+
+                    const filteredList = list.filter(item => item.id !== id);
+                    parent[lastKey] = filteredList;
+
+                    return newPlan;
+                });
+            };
+
+            const updateListItem = (path, id, field, value) => {
+                setPlan(prevPlan => {
+                    const newPlan = JSON.parse(JSON.stringify(prevPlan));
+                    let list = newPlan;
+                    path.forEach(p => list = list[p]);
+                    const itemIndex = list.findIndex(item => item.id === id);
+                    if (itemIndex > -1) {
+                        list[itemIndex][field] = value;
+                    }
+                    return newPlan;
+                });
+            };
+
+            const calculateFinancials = () => {
+                if (!plan?.diagnosticoFinanciero) return { totalIngresos: 0, totalEgresos: 0, flujoDeCaja: 0, tasaAhorro: 0 };
+                const { ingresos, egresosFijos, egresosVariables, deudas } = plan.diagnosticoFinanciero;
+
+                const totalIngresos = ingresos.reduce((sum, item) => sum + Number(item.monto), 0);
+                const totalEgresosFijos = egresosFijos.reduce((sum, item) => sum + Number(item.monto), 0);
+                const totalEgresosVariables = egresosVariables.reduce((sum, item) => sum + Number(item.monto), 0);
+                const totalPagosDeuda = deudas.reduce((sum, item) => sum + Number(item.pagoMensual || 0), 0);
+
+                const totalEgresos = totalEgresosFijos + totalEgresosVariables + totalPagosDeuda;
+                const flujoDeCaja = totalIngresos - totalEgresos;
+                const tasaAhorro = totalIngresos > 0 ? (flujoDeCaja / totalIngresos) * 100 : 0;
+
+                return { totalIngresos, totalEgresos, flujoDeCaja, tasaAhorro };
+            };
+
+            if (isLoading || !plan) {
+                return <div className="min-h-screen flex items-center justify-center text-white">Cargando tu Plan Maestro...</div>;
+            }
+            
+            const financials = calculateFinancials();
+
+            return (
+                 <div className="container mx-auto p-4 md:p-8">
+                    <header className="flex justify-between items-center mb-12">
+                        <div>
+                            <h1 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+                                Plan Maestro 2025
+                            </h1>
+                            <p className="text-xl text-gray-400 mt-2">El Atleta de Élite de los Negocios</p>
+                        </div>
+                        <div className="text-right">
+                            <p className="text-sm text-gray-400">{user.email}</p>
+                            <button onClick={onLogout} className="mt-1 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg flex items-center transition-colors">
+                                <Icon name="log-out" size={16} className="mr-2" />
+                                Salir
+                            </button>
+                        </div>
+                    </header>
+                    
+                    <Section title="Ethos: La Visión del Atleta" icon={<Icon name="brain-circuit" className="text-purple-400" />}>
+                      <div className="mb-6">
+                        <h3 className="text-lg font-semibold text-white mb-2">Declaración de Visión (El "Gonzalo Puma")</h3>
+                        <EditableField 
+                            value={plan.ethos.declaracionDeVision} 
+                            onSave={(v) => updatePlan(['ethos', 'declaracionDeVision'], v)}
+                            isTextarea
+                        />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-white mb-2">Principios Innegociables</h3>
+                        <ul className="space-y-2">
+                          {plan.ethos.principiosInnegociables.map(p => (
+                            <li key={p.id} className="flex items-center justify-between group bg-white/5 p-3 rounded-lg">
+                              <input type="text" value={p.principio} onChange={(e) => updateListItem(['ethos', 'principiosInnegociables'], p.id, 'principio', e.target.value)} className="bg-transparent w-full focus:outline-none text-gray-300"/>
+                              <button onClick={() => removeListItem(['ethos', 'principiosInnegociables'], p.id)} className="text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <Icon name="trash-2" size={18}/>
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                        <button onClick={() => addListItem(['ethos', 'principiosInnegociables'])} className="mt-3 text-blue-400 hover:text-blue-300 flex items-center">
+                          <Icon name="plus-circle" size={18} className="mr-2"/> Añadir Principio
+                        </button>
+                      </div>
+                    </Section>
+
+                    <Section title="Diagnóstico Financiero" icon={<Icon name="dollar-sign" className="text-green-400" />}>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                        <StatCard title="Ingresos Totales" value={`$${financials.totalIngresos.toLocaleString('es-AR')}`} icon={<Icon name="arrow-up" size={24}/>} color="bg-green-500/30"/>
+                        <StatCard title="Egresos Totales" value={`$${financials.totalEgresos.toLocaleString('es-AR')}`} icon={<Icon name="arrow-up" size={24} className="transform rotate-180"/>} color="bg-red-500/30"/>
+                        <StatCard title="Flujo de Caja Neto" value={`$${financials.flujoDeCaja.toLocaleString('es-AR')}`} icon={<Icon name="dollar-sign" size={24}/>} color="bg-blue-500/30"/>
+                        <StatCard title="Tasa de Ahorro" value={`${financials.tasaAhorro.toFixed(2)}%`} icon={<Icon name="target" size={24}/>} color="bg-yellow-500/30"/>
+                      </div>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div>
+                          <h3 className="text-lg font-semibold text-white mb-2">Ingresos Mensuales</h3>
+                          {plan.diagnosticoFinanciero.ingresos.map(item => (
+                            <div key={item.id} className="flex items-center space-x-2 mb-2 group">
+                              <input type="text" value={item.fuente} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'ingresos'], item.id, 'fuente', e.target.value)} placeholder="Fuente" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-green-500 focus:outline-none"/>
+                              <input type="number" value={item.monto} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'ingresos'], item.id, 'monto', e.target.value)} placeholder="Monto" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-green-500 focus:outline-none"/>
+                              <button onClick={() => removeListItem(['diagnosticoFinanciero', 'ingresos'], item.id)} className="text-red-500 opacity-0 group-hover:opacity-100"><Icon name="trash-2" size={18}/></button>
+                            </div>
+                          ))}
+                          <button onClick={() => addListItem(['diagnosticoFinanciero', 'ingresos'])} className="mt-2 text-green-400 hover:text-green-300 flex items-center"><Icon name="plus-circle" size={18} className="mr-2"/> Añadir Ingreso</button>
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-white mb-2">Egresos Fijos</h3>
+                          {plan.diagnosticoFinanciero.egresosFijos.map(item => (
+                            <div key={item.id} className="flex items-center space-x-2 mb-2 group">
+                              <input type="text" value={item.concepto} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'egresosFijos'], item.id, 'concepto', e.target.value)} placeholder="Concepto" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+                              <input type="number" value={item.monto} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'egresosFijos'], item.id, 'monto', e.target.value)} placeholder="Monto" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+                              <button onClick={() => removeListItem(['diagnosticoFinanciero', 'egresosFijos'], item.id)} className="text-red-500 opacity-0 group-hover:opacity-100"><Icon name="trash-2" size={18}/></button>
+                            </div>
+                          ))}
+                          <button onClick={() => addListItem(['diagnosticoFinanciero', 'egresosFijos'])} className="mt-2 text-red-400 hover:text-red-300 flex items-center"><Icon name="plus-circle" size={18} className="mr-2"/> Añadir Gasto Fijo</button>
+                        </div>
+                         <div>
+                          <h3 className="text-lg font-semibold text-white mb-2">Egresos Variables</h3>
+                          {plan.diagnosticoFinanciero.egresosVariables.map(item => (
+                            <div key={item.id} className="flex items-center space-x-2 mb-2 group">
+                              <input type="text" value={item.concepto} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'egresosVariables'], item.id, 'concepto', e.target.value)} placeholder="Concepto" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+                              <input type="number" value={item.monto} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'egresosVariables'], item.id, 'monto', e.target.value)} placeholder="Monto" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-red-500 focus:outline-none"/>
+                              <button onClick={() => removeListItem(['diagnosticoFinanciero', 'egresosVariables'], item.id)} className="text-red-500 opacity-0 group-hover:opacity-100"><Icon name="trash-2" size={18}/></button>
+                            </div>
+                          ))}
+                          <button onClick={() => addListItem(['diagnosticoFinanciero', 'egresosVariables'])} className="mt-2 text-red-400 hover:text-red-300 flex items-center"><Icon name="plus-circle" size={18} className="mr-2"/> Añadir Gasto Variable</button>
+                        </div>
+                         <div>
+                          <h3 className="text-lg font-semibold text-white mb-2">Deudas</h3>
+                          {plan.diagnosticoFinanciero.deudas.map(item => (
+                            <div key={item.id} className="flex flex-col space-y-2 mb-4 p-3 bg-white/5 rounded-lg group">
+                                <div className="flex items-center space-x-2">
+                                    <input type="text" value={item.acreedor} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'deudas'], item.id, 'acreedor', e.target.value)} placeholder="Acreedor" className="bg-white/10 p-2 rounded-lg w-full focus:ring-2 focus:ring-yellow-500 focus:outline-none"/>
+                                     <button onClick={() => removeListItem(['diagnosticoFinanciero', 'deudas'], item.id)} className="text-red-500 opacity-0 group-hover:opacity-100"><Icon name="trash-2" size={18}/></button>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <input type="number" value={item.montoTotal} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'deudas'], item.id, 'montoTotal', e.target.value)} placeholder="Monto Total" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-yellow-500 focus:outline-none"/>
+                                    <input type="number" value={item.pagoMensual} onChange={(e) => updateListItem(['diagnosticoFinanciero', 'deudas'], item.id, 'pagoMensual', e.target.value)} placeholder="Pago Mensual" className="bg-white/10 p-2 rounded-lg w-1/2 focus:ring-2 focus:ring-yellow-500 focus:outline-none"/>
+                                </div>
+                            </div>
+                          ))}
+                          <button onClick={() => addListItem(['diagnosticoFinanciero', 'deudas'])} className="mt-2 text-yellow-400 hover:text-yellow-300 flex items-center"><Icon name="plus-circle" size={18} className="mr-2"/> Añadir Deuda</button>
+                        </div>
+                      </div>
+                    </Section>
+                    
+                    <Section title="Plan de Juego: Metas" icon={<Icon name="target" className="text-blue-400" />}>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="bg-white/5 p-4 rounded-xl">
+                                <h3 className="font-bold text-lg mb-3 flex items-center text-green-400"><Icon name="dollar-sign" size={20} className="mr-2"/>Financieras</h3>
+                                {plan.planDeJuego.financieras.map(meta => <GoalItem key={meta.id} meta={meta} path={['planDeJuego', 'financieras']} onUpdate={updateListItem} onRemove={removeListItem} />)}
+                                <button onClick={() => addListItem(['planDeJuego', 'financieras'])} className="mt-3 text-green-400 hover:text-green-300 flex items-center text-sm"><Icon name="plus-circle" size={16} className="mr-1"/>Añadir Meta</button>
+                            </div>
+                            <div className="bg-white/5 p-4 rounded-xl">
+                                <h3 className="font-bold text-lg mb-3 flex items-center text-purple-400"><Icon name="briefcase" size={20} className="mr-2"/>Profesionales</h3>
+                                {plan.planDeJuego.profesionales.map(meta => <GoalItem key={meta.id} meta={meta} path={['planDeJuego', 'profesionales']} onUpdate={updateListItem} onRemove={removeListItem} />)}
+                                 <button onClick={() => addListItem(['planDeJuego', 'profesionales'])} className="mt-3 text-purple-400 hover:text-purple-300 flex items-center text-sm"><Icon name="plus-circle" size={16} className="mr-1"/>Añadir Meta</button>
+                            </div>
+                            <div className="bg-white/5 p-4 rounded-xl">
+                                <h3 className="font-bold text-lg mb-3 flex items-center text-red-400"><Icon name="heart-pulse" size={20} className="mr-2"/>Personales</h3>
+                                {plan.planDeJuego.personales.map(meta => <GoalItem key={meta.id} meta={meta} path={['planDeJuego', 'personales']} onUpdate={updateListItem} onRemove={removeListItem} />)}
+                                 <button onClick={() => addListItem(['planDeJguego', 'personales'])} className="mt-3 text-red-400 hover:text-red-300 flex items-center text-sm"><Icon name="plus-circle" size={16} className="mr-1"/>Añadir Meta</button>
+                            </div>
+                        </div>
+                    </Section>
+
+                </div>
+            );
+        }
+
+        // --- Render the App ---
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
