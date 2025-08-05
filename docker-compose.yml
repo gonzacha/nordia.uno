@@ -1,0 +1,29 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=run.py
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/gta-credentials.json
+    command: flask run --host=0.0.0.0
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:7-alpine"
+    ports:
+      - "6379:6379"
+
+  worker:
+    build: .
+    command: celery -A app.tasks.celery worker --loglevel=info
+    volumes:
+      - .:/app
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/gta-credentials.json
+    depends_on:
+      - redis
