@@ -1,0 +1,71 @@
+{
+  "schema_version": "2.0",
+  "processed_timestamp": "2025-08-04T22:38:00-03:00",
+  "provincia": "Corrientes",
+  "eleccion": "Municipal 2025",
+  "municipio": "Capital",
+  "alianzas": [
+    {
+      "nombre_alianza": "CAMBIA CORRIENTES",
+      "expediente": "276649/25",
+      "observations": null,
+      "candidatos": {
+        "intendente": {
+          "candidate_id": "30399820-INT-CC",
+          "nombre": "DIEGO JOSÉ SILVA",
+          "dni": "30399820",
+          "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." },
+          "confidence_score": 1.0,
+          "observations": null
+        },
+        "viceintendente": {
+          "candidate_id": "25621203-VICEINT-CC",
+          "nombre": "MALVINA SOLEDAD CANTEROS",
+          "dni": "25621203",
+          "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." },
+          "confidence_score": 1.0,
+          "observations": null
+        },
+        "concejales_titulares": [
+          { "orden": 1, "candidate_id": "16853403-CONC-TIT-CC-1", "nombre": "RAIMUNDO EZEQUIEL PANIAGUA", "dni": "16853403", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": null },
+          { "orden": 2, "candidate_id": "32100710-CONC-TIT-CC-2", "nombre": "NOEMÍ ELIZABET ESCATO", "dni": "32100710", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": null },
+          { "orden": 3, "candidate_id": "27482556-CONC-TIT-CC-3", "nombre": "SEBASTIÁN NICOLÁS CARDOZO", "dni": "27482556", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": null },
+          { "orden": 4, "candidate_id": "34093477-CONC-TIT-CC-4", "nombre": "KAREN GISEL RAMOS", "dni": "34093477", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": null },
+          { "orden": 5, "candidate_id": "34891231-CONC-TIT-CC-5", "nombre": "RODRIGO ALEJANDRO CANGARO", "dni": "34891231", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": null },
+          { "orden": 6, "candidate_id": "24937429-CONC-TIT-CC-6", "nombre": "CLAUDIA AZUCENA VALDEZ", "dni": "24937429", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": null },
+          { "orden": 7, "candidate_id": "35437589-CONC-TIT-CC-7", "nombre": "DIEGO RAMÓN VALENZUELA", "dni": "35437589", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": null },
+          { "orden": 8, "candidate_id": "28592484-CONC-TIT-CC-8", "nombre": "VALERIA YANINA VARGAS", "dni": "28592484", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": null },
+          { "orden": 9, "candidate_id": "36112359-CONC-TIT-CC-9", "nombre": "HÉCTOR HERNÁN DE LA CRUZ CÁCERES QUIJANO", "dni": "36112359", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": null },
+          { "orden": 10, "candidate_id": "6511249-CONC-TIT-CC-10", "nombre": "MARÍA CRISTINA MEZA", "dni": "6511249", "dni_validation": { "isValid": false, "notes": "Error: La longitud del DNI no es 7 u 8 dígitos." }, "confidence_score": 1.0, "observations": "Se normalizó el apellido de 'ΜΕΖΑ' a 'MEZA'." }
+        ]
+      }
+    },
+    {
+      "nombre_alianza": "VAMOS CORRIENTES",
+      "expediente": "276655/25",
+      "observations": null,
+      "candidatos": {
+        "intendente": { "candidate_id": "20192822-INT-VC", "nombre": "OSVALDO CLAUDIO POLICH", "dni": "20192822", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": null },
+        "viceintendente": { "candidate_id": "24937230-VICEINT-VC", "nombre": "ARIEL CARLOS BÁEZ", "dni": "24937230", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": null }
+      }
+    },
+    {
+      "nombre_alianza": "LA LIBERTAD AVANZA",
+      "expediente": "276720/25",
+      "observations": null,
+      "candidatos": {
+        "intendente": { "candidate_id": "22320564-INT-LLA", "nombre": "ANA MARÍA PEREYRA CEBREIRO", "dni": "22320564", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": null },
+        "viceintendente": { "candidate_id": "17790336-VICEINT-LLA", "nombre": "FLAVIO GABRIEL SERRA", "dni": "17790336", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": null }
+      }
+    },
+    {
+      "nombre_alianza": "ENCUENTRO POR CORRIENTES - ECO",
+      "expediente": "276843/25",
+      "observations": null,
+      "candidatos": {
+        "intendente": { "candidate_id": "13718741-INT-ECO", "nombre": "GUSTAVO JESÚS ADOLFO CANTEROS", "dni": "13718741", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": null },
+        "viceintendente": { "candidate_id": "12686877-VICEINT-ECO", "nombre": "HÉCTOR RAFAEL BELTRAN ITURRIAGA \"ITO\"", "dni": "12686877", "dni_validation": { "isValid": true, "notes": "Formato válido de 8 dígitos." }, "confidence_score": 1.0, "observations": "Apodo 'ITO' incluido." }
+      }
+    }
+  ]
+}

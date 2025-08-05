@@ -3,17 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro de Cómputos Corrientes 2025 - ELI y LLA</title>
+    <title>Centro de Cómputos Corrientes 2025 - GTA Intelligence</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
@@ -22,608 +17,188 @@
             overflow: hidden;
             position: relative;
         }
-
         body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: 
                 radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
+            pointer-events: none; z-index: -1;
         }
-
         .header {
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
-            padding: 1.25rem 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            height: 85px;
-            flex-shrink: 0;
+            backdrop-filter: blur(20px); border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+            padding: 1.25rem 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            display: flex; justify-content: space-between; align-items: center;
+            position: relative; height: 85px; flex-shrink: 0;
         }
-
         .header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #3b82f6, #10b981, #f59e0b);
-            opacity: 0.6;
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #10b981, #f59e0b); opacity: 0.6;
         }
-
         .header h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.5rem; font-weight: 700;
             background: linear-gradient(135deg, #60a5fa 0%, #10b981 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba(96, 165, 250, 0.3);
-            letter-spacing: -0.025em;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            text-shadow: 0 0 30px rgba(96, 165, 250, 0.3); letter-spacing: -0.025em;
         }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            color: #94a3b8;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ef4444;
-            animation: pulse 2s infinite;
-        }
-
-        .status-dot.active {
-            background: #10b981;
-            animation: pulse-green 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
+        .status-indicator { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: #94a3b8; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; animation: pulse 2s infinite; }
+        .status-dot.active { background: #10b981; animation: pulse-green 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         @keyframes pulse-green {
             0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
             70% { opacity: 0.9; box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
         }
-
-        .control-panel {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
+        .control-panel { display: flex; gap: 1rem; align-items: center; }
         .btn {
-            padding: 0.6rem 1.2rem;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-            overflow: hidden;
+            padding: 0.6rem 1.2rem; border: none; border-radius: 10px; font-weight: 600;
+            cursor: pointer; transition: all 0.3s ease; font-size: 0.85rem;
+            display: flex; align-items: center; gap: 0.5rem; position: relative; overflow: hidden;
         }
-
         .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.5s ease;
         }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
+        .btn:hover::before { left: 100%; }
         .btn-primary {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            color: white;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white;
             box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
         }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
-        }
-
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6); }
         .btn-secondary {
-            background: linear-gradient(135deg, #64748b 0%, #475569 100%);
-            color: white;
+            background: linear-gradient(135deg, #64748b 0%, #475569 100%); color: white;
             box-shadow: 0 4px 20px rgba(100, 116, 139, 0.3);
         }
-        
-        .btn-secondary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(100, 116, 139, 0.5);
-        }
-
+        .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(100, 116, 139, 0.5); }
         .dashboard {
-            display: grid;
-            grid-template-columns: 300px 300px 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 1rem;
-            padding: 1rem;
-            height: calc(100vh - 85px);
-            max-height: calc(100vh - 85px);
-            overflow: hidden;
+            display: grid; grid-template-columns: 300px 300px 1fr; grid-template-rows: 1fr 1fr;
+            gap: 1rem; padding: 1rem; height: calc(100vh - 85px); max-height: calc(100vh - 85px); overflow: hidden;
         }
-
         .module {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 12px;
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            backdrop-filter: blur(16px);
-            padding: 1rem;
-            box-shadow: 
-                0 20px 25px -5px rgba(0, 0, 0, 0.3),
-                0 10px 10px -5px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
+            background: rgba(15, 23, 42, 0.8); border-radius: 12px; border: 1px solid rgba(148, 163, 184, 0.1);
+            backdrop-filter: blur(16px); padding: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            display: flex; flex-direction: column; position: relative; overflow: hidden;
         }
-
         .module::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
             background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.3), transparent);
         }
-
         .module-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-            flex-shrink: 0;
+            display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;
+            padding-bottom: 0.75rem; border-bottom: 1px solid rgba(148, 163, 184, 0.1); flex-shrink: 0;
         }
-
-        .module-icon {
-            font-size: 1.1rem;
-        }
-
-        .module-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #e2e8f0;
-            letter-spacing: -0.025em;
-        }
-        
-        .module-content {
-            flex-grow: 1;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 0;
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-            flex-shrink: 0;
-        }
-
+        .module-icon { font-size: 1.1rem; }
+        .module-title { font-size: 1rem; font-weight: 600; color: #e2e8f0; letter-spacing: -0.025em; }
+        .module-content { flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; min-height: 0; }
+        .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem; flex-shrink: 0; }
         .metric-card {
-            background: rgba(30, 41, 59, 0.6);
-            border-radius: 8px;
-            padding: 0.75rem;
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            transition: all 0.3s ease;
+            background: rgba(30, 41, 59, 0.6); border-radius: 8px; padding: 0.75rem;
+            border: 1px solid rgba(148, 163, 184, 0.1); transition: all 0.3s ease;
         }
-
-        .metric-card:hover {
-            background: rgba(30, 41, 59, 0.8);
-            transform: translateY(-1px);
-        }
-
+        .metric-card:hover { background: rgba(30, 41, 59, 0.8); transform: translateY(-1px); }
         .metric-label {
-            font-size: 0.7rem;
-            color: #94a3b8;
-            margin-bottom: 0.25rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            font-size: 0.7rem; color: #94a3b8; margin-bottom: 0.25rem;
+            text-transform: uppercase; letter-spacing: 0.05em;
         }
-
-        .metric-value {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #60a5fa;
-            font-variant-numeric: tabular-nums;
-        }
-
+        .metric-value { font-size: 1.25rem; font-weight: 700; color: #60a5fa; font-variant-numeric: tabular-nums; }
         .list-container {
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(148, 163, 184, 0.3) transparent;
-            flex-grow: 1;
-            padding-right: 0.5rem;
-            min-height: 0;
+            overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(148, 163, 184, 0.3) transparent;
+            flex-grow: 1; padding-right: 0.5rem; min-height: 0;
         }
-
-        .list-container::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .list-container::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .list-container::-webkit-scrollbar-thumb {
-            background: rgba(148, 163, 184, 0.3);
-            border-radius: 2px;
-        }
-
-        .list-container::-webkit-scrollbar-thumb:hover {
-            background: rgba(148, 163, 184, 0.5);
-        }
-
         .telegram-item {
-            background: rgba(51, 65, 85, 0.5);
-            border-radius: 8px;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
-            border-left: 3px solid #3b82f6;
-            animation: slideInFromLeft 0.5s ease;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            background: rgba(51, 65, 85, 0.5); border-radius: 8px; padding: 0.75rem;
+            margin-bottom: 0.5rem; border-left: 3px solid #3b82f6;
+            animation: slideInFromLeft 0.5s ease; transition: all 0.3s ease;
+            position: relative; overflow: hidden;
         }
-
-        .telegram-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .telegram-item:hover::before {
-            left: 100%;
-        }
-
-        .telegram-item:hover {
-            background: rgba(51, 65, 85, 0.7);
-            transform: translateX(3px);
-        }
-
-        @keyframes slideInFromLeft {
-            from { 
-                opacity: 0; 
-                transform: translateX(-30px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateX(0); 
-            }
-        }
-
-        .telegram-id { 
-            font-weight: 600; 
-            color: #60a5fa; 
-            font-size: 0.85rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .telegram-status { 
-            font-size: 0.75rem; 
-            color: #94a3b8;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
+        .telegram-id { font-weight: 600; color: #60a5fa; font-size: 0.85rem; margin-bottom: 0.25rem; }
+        .telegram-status { font-size: 0.75rem; color: #94a3b8; display: flex; align-items: center; gap: 0.5rem; }
         .status-badge {
-            padding: 0.125rem 0.375rem;
-            border-radius: 10px;
-            font-size: 0.65rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.025em;
+            padding: 0.125rem 0.375rem; border-radius: 10px; font-size: 0.65rem; font-weight: 500;
+            text-transform: uppercase; letter-spacing: 0.025em;
         }
-
         .status-recibido { background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
         .status-en_cola { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
         .status-procesando { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
-
-        .analysis-panels {
-            display: grid;
-            grid-template-rows: 1fr 1fr 1fr;
-            gap: 0.5rem;
-            height: 100%;
-            min-height: 0;
-        }
-        
+        .analysis-panels { display: grid; grid-template-rows: 1fr 1fr 1fr; gap: 0.5rem; height: 100%; min-height: 0; }
         .analysis-panel {
-            background: rgba(30, 41, 59, 0.6);
-            border-radius: 8px;
-            padding: 0.75rem;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            min-height: 0;
+            background: rgba(30, 41, 59, 0.6); border-radius: 8px; padding: 0.75rem;
+            overflow: hidden; display: flex; flex-direction: column;
+            border: 1px solid rgba(148, 163, 184, 0.1); min-height: 0;
         }
-
-        .panel-title { 
-            font-size: 0.75rem; 
-            font-weight: 600; 
-            color: #94a3b8; 
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-shrink: 0;
+        .panel-title {
+            font-size: 0.75rem; font-weight: 600; color: #94a3b8; margin-bottom: 0.5rem;
+            display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0;
         }
-
         .image-placeholder {
             background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-            height: 100%;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #6b7280;
-            font-size: 0.8rem;
-            font-weight: 500;
-            border: 2px dashed rgba(107, 114, 128, 0.3);
-            transition: all 0.3s ease;
-            min-height: 0;
+            height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: center;
+            color: #6b7280; font-size: 0.8rem; font-weight: 500;
+            border: 2px dashed rgba(107, 114, 128, 0.3); transition: all 0.3s ease; min-height: 0;
         }
-
         .image-placeholder.processing {
-            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-            color: #93c5fd;
-            border-color: #3b82f6;
-            animation: processingPulse 2s infinite;
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); color: #93c5fd;
+            border-color: #3b82f6; animation: processingPulse 2s infinite;
         }
-
-        @keyframes processingPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
+        @keyframes processingPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
         .ocr-text, .json-output {
-            background: #0f172a;
-            border-radius: 6px;
-            padding: 0.5rem;
-            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-            font-size: 0.7rem;
-            height: 100%;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            word-break: break-word;
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            line-height: 1.3;
-            min-height: 0;
+            background: #0f172a; border-radius: 6px; padding: 0.5rem;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.7rem;
+            height: 100%; overflow-y: auto; white-space: pre-wrap; word-break: break-word;
+            border: 1px solid rgba(148, 163, 184, 0.1); line-height: 1.3; min-height: 0;
         }
-        
-        .json-output { 
-            border-color: rgba(16, 185, 129, 0.3);
-            background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);
+        .json-output { border-color: rgba(16, 185, 129, 0.3); background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%); }
+        .corrected {
+            color: #10b981; font-weight: 600; background: rgba(16, 185, 129, 0.1);
+            padding: 0.125rem 0.25rem; border-radius: 4px;
         }
-
-        .corrected { 
-            color: #10b981; 
-            font-weight: 600;
-            background: rgba(16, 185, 129, 0.1);
-            padding: 0.125rem 0.25rem;
-            border-radius: 4px;
-        }
-
-        .total-votes { 
-            font-size: 2rem; 
-            font-weight: 800; 
+        .total-votes {
+            font-size: 2rem; font-weight: 800;
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-align: center; 
-            margin-bottom: 1rem;
-            font-variant-numeric: tabular-nums;
-            text-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
-            flex-shrink: 0;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            text-align: center; margin-bottom: 1rem; font-variant-numeric: tabular-nums;
+            text-shadow: 0 0 30px rgba(16, 185, 129, 0.3); flex-shrink: 0;
         }
-
-        .chart-container { 
-            flex-grow: 1; 
-            position: relative;
-            background: rgba(15, 23, 42, 0.5);
-            border-radius: 8px;
-            padding: 0.75rem;
-            border: 1px solid rgba(148, 163, 184, 0.1);
-            min-height: 0;
+        .chart-container {
+            flex-grow: 1; position: relative; background: rgba(15, 23, 42, 0.5);
+            border-radius: 8px; padding: 0.75rem; border: 1px solid rgba(148, 163, 184, 0.1); min-height: 0;
         }
-
         .alert-item {
-            padding: 0.75rem; 
-            margin-bottom: 0.5rem; 
-            border-radius: 8px;
-            border-left: 3px solid; 
-            font-size: 0.8rem; 
-            animation: slideInFromRight 0.4s ease;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            padding: 0.75rem; margin-bottom: 0.5rem; border-radius: 8px; border-left: 3px solid;
+            font-size: 0.8rem; animation: slideInFromRight 0.4s ease; transition: all 0.3s ease;
         }
-
-        .alert-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: right 0.6s ease;
-        }
-
-        .alert-item:hover::before {
-            right: 100%;
-        }
-
-        @keyframes slideInFromRight {
-            from { 
-                opacity: 0; 
-                transform: translateX(30px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateX(0); 
-            }
-        }
-
-        .alert-info { 
-            background: rgba(59, 130, 246, 0.1); 
-            border-color: #3b82f6; 
-            color: #93c5fd; 
-        }
-        
-        .alert-warning { 
-            background: rgba(245, 158, 11, 0.1); 
-            border-color: #f59e0b; 
-            color: #fbbf24; 
-        }
-        
-        .alert-error { 
-            background: rgba(239, 68, 68, 0.1); 
-            border-color: #ef4444; 
-            color: #fca5a5; 
-        }
-
-        .alert-success { 
-            background: rgba(16, 185, 129, 0.1); 
-            border-color: #10b981; 
-            color: #6ee7b7; 
-        }
-
-        .alert-content {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .alert-timestamp { 
-            font-size: 0.65rem; 
-            opacity: 0.7; 
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .processing-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.75rem;
-            color: #10b981;
-        }
-
+        .alert-info { background: rgba(59, 130, 246, 0.1); border-color: #3b82f6; color: #93c5fd; }
+        .alert-warning { background: rgba(245, 158, 11, 0.1); border-color: #f59e0b; color: #fbbf24; }
+        .alert-error { background: rgba(239, 68, 68, 0.1); border-color: #ef4444; color: #fca5a5; }
+        .alert-success { background: rgba(16, 185, 129, 0.1); border-color: #10b981; color: #6ee7b7; }
+        .alert-content { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+        .alert-timestamp { font-size: 0.65rem; opacity: 0.7; font-family: 'JetBrains Mono', monospace; }
+        .processing-indicator { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: #10b981; }
         .spinner {
-            width: 10px;
-            height: 10px;
-            border: 2px solid rgba(16, 185, 129, 0.3);
-            border-top: 2px solid #10b981;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+            width: 10px; height: 10px; border: 2px solid rgba(16, 185, 129, 0.3);
+            border-top: 2px solid #10b981; border-radius: 50%; animation: spin 1s linear infinite;
         }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 1400px) {
-            .dashboard {
-                grid-template-columns: 280px 280px 1fr;
-            }
-        }
-
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* --- Responsive Design --- */
         @media (max-width: 1200px) {
-            .dashboard {
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: auto auto auto;
-                overflow-y: auto;
-            }
-            
-            .module:nth-child(3) {
-                grid-column: span 2;
-                grid-row: span 1;
-            }
-            
-            .analysis-panels {
-                grid-template-columns: 1fr 1fr 1fr;
-                grid-template-rows: 1fr;
-            }
+            .dashboard { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto; overflow-y: auto; }
+            .module:nth-child(3) { grid-column: span 2; grid-row: span 1; }
+            .analysis-panels { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr; }
         }
-
         @media (max-width: 768px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-                padding: 0.5rem;
-                gap: 0.5rem;
-            }
-            
-            .module:nth-child(3) {
-                grid-column: span 1;
-                grid-row: span 1;
-            }
-            
-            .analysis-panels {
-                grid-template-columns: 1fr;
-                grid-template-rows: 1fr 1fr 1fr;
-            }
-            
-            .header {
-                padding: 1rem;
-                flex-direction: column;
-                gap: 1rem;
-                height: auto;
-            }
-            
-            .header h1 {
-                font-size: 1.25rem;
-            }
+            .dashboard { grid-template-columns: 1fr; grid-template-rows: auto; padding: 0.5rem; gap: 0.5rem; }
+            .module:nth-child(3) { grid-column: span 1; grid-row: span 1; }
+            .analysis-panels { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr 1fr; }
+            .header { padding: 1rem; flex-direction: column; gap: 1rem; height: auto; }
+            .header h1 { font-size: 1.25rem; }
         }
     </style>
 </head>
 <body>
     <header class="header">
-        <h1>📊 Centro de Cómputos Corrientes 2025 - ELI y LLA</h1>
+        <h1>📊 Centro de Cómputos Corrientes 2025 - GTA Intelligence</h1>
         <div class="control-panel">
             <div class="status-indicator">
                 <div id="statusDot" class="status-dot"></div>
@@ -642,168 +217,85 @@
 
     <main class="dashboard">
         <div class="module">
-            <div class="module-header">
-                <span class="module-icon">📥</span>
-                <h2 class="module-title">Recepción de Telegramas</h2>
-            </div>
+            <div class="module-header"><span class="module-icon">📥</span><h2 class="module-title">Recepción de Telegramas</h2></div>
             <div class="module-content">
                 <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-label">Recibidos Hoy</div>
-                        <div id="totalReceived" class="metric-value">0</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Tasa/Min</div>
-                        <div id="receptionRate" class="metric-value">0</div>    
-                    </div>
+                    <div class="metric-card"><div class="metric-label">Recibidos Hoy</div><div id="totalReceived" class="metric-value">0</div></div>
+                    <div class="metric-card"><div class="metric-label">Tasa/Min</div><div id="receptionRate" class="metric-value">0</div></div>
                 </div>
                 <div id="ingestaList" class="list-container"></div>
             </div>
         </div>
-
         <div class="module">
-            <div class="module-header">
-                <span class="module-icon">⚙️</span>
-                <h2 class="module-title">Cola de Procesamiento</h2>
-            </div>
+            <div class="module-header"><span class="module-icon">⚙️</span><h2 class="module-title">Cola de Procesamiento</h2></div>
             <div class="module-content">
                 <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-label">En Cola</div>
-                        <div id="queueCount" class="metric-value">0</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-label">Procesados</div>
-                        <div id="processedCount" class="metric-value">0</div>
-                    </div>
+                    <div class="metric-card"><div class="metric-label">En Cola</div><div id="queueCount" class="metric-value">0</div></div>
+                    <div class="metric-card"><div class="metric-label">Procesados</div><div id="processedCount" class="metric-value">0</div></div>
                 </div>
                 <div id="colaList" class="list-container"></div>
             </div>
         </div>
-
         <div class="module" style="grid-row: span 2;">
-            <div class="module-header">
-                <span class="module-icon">🤖</span>
-                <h2 class="module-title">Motor de Análisis IA</h2>
-            </div>
+            <div class="module-header"><span class="module-icon">🤖</span><h2 class="module-title">Motor de Análisis IA</h2></div>
             <div class="module-content">
                 <div class="analysis-panels">
                     <div class="analysis-panel">
-                        <div class="panel-title">
-                            <span>📷</span>
-                            <span>Imagen del Telegrama</span>
-                        </div>
+                        <div class="panel-title"><span>📷</span><span>Imagen del Telegrama</span></div>
                         <div id="imagePanel" class="image-placeholder">Esperando telegrama...</div>
                     </div>
                     <div class="analysis-panel">
-                        <div class="panel-title">
-                            <span>📝</span>
-                            <span>Extracción OCR</span>
-                        </div>
+                        <div class="panel-title"><span>📝</span><span>Extracción OCR</span></div>
                         <div id="ocrPanel" class="ocr-text">Sistema listo para procesar...</div>
                     </div>
                     <div class="analysis-panel">
-                        <div class="panel-title">
-                            <span>✅</span>
-                            <span>Datos Validados</span>
-                        </div>
-                        <div id="jsonPanel" class="json-output">
-{
-  "status": "standby",
-  "timestamp": "2025-08-03T00:00:00Z",
-  "ready": true
-}</div>
+                        <div class="panel-title"><span>✅</span><span>Datos Validados</span></div>
+                        <div id="jsonPanel" class="json-output">{ "status": "standby" }</div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="module">
-            <div class="module-header">
-                <span class="module-icon">📈</span>
-                <h2 class="module-title">Resultados Consolidados</h2>
-            </div>
+            <div class="module-header"><span class="module-icon">📈</span><h2 class="module-title">Resultados Consolidados</h2></div>
             <div class="module-content">
                 <div id="totalVotes" class="total-votes">0</div>
-                <div class="chart-container">
-                    <canvas id="resultsChart"></canvas>
-                </div>
+                <div class="chart-container"><canvas id="resultsChart"></canvas></div>
             </div>
         </div>
-
         <div class="module">
-            <div class="module-header">
-                <span class="module-icon">🔔</span>
-                <h2 class="module-title">Monitor del Sistema</h2>
-            </div>
-            <div class="module-content">
-                <div id="alertsList" class="list-container"></div>
-            </div>
+            <div class="module-header"><span class="module-icon">🔔</span><h2 class="module-title">Monitor del Sistema</h2></div>
+            <div class="module-content"><div id="alertsList" class="list-container"></div></div>
         </div>
     </main>
 
     <script>
-        // ====== CONFIGURACIÓN DE DATOS ======
-        const PARTIDOS_CORRIENTES = [
-            { nombre: "ENCUENTRO POR CORRIENTES", sigla: "EPC", color: "#3b82f6" },
-            { nombre: "LA LIBERTAD AVANZA", sigla: "LLA", color: "#8b5cf6" },
-            { nombre: "PARTIDO JUSTICIALISTA", sigla: "PJ", color: "#06b6d4" },  
-            { nombre: "UNION CIVICA RADICAL", sigla: "UCR", color: "#f59e0b" },
-            { nombre: "PARTIDO DE LA ESPERANZA", sigla: "PE", color: "#10b981" },
-            { nombre: "CAMBIA CORRIENTES", sigla: "CC", color: "#ef4444" }
-        ];
-
-        // ====== ESTADO GLOBAL ======
+        // ====== ESTADO GLOBAL Y CONFIGURACIÓN ======
+        let DATOS_OFICIALES = null; 
         let sistemActivo = false;
         let contadorTelegramas = 1;
-        let metricas = {
-            totalRecibidos: 0,
-            procesados: 0,
-            totalVotos: 0,
-            tasaRecepcion: 0,
-            ultimaHora: []
-        };
-
-        let colas = {
-            ingesta: [],
-            procesamiento: [],
-            procesandoActual: null
-        };
-
+        let metricas = { totalRecibidos: 0, procesados: 0, totalVotos: 0, ultimaHora: [] };
+        let colas = { ingesta: [], procesamiento: [], procesandoActual: null };
         let resultadosVotos = {};
         let graficoPrincipal = null;
         let intervaloPrincipal = null;
 
         // ====== REFERENCIAS DOM ======
         const elementos = {
-            toggleBtn: document.getElementById('toggleBtn'),
-            resetBtn: document.getElementById('resetBtn'),
-            statusDot: document.getElementById('statusDot'),
-            statusText: document.getElementById('statusText'),
-            ingestaList: document.getElementById('ingestaList'),
-            colaList: document.getElementById('colaList'),
-            imagePanel: document.getElementById('imagePanel'),
-            ocrPanel: document.getElementById('ocrPanel'),
-            jsonPanel: document.getElementById('jsonPanel'),
-            alertsList: document.getElementById('alertsList'),
-            totalReceived: document.getElementById('totalReceived'),
-            receptionRate: document.getElementById('receptionRate'),
-            queueCount: document.getElementById('queueCount'),
-            processedCount: document.getElementById('processedCount'),
-            totalVotes: document.getElementById('totalVotes'),
-            chartContext: document.getElementById('resultsChart').getContext('2d')
+            toggleBtn: document.getElementById('toggleBtn'), resetBtn: document.getElementById('resetBtn'),
+            statusDot: document.getElementById('statusDot'), statusText: document.getElementById('statusText'),
+            ingestaList: document.getElementById('ingestaList'), colaList: document.getElementById('colaList'),
+            imagePanel: document.getElementById('imagePanel'), ocrPanel: document.getElementById('ocrPanel'),
+            jsonPanel: document.getElementById('jsonPanel'), alertsList: document.getElementById('alertsList'),
+            totalReceived: document.getElementById('totalReceived'), receptionRate: document.getElementById('receptionRate'),
+            queueCount: document.getElementById('queueCount'), processedCount: document.getElementById('processedCount'),
+            totalVotes: document.getElementById('totalVotes'), chartContext: document.getElementById('resultsChart').getContext('2d')
         };
 
         // ====== UTILIDADES ======
         const utils = {
-            formatoHora: () => new Date().toLocaleTimeString('es-AR', { 
-                hour12: false, 
-                hour: '2-digit', 
-                minute: '2-digit', 
-                second: '2-digit' 
-            }),
+            formatoHora: () => new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
             numeroAleatorio: (min, max) => Math.floor(Math.random() * (max - min + 1)) + min,
-            partidoAleatorio: () => PARTIDOS_CORRIENTES[utils.numeroAleatorio(0, PARTIDOS_CORRIENTES.length - 1)],
+            alianzaAleatoria: () => DATOS_OFICIALES.alianzas[utils.numeroAleatorio(0, DATOS_OFICIALES.alianzas.length - 1)],
             formatearNumero: (num) => num.toLocaleString('es-AR'),
             calcularTasaRecepcion: () => {
                 const ahora = Date.now();
@@ -817,191 +309,76 @@
             agregar: (tipo, mensaje, detalles = '') => {
                 const alertaDiv = document.createElement('div');
                 alertaDiv.className = `alert-item alert-${tipo}`;
-                
-                const iconos = {
-                    info: '📍',
-                    warning: '⚠️',
-                    error: '❌',
-                    success: '✅'
-                };
-
-                alertaDiv.innerHTML = `
-                    <div class="alert-content">
-                        <span>${iconos[tipo] || '📍'}</span>
-                        <span>${mensaje}</span>
-                    </div>
-                    <div class="alert-timestamp">[${utils.formatoHora()}] ${detalles}</div>
-                `;
-
+                const iconos = { info: '📍', warning: '⚠️', error: '❌', success: '✅' };
+                alertaDiv.innerHTML = `<div class="alert-content"><span>${iconos[tipo] || '📍'}</span><span>${mensaje}</span></div><div class="alert-timestamp">[${utils.formatoHora()}] ${detalles}</div>`;
                 elementos.alertsList.insertBefore(alertaDiv, elementos.alertsList.firstChild);
-                
-                // Limitar a 15 alertas máximo
-                while (elementos.alertsList.children.length > 15) {
-                    elementos.alertsList.removeChild(elementos.alertsList.lastChild);
-                }
-
-                // Auto-remover alertas después de 30 segundos
-                setTimeout(() => {
-                    if (alertaDiv.parentNode) {
-                        alertaDiv.style.opacity = '0';
-                        alertaDiv.style.transform = 'translateX(100%)';
-                        setTimeout(() => alertaDiv.remove(), 300);
-                    }
-                }, 30000);
+                if (elementos.alertsList.children.length > 15) elementos.alertsList.removeChild(elementos.alertsList.lastChild);
             }
         };
 
-        // ====== GENERACIÓN DE TELEGRAMAS ======
+        // ====== PROCESADOR DE TELEGRAMAS (NÚCLEO DE SIMULACIÓN) ======
         const procesadorTelegramas = {
             generar: () => {
+                if (!DATOS_OFICIALES) return;
                 const telegrama = {
-                    id: contadorTelegramas++,
-                    mesa: utils.numeroAleatorio(1001, 9999),
-                    circuito: utils.numeroAleatorio(1, 150),
-                    timestamp: Date.now(),
-                    status: 'recibido'
+                    id: contadorTelegramas++, mesa: utils.numeroAleatorio(1001, 9999), circuito: utils.numeroAleatorio(1, 150),
+                    status: 'recibido', alianza: utils.alianzaAleatoria() 
                 };
-
-                colas.ingesta.push(telegrama);
-                metricas.totalRecibidos++;
-                metricas.ultimaHora.push(Date.now());
-
-                ui.actualizarRecepcion();
-                ui.actualizarContadores();
-
-                // Mover a cola de procesamiento después de un delay realista
+                colas.ingesta.push(telegrama); metricas.totalRecibidos++; metricas.ultimaHora.push(Date.now());
+                ui.actualizarRecepcion(); ui.actualizarContadores();
                 setTimeout(() => procesadorTelegramas.moverACola(telegrama), utils.numeroAleatorio(800, 2000));
-
-                alertas.agregar('info', `Telegrama recibido`, `Mesa ${telegrama.mesa} - Circuito ${telegrama.circuito}`);
+                alertas.agregar('info', `Telegrama recibido`, `Mesa ${telegrama.mesa}`);
             },
-
             moverACola: (telegrama) => {
                 colas.ingesta = colas.ingesta.filter(t => t.id !== telegrama.id);
-                telegrama.status = 'en_cola';
-                colas.procesamiento.push(telegrama);
-
-                ui.actualizarRecepcion();
-                ui.actualizarCola();
-                ui.actualizarContadores();
+                telegrama.status = 'en_cola'; colas.procesamiento.push(telegrama);
+                ui.actualizarRecepcion(); ui.actualizarCola(); ui.actualizarContadores();
             },
-
             procesarSiguiente: () => {
                 if (colas.procesamiento.length === 0 || colas.procesandoActual) return;
-
-                const telegrama = colas.procesamiento.shift();
-                colas.procesandoActual = telegrama;
-                telegrama.status = 'procesando';
-
-                ui.actualizarCola();
-                ui.actualizarContadores();
-                ui.mostrarProcesamiento(telegrama);
-
-                alertas.agregar('info', `Procesando telegrama`, `Mesa ${telegrama.mesa} - Análisis IA iniciado`);
-
-                // Simular procesamiento OCR
-                setTimeout(() => procesadorTelegramas.simularOCR(telegrama), 1200);
+                colas.procesandoActual = colas.procesamiento.shift(); colas.procesandoActual.status = 'procesando';
+                ui.actualizarCola(); ui.actualizarContadores(); ui.mostrarProcesamiento(colas.procesandoActual);
+                alertas.agregar('info', `Procesando telegrama`, `Mesa ${colas.procesandoActual.mesa} - Análisis IA`);
+                setTimeout(() => procesadorTelegramas.simularOCR(colas.procesandoActual), 1200);
             },
-
             simularOCR: (telegrama) => {
                 elementos.imagePanel.className = 'image-placeholder processing';
-                elementos.imagePanel.innerHTML = `
-                    <div class="processing-indicator">
-                        <div class="spinner"></div>
-                        Analizando Mesa ${telegrama.mesa}
-                    </div>
-                `;
-
-                // Simular texto OCR con posibles errores
+                elementos.imagePanel.innerHTML = `<div class="processing-indicator"><div class="spinner"></div>Analizando Mesa ${telegrama.mesa}</div>`;
                 const tieneErrores = Math.random() < 0.25;
-                let textoOCR = `ACTA DE ESCRUTINIO - MESA ${telegrama.mesa}\n`;
-                textoOCR += `CIRCUITO: ${telegrama.circuito}\n`;
-                textoOCR += `FECHA: 03/08/2025\n\n`;
-
-                const votosTelegrama = {};
-                const numPartidos = utils.numeroAleatorio(4, PARTIDOS_CORRIENTES.length);
-                const partidosSeleccionados = [...PARTIDOS_CORRIENTES]
-                    .sort(() => 0.5 - Math.random())
-                    .slice(0, numPartidos);
-
-                partidosSeleccionados.forEach(partido => {
-                    const votos = utils.numeroAleatorio(15, 180);
-                    votosTelegrama[partido.nombre] = votos;
-                    
-                    let nombrePartido = partido.nombre;
-                    if (tieneErrores && Math.random() < 0.3) {
-                        nombrePartido = nombrePartido.replace(/O/g, '0').replace(/I/g, '1');
-                    }
-                    
-                    const sufijo = tieneErrores && Math.random() < 0.2 ? ' v0t0s' : ' votos';
-                    textoOCR += `${nombrePartido}: ${votos}${sufijo}\n`;
-                });
-
-                // Agregar ruido OCR ocasional
-                if (tieneErrores) {
-                    textoOCR += '\nT0TAL: ' + Object.values(votosTelegrama).reduce((a, b) => a + b, 0);
-                } else {
-                    textoOCR += '\nTOTAL: ' + Object.values(votosTelegrama).reduce((a, b) => a + b, 0);
-                }
-
-                telegrama.votos = votosTelegrama;
+                let textoOCR = `ACTA - MESA ${telegrama.mesa}\n`;
+                const votosIntendente = utils.numeroAleatorio(15, 180);
+                telegrama.votos = { intendente: votosIntendente };
+                let nombreAlianza = telegrama.alianza.nombre_alianza;
+                if (tieneErrores) nombreAlianza = nombreAlianza.replace(/A/g, '4').replace(/E/g, '3');
+                textoOCR += `Intendente\n${nombreAlianza}: ${votosIntendente}${tieneErrores ? ' v0t0s' : ''}\n`;
                 elementos.ocrPanel.textContent = textoOCR;
-
                 setTimeout(() => procesadorTelegramas.validarIA(telegrama), 1800);
             },
-
             validarIA: (telegrama) => {
+                const intendente = telegrama.alianza.candidatos.intendente;
                 const datosValidados = {
-                    mesa_id: telegrama.mesa,
-                    circuito: telegrama.circuito,
-                    timestamp: new Date().toISOString(),
-                    votos_validados: telegrama.votos,
-                    total_votos: Object.values(telegrama.votos).reduce((a, b) => a + b, 0),
-                    confidence_score: (Math.random() * 0.25 + 0.75).toFixed(3),
-                    anomalias_detectadas: Math.random() < 0.1 ? ["discrepancia_menor"] : [],
-                    validacion_cruzada: "APROBADA"
+                    mesa_id: telegrama.mesa, expediente: telegrama.alianza.expediente,
+                    candidato_validado: {
+                        nombre: intendente.nombre, dni: intendente.dni, votos: telegrama.votos.intendente
+                    },
+                    confidence_score: (Math.random() * 0.25 + 0.75).toFixed(3)
                 };
-
                 let jsonFormateado = JSON.stringify(datosValidados, null, 2);
-                jsonFormateado = jsonFormateado.replace(
-                    /"votos_validados":/g, 
-                    '<span class="corrected">"votos_validados":</span>'
-                );
-                jsonFormateado = jsonFormateado.replace(
-                    /"validacion_cruzada": "APROBADA"/g,
-                    '<span class="corrected">"validacion_cruzada": "APROBADA"</span>'
-                );
-
+                jsonFormateado = jsonFormateado.replace(/"candidato_validado":/g, '<span class="corrected">"candidato_validado":</span>');
                 elementos.jsonPanel.innerHTML = jsonFormateado;
-
                 setTimeout(() => procesadorTelegramas.consolidarResultados(telegrama), 1000);
             },
-
             consolidarResultados: (telegrama) => {
-                // Consolidar votos en el total general
-                Object.entries(telegrama.votos).forEach(([partido, votos]) => {
-                    if (resultadosVotos[partido] !== undefined) {
-                        resultadosVotos[partido] += votos;
-                    } else {
-                        resultadosVotos[partido] = votos;
-                    }
-                    metricas.totalVotos += votos;
-                });
-
-                metricas.procesados++;
-                colas.procesandoActual = null;
-
-                // Restaurar panel de imagen
+                const alianzaNombre = telegrama.alianza.nombre_alianza;
+                if (resultadosVotos[alianzaNombre] !== undefined) {
+                    resultadosVotos[alianzaNombre] += telegrama.votos.intendente;
+                    metricas.totalVotos += telegrama.votos.intendente;
+                }
+                metricas.procesados++; colas.procesandoActual = null;
                 elementos.imagePanel.className = 'image-placeholder';
-                elementos.imagePanel.textContent = 'Esperando siguiente telegrama...';
-
-                ui.actualizarContadores();
-                ui.actualizarGrafico();
-
-                const confianza = elementos.jsonPanel.textContent.match(/"confidence_score": "([^"]+)"/);
-                const scoreConfianza = confianza ? confianza[1] : '0.000';
-
-                alertas.agregar('success', `Mesa ${telegrama.mesa} consolidada`, 
-                    `Confianza: ${scoreConfianza} - ${Object.values(telegrama.votos).reduce((a, b) => a + b, 0)} votos`);
+                elementos.imagePanel.textContent = 'Esperando telegrama...';
+                ui.actualizarContadores(); ui.actualizarGrafico();
+                alertas.agregar('success', `Mesa ${telegrama.mesa} consolidada`);
             }
         };
 
@@ -1009,208 +386,110 @@
         const ui = {
             actualizarRecepcion: () => {
                 const telegramasRecientes = colas.ingesta.slice(-8).reverse();
-                elementos.ingestaList.innerHTML = telegramasRecientes.map(t => `
-                    <div class="telegram-item">
-                        <div class="telegram-id">Mesa ${t.mesa}</div>
-                        <div class="telegram-status">
-                            Circuito ${t.circuito}
-                            <span class="status-badge status-${t.status}">${t.status}</span>
-                        </div>
-                    </div>
-                `).join('');
+                elementos.ingestaList.innerHTML = telegramasRecientes.map(t => `<div class="telegram-item"><div class="telegram-id">Mesa ${t.mesa}</div><div class="telegram-status">Circuito ${t.circuito}<span class="status-badge status-${t.status}">${t.status}</span></div></div>`).join('');
             },
-
             actualizarCola: () => {
                 const items = [];
-                
                 if (colas.procesandoActual) {
-                    items.push(`
-                        <div class="telegram-item" style="border-left-color: #10b981;">
-                            <div class="telegram-id">Mesa ${colas.procesandoActual.mesa}</div>
-                            <div class="telegram-status">
-                                <div class="processing-indicator">
-                                    <div class="spinner"></div>
-                                    <span class="status-badge status-procesando">procesando</span>
-                                </div>
-                            </div>
-                        </div>
-                    `);
+                    items.push(`<div class="telegram-item" style="border-left-color: #10b981;"><div class="telegram-id">Mesa ${colas.procesandoActual.mesa}</div><div class="telegram-status"><div class="processing-indicator"><div class="spinner"></div><span class="status-badge status-procesando">procesando</span></div></div></div>`);
                 }
-
                 const colaReciente = colas.procesamiento.slice(-7).reverse();
-                items.push(...colaReciente.map(t => `
-                    <div class="telegram-item">
-                        <div class="telegram-id">Mesa ${t.mesa}</div>
-                        <div class="telegram-status">
-                            Circuito ${t.circuito}
-                            <span class="status-badge status-${t.status}">${t.status}</span>
-                        </div>
-                    </div>
-                `));
-
+                items.push(...colaReciente.map(t => `<div class="telegram-item"><div class="telegram-id">Mesa ${t.mesa}</div><div class="telegram-status">Circuito ${t.circuito}<span class="status-badge status-${t.status}">${t.status}</span></div></div>`));
                 elementos.colaList.innerHTML = items.join('');
             },
-
             actualizarContadores: () => {
                 elementos.totalReceived.textContent = utils.formatearNumero(metricas.totalRecibidos);
                 elementos.receptionRate.textContent = utils.calcularTasaRecepcion();
                 elementos.queueCount.textContent = colas.procesamiento.length + (colas.procesandoActual ? 1 : 0);
                 elementos.processedCount.textContent = utils.formatearNumero(metricas.procesados);
                 elementos.totalVotes.textContent = utils.formatearNumero(metricas.totalVotos);
-                metricas.tasaRecepcion = utils.calcularTasaRecepcion();
             },
-
             mostrarProcesamiento: (telegrama) => {
-                elementos.imagePanel.textContent = `Cargando imagen Mesa ${telegrama.mesa}...`;
-                elementos.ocrPanel.textContent = 'Inicializando motor OCR...\nCargando modelo de reconocimiento...\nProcesando imagen...';
-                elementos.jsonPanel.textContent = `{
-  "status": "processing",
-  "mesa_id": ${telegrama.mesa},
-  "stage": "image_analysis",
-  "progress": 0
-}`;
+                elementos.imagePanel.textContent = `Cargando Mesa ${telegrama.mesa}...`;
+                elementos.ocrPanel.textContent = 'Inicializando motor OCR...';
+                elementos.jsonPanel.textContent = `{ "status": "processing", "mesa_id": ${telegrama.mesa} }`;
             },
-
             actualizarGrafico: () => {
-                const etiquetas = Object.keys(resultadosVotos).map(nombre => 
-                    nombre.length > 18 ? nombre.substring(0, 15) + '...' : nombre
-                );
-                const datos = Object.values(resultadosVotos);
-                const colores = Object.keys(resultadosVotos).map((_, index) => 
-                    PARTIDOS_CORRIENTES[index % PARTIDOS_CORRIENTES.length]?.color || '#64748b'
-                );
-
+                if (!graficoPrincipal || !DATOS_OFICIALES) return;
+                const alianzas = DATOS_OFICIALES.alianzas.filter(a => a.candidatos.intendente);
+                const etiquetas = alianzas.map(a => a.nombre_alianza.substring(0, 18) + (a.nombre_alianza.length > 18 ? '...' : ''));
+                const datos = alianzas.map(a => resultadosVotos[a.nombre_alianza]);
+                const colores = alianzas.map((_, index) => ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444', '#06b6d4', '#ec4899'][index % 7]);
                 graficoPrincipal.data.labels = etiquetas;
                 graficoPrincipal.data.datasets[0].data = datos;
                 graficoPrincipal.data.datasets[0].backgroundColor = colores;
                 graficoPrincipal.update('none');
             },
-
             actualizarEstadoSistema: (activo) => {
                 elementos.statusDot.className = `status-dot ${activo ? 'active' : ''}`;
                 elementos.statusText.textContent = activo ? 'Sistema Activo' : 'Sistema Detenido';
-                
-                if (activo) {
-                    elementos.toggleBtn.innerHTML = '<span>⏸️</span><span>Pausar Sistema</span>';
-                    elementos.toggleBtn.className = 'btn btn-secondary';
-                } else {
-                    elementos.toggleBtn.innerHTML = '<span>▶️</span><span>Iniciar Procesamiento</span>';
-                    elementos.toggleBtn.className = 'btn btn-primary';
-                }
+                elementos.toggleBtn.innerHTML = activo ? '<span>⏸️</span><span>Pausar</span>' : '<span>▶️</span><span>Iniciar</span>';
+                elementos.toggleBtn.className = `btn ${activo ? 'btn-secondary' : 'btn-primary'}`;
             }
         };
 
         // ====== CONTROL PRINCIPAL ======
         const control = {
             alternar: () => {
-                sistemActivo = !sistemActivo;
-                ui.actualizarEstadoSistema(sistemActivo);
-
+                sistemActivo = !sistemActivo; ui.actualizarEstadoSistema(sistemActivo);
                 if (sistemActivo) {
-                    alertas.agregar('success', 'Sistema activado', 'Procesamiento en tiempo real iniciado');
-                    control.ejecutarCiclo();
+                    alertas.agregar('success', 'Sistema activado'); control.ejecutarCiclo();
                 } else {
-                    alertas.agregar('warning', 'Sistema pausado', 'Procesamiento suspendido');
-                    clearInterval(intervaloPrincipal);
+                    alertas.agregar('warning', 'Sistema pausado'); clearInterval(intervaloPrincipal);
                 }
             },
-
             ejecutarCiclo: () => {
                 intervaloPrincipal = setInterval(() => {
                     if (!sistemActivo) return;
-
-                    // Generar telegramas a ritmo variable
-                    if (Math.random() < 0.7) {
-                        procesadorTelegramas.generar();
-                    }
-
-                    // Procesar cola
+                    if (Math.random() < 0.7) procesadorTelegramas.generar();
                     procesadorTelegramas.procesarSiguiente();
-
                 }, utils.numeroAleatorio(1500, 4000));
             },
-
             reiniciar: () => {
-                if (confirm('¿Confirma reiniciar el sistema? Se perderán todos los datos procesados.')) {
-                    sistemActivo = false;
-                    clearInterval(intervaloPrincipal);
-                    
-                    // Resetear estado
-                    contadorTelegramas = 1;
-                    metricas = {
-                        totalRecibidos: 0,
-                        procesados: 0,
-                        totalVotos: 0,
-                        tasaRecepcion: 0,
-                        ultimaHora: []
-                    };
-                    
-                    colas = {
-                        ingesta: [],
-                        procesamiento: [],
-                        procesandoActual: null
-                    };
-
-                    // Resetear resultados
-                    PARTIDOS_CORRIENTES.forEach(partido => {
-                        resultadosVotos[partido.nombre] = 0;
-                    });
-
-                    // Limpiar UI
-                    elementos.ingestaList.innerHTML = '';
-                    elementos.colaList.innerHTML = '';
+                if (confirm('¿Confirma reiniciar el sistema?')) {
+                    sistemActivo = false; clearInterval(intervaloPrincipal);
+                    contadorTelegramas = 1; metricas = { totalRecibidos: 0, procesados: 0, totalVotos: 0, ultimaHora: [] };
+                    colas = { ingesta: [], procesamiento: [], procesandoActual: null };
+                    if (DATOS_OFICIALES) {
+                        DATOS_OFICIALES.alianzas.forEach(alianza => {
+                            if(alianza.candidatos.intendente) resultadosVotos[alianza.nombre_alianza] = 0;
+                        });
+                    }
+                    ['ingestaList', 'colaList', 'alertsList'].forEach(id => elementos[id].innerHTML = '');
                     elementos.imagePanel.textContent = 'Esperando telegrama...';
                     elementos.imagePanel.className = 'image-placeholder';
-                    elementos.ocrPanel.textContent = 'Sistema listo para procesar...';
-                    elementos.jsonPanel.textContent = `{
-  "status": "standby",
-  "timestamp": "${new Date().toISOString()}",
-  "ready": true
-}`;
-                    elementos.alertsList.innerHTML = '';
-
-                    ui.actualizarContadores();
-                    ui.actualizarGrafico();
-                    ui.actualizarEstadoSistema(false);
-
-                    alertas.agregar('info', 'Sistema reiniciado', 'Todos los datos han sido restablecidos');
+                    elementos.ocrPanel.textContent = 'Sistema listo...';
+                    elementos.jsonPanel.textContent = `{ "status": "standby" }`;
+                    ui.actualizarContadores(); ui.actualizarGrafico(); ui.actualizarEstadoSistema(false);
+                    alertas.agregar('info', 'Sistema reiniciado.');
                 }
             }
         };
 
         // ====== INICIALIZACIÓN ======
-        function inicializar() {
-            // Inicializar resultados por partido
-            PARTIDOS_CORRIENTES.forEach(partido => {
-                resultadosVotos[partido.nombre] = 0;
-            });
-
-            // Configurar gráfico principal
+        async function inicializar() {
+            try {
+                const response = await fetch('./data/candidatos_capital_2025_v2.json');
+                if (!response.ok) throw new Error('No se pudo cargar la fuente de datos.');
+                DATOS_OFICIALES = await response.json();
+                DATOS_OFICIALES.alianzas.forEach(alianza => {
+                    if (alianza.candidatos.intendente) resultadosVotos[alianza.nombre_alianza] = 0;
+                });
+                alertas.agregar('success', `Datos de ${DATOS_OFICIALES.alianzas.length} alianzas cargados.`);
+            } catch (error) {
+                console.error(error);
+                alertas.agregar('error', 'Fallo crítico: No se pudo cargar el archivo de datos maestros.');
+                return;
+            }
             graficoPrincipal = new Chart(elementos.chartContext, {
-                type: 'bar',
-                data: {
-                    labels: [],
-                    datasets: [{
-                        data: [],
-                        backgroundColor: [],
-                        borderWidth: 0,
-                        borderRadius: 6,
-                        borderSkipped: false,
-                    }]
-                },
+                type: 'bar', data: { labels: [], datasets: [{ data: [], backgroundColor: [], borderWidth: 0, borderRadius: 6, borderSkipped: false, }] },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: true, maintainAspectRatio: false,
                     plugins: {
                         legend: { display: false },
                         tooltip: {
-                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                            titleColor: '#f1f5f9',
-                            bodyColor: '#e2e8f0',
-                            borderColor: 'rgba(148, 163, 184, 0.2)',
-                            borderWidth: 1,
-                            cornerRadius: 6,
-                            displayColors: true,
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)', titleColor: '#f1f5f9', bodyColor: '#e2e8f0',
+                            borderColor: 'rgba(148, 163, 184, 0.2)', borderWidth: 1, cornerRadius: 6, displayColors: true,
                             callbacks: {
                                 label: function(context) {
                                     const total = context.dataset.data.reduce((a, b) => a + b, 0);
@@ -1223,57 +502,22 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            ticks: {
-                                color: '#94a3b8',
-                                font: { family: 'Inter', size: 10 },
-                                callback: function(value) {
-                                    return utils.formatearNumero(value);
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(148, 163, 184, 0.1)',
-                                drawBorder: false
-                            }
+                            ticks: { color: '#94a3b8', font: { family: 'Inter', size: 10 }, callback: function(value) { return utils.formatearNumero(value); } },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)', drawBorder: false }
                         },
                         x: {
-                            ticks: {
-                                color: '#94a3b8',
-                                font: { family: 'Inter', size: 9 },
-                                maxRotation: 45,
-                                minRotation: 0
-                            },
-                            grid: {
-                                color: 'rgba(148, 163, 184, 0.05)',
-                                drawBorder: false
-                            }
+                            ticks: { color: '#94a3b8', font: { family: 'Inter', size: 9 }, maxRotation: 45, minRotation: 0 },
+                            grid: { color: 'rgba(148, 163, 184, 0.05)', drawBorder: false }
                         }
                     },
-                    animation: {
-                        duration: 750,
-                        easing: 'easeInOutQuart'
-                    }
+                    animation: { duration: 750, easing: 'easeInOutQuart' }
                 }
             });
-
-            // Event listeners
             elementos.toggleBtn.addEventListener('click', control.alternar);
             elementos.resetBtn.addEventListener('click', control.reiniciar);
-
-            // Actualizar UI inicial
-            ui.actualizarContadores();
-            ui.actualizarGrafico();
-            ui.actualizarEstadoSistema(false);
-
-            // Mensaje inicial
-            alertas.agregar('info', 'Centro de Cómputos inicializado', 'Sistema listo para procesar telegramas electorales');
-            
-            // Simular algunos datos iniciales para demo
-            setTimeout(() => {
-                alertas.agregar('info', 'Conectado a red electoral', 'Esperando telegramas de 1,247 mesas');
-            }, 2000);
+            ui.actualizarContadores(); ui.actualizarGrafico(); ui.actualizarEstadoSistema(false);
+            alertas.agregar('info', 'Centro de Cómputos inicializado');
         }
-
-        // Inicializar cuando el DOM esté listo
         document.addEventListener('DOMContentLoaded', inicializar);
     </script>
 </body>
