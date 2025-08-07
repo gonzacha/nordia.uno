@@ -1,25 +1,20 @@
 /**
  * GT Intelligence - Centro de Control Frontend v2.0
- * 
- * ARQUITECTURA PREMIUM PARA DEMOSTRACIÓN GUBERNAMENTAL
- * 
- * @author Claude-LC (Lead Coder) - Nordia Technologies
+ * * ARQUITECTURA PREMIUM PARA DEMOSTRACIÓN GUBERNAMENTAL
+ * * @author Claude-LC (Lead Coder) - Nordia Technologies
  * @version 2.0.0
  * @date 2025-08-07
- * 
- * @description
+ * * @description
  * Aplicación frontend de clase empresarial para visualización de datos electorales.
  * Construida con arquitectura modular, patrones de diseño profesionales y 
  * documentación exhaustiva para cumplir estándares gubernamentales (B2G).
- * 
- * PRINCIPIOS DE DISEÑO:
+ * * PRINCIPIOS DE DISEÑO:
  * - Separation of Concerns: Lógica separada por responsabilidades
  * - Error Boundaries: Manejo robusto de errores en cada capa
  * - State Management: Sistema centralizado para consistencia de datos
  * - Performance First: Optimizaciones para carga rápida y fluidez
  * - Accessibility: Cumple estándares WCAG para uso gubernamental
- * 
- * STACK TECNOLÓGICO:
+ * * STACK TECNOLÓGICO:
  * - Vanilla JavaScript ES6+ (sin dependencias externas)
  * - Tailwind CSS (vía CDN para prototipado rápido)
  * - Chart.js (visualizaciones de datos premium)
@@ -443,7 +438,6 @@ class LoadingComponent {
         container.innerHTML = `
             <div class="flex flex-col items-center justify-center min-h-screen p-8">
                 <div class="relative">
-                    <!-- Logo/Spinner Principal -->
                     <div class="w-16 h-16 mb-6">
                         <svg class="w-full h-full animate-spin" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
@@ -451,12 +445,10 @@ class LoadingComponent {
                         </svg>
                     </div>
                     
-                    <!-- Anillos de Carga Premium -->
                     <div class="absolute top-0 w-16 h-16 border-4 border-blue-500/20 rounded-full animate-pulse"></div>
                     <div class="absolute top-1 left-1 w-14 h-14 border-2 border-blue-400/40 rounded-full animate-ping"></div>
                 </div>
                 
-                <!-- Mensaje de Estado -->
                 <div class="text-center max-w-md">
                     <h2 class="text-2xl font-bold text-white mb-4">${CONFIG.METADATA.APP_NAME}</h2>
                     <p id="loading-message" class="text-xl text-gray-300 mb-2 transition-all duration-300">${message}</p>
@@ -531,7 +523,6 @@ class ErrorComponent {
         container.innerHTML = `
             <div class="flex flex-col items-center justify-center min-h-screen p-8">
                 <div class="max-w-md text-center">
-                    <!-- Icono de Error -->
                     <div class="w-20 h-20 mx-auto mb-6 text-red-500">
                         <svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
@@ -539,11 +530,9 @@ class ErrorComponent {
                         </svg>
                     </div>
                     
-                    <!-- Título y Mensaje -->
                     <h2 class="text-2xl font-bold text-white mb-4">Error del Sistema</h2>
                     <p class="text-gray-300 mb-6 leading-relaxed">${message}</p>
                     
-                    <!-- Botones de Acción -->
                     <div class="space-y-3">
                         ${onRetry ? `
                         <button id="retry-btn" 
@@ -558,7 +547,6 @@ class ErrorComponent {
                         </button>
                     </div>
                     
-                    <!-- Información Técnica -->
                     <div class="mt-8 p-4 bg-gray-800/50 rounded-lg text-left">
                         <h4 class="text-sm font-semibold text-gray-400 mb-2">Información Técnica:</h4>
                         <ul class="text-xs text-gray-500 space-y-1">
@@ -622,13 +610,11 @@ class MunicipalitySelectorComponent {
         container.innerHTML = `
             <div class="max-w-2xl mx-auto">
                 <div class="bg-gray-800/50 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border border-gray-700/50">
-                    <!-- Header -->
                     <div class="text-center mb-8">
                         <h2 class="text-3xl font-bold text-white mb-2">Seleccionar Municipio</h2>
                         <p class="text-gray-400">Busque y seleccione el municipio para ver los resultados electorales</p>
                     </div>
                     
-                    <!-- Buscador -->
                     <div class="relative mb-6">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -641,18 +627,14 @@ class MunicipalitySelectorComponent {
                                placeholder="Buscar municipio... (ej: Capital, Goya, Mercedes)"
                                autocomplete="off">
                         
-                        <!-- Indicador de búsqueda -->
                         <div id="search-indicator" class="absolute right-3 top-4 hidden">
                             <div class="w-5 h-5 border-2 border-blue-500/30 border-t-blue-500 rounded-full animate-spin"></div>
                         </div>
                     </div>
                     
-                    <!-- Resultados -->
                     <div id="municipality-results" class="space-y-2 max-h-80 overflow-y-auto">
-                        <!-- Los resultados se cargarán aquí -->
-                    </div>
+                        </div>
                     
-                    <!-- Estado sin resultados -->
                     <div id="no-results" class="hidden text-center py-8">
                         <div class="w-16 h-16 mx-auto mb-4 text-gray-500">
                             <svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -663,7 +645,6 @@ class MunicipalitySelectorComponent {
                         <p class="text-gray-500">No se encontraron municipios que coincidan con su búsqueda.</p>
                     </div>
                     
-                    <!-- Footer con información -->
                     <div class="mt-6 pt-6 border-t border-gray-700 text-center">
                         <p class="text-sm text-gray-500">
                             Mostrando <span id="results-count">${municipalities.length}</span> municipios disponibles
@@ -889,7 +870,6 @@ class ResultsDashboardComponent {
         
         container.innerHTML = `
             <div class="min-h-screen">
-                <!-- Header con navegación -->
                 <header class="mb-8">
                     <button id="back-btn" 
                             class="inline-flex items-center text-blue-400 hover:text-blue-300 mb-6 transition-colors duration-200 group">
@@ -914,10 +894,8 @@ class ResultsDashboardComponent {
                     </div>
                 </header>
 
-                <!-- Grid principal de resultados -->
                 <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
                     
-                    <!-- Gráfico principal (2 columnas en desktop) -->
                     <div class="xl:col-span-2">
                         <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-2xl border border-gray-700/50">
                             <div class="flex items-center justify-between mb-6">
@@ -933,10 +911,8 @@ class ResultsDashboardComponent {
                         </div>
                     </div>
                     
-                    <!-- Columna lateral con estadísticas -->
                     <div class="space-y-6">
                         
-                        <!-- Total de votos -->
                         <div class="bg-gradient-to-br from-blue-600/20 to-purple-600/20 p-6 rounded-2xl border border-blue-500/30">
                             <div class="flex items-center justify-between">
                                 <div>
@@ -951,7 +927,6 @@ class ResultsDashboardComponent {
                             </div>
                         </div>
                         
-                        <!-- Alianza ganadora -->
                         ${processedData.winner ? `
                         <div class="bg-gradient-to-br from-green-600/20 to-emerald-600/20 p-6 rounded-2xl border border-green-500/30">
                             <div class="flex items-start justify-between">
@@ -972,7 +947,6 @@ class ResultsDashboardComponent {
                         </div>
                         ` : ''}
                         
-                        <!-- Lista de todas las alianzas -->
                         <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-2xl border border-gray-700/50">
                             <h3 class="text-lg font-semibold text-white mb-4">Ranking Completo</h3>
                             <div class="space-y-3">
@@ -997,7 +971,6 @@ class ResultsDashboardComponent {
                     </div>
                 </div>
                 
-                <!-- Información adicional -->
                 <div class="mt-8 pt-6 border-t border-gray-700">
                     <div class="flex items-center justify-between text-sm text-gray-500">
                         <p>Datos actualizados automáticamente desde GT Intelligence API</p>
@@ -1027,26 +1000,34 @@ class ResultsDashboardComponent {
         const results = [];
         let totalVotes = 0;
 
-        // Procesar cada alianza
-        municipalityData.alianzas.forEach(alliance => {
-            let votes = 0;
-            
-            // Obtener votos del intendente (dato principal)
-            if (alliance.candidatos?.intendente?.votos && 
-                typeof alliance.candidatos.intendente.votos === 'number') {
-                votes = alliance.candidatos.intendente.votos;
-            }
-
-            results.push({
-                name: alliance.nombre,
-                votes: votes,
-                originalData: alliance
+        // Verificación robusta de que los datos y las alianzas existen y son un array
+        if (municipalityData && municipalityData.alianzas && Array.isArray(municipalityData.alianzas)) {
+            municipalityData.alianzas.forEach(alliance => {
+                let votes = 0;
+                
+                // Aplicamos la validación defensiva sugerida por Claude
+                if (alliance && 
+                    alliance.candidatos && 
+                    alliance.candidatos.intendente && 
+                    typeof alliance.candidatos.intendente.votos === 'number' && 
+                    !isNaN(alliance.candidatos.intendente.votos)) 
+                {
+                    votes = alliance.candidatos.intendente.votos;
+                }
+                
+                // Solo procesamos alianzas que tengan un nombre válido
+                if (alliance && alliance.nombre) {
+                    results.push({
+                        name: alliance.nombre,
+                        votes: votes,
+                        originalData: alliance
+                    });
+                    totalVotes += votes;
+                }
             });
-            
-            totalVotes += votes;
-        });
+        }
 
-        // Ordenar por votos (descendente)
+        // Ordenar por votos (descendente) y calcular porcentajes
         const sortedResults = results
             .sort((a, b) => b.votes - a.votes)
             .map(result => ({
@@ -1372,7 +1353,6 @@ class GTIntelligenceApp {
         // Renderizar pantalla de selección
         this.appContainer.innerHTML = `
             <div class="min-h-screen py-8">
-                <!-- Header -->
                 <header class="text-center mb-12">
                     <div class="mb-6">
                         <h1 class="text-5xl font-black text-white mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
@@ -1389,12 +1369,9 @@ class GTIntelligenceApp {
                     </div>
                 </header>
 
-                <!-- Selector Container -->
                 <main id="selector-container">
-                    <!-- El componente selector se renderizará aquí -->
-                </main>
+                    </main>
 
-                <!-- Footer -->
                 <footer class="mt-16 text-center">
                     <div class="max-w-4xl mx-auto px-4">
                         <div class="border-t border-gray-800 pt-8">
@@ -1563,7 +1540,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Verificar que Chart.js esté disponible
         if (typeof Chart === 'undefined') {
-            throw new Error('Chart.js no está disponible. Verifique que el script esté cargado.');
+            throw new Error('Chart.js no está cargado. Verifique que el script esté incluido.');
         }
 
         // Crear e inicializar la aplicación
