@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Negocio | GT Intelligence</title>
+    
+    <!-- Placeholder Comments -->
+    <!-- Chosen Palette: Calm Harmony (Off-white, Dark Slate, Muted Blue/Green accents) -->
+    <!-- Application Structure Plan: A static, single-column layout designed for print and PDF conversion. All interactive navigation and animations have been removed. The content is fully expanded vertically to mimic a long-form report or infographic, ensuring wkhtmltopdf can capture everything in one pass. -->
+    <!-- Visualization & Content Choices: 
+        - Resumen Ejecutivo -> Goal: Inform -> KPI Cards -> Justification: Quickly conveys core concepts.
+        - Plan Financiero -> Goal: Compare/Change -> Bar Chart (Chart.js) -> Justification: Visually compares financial projections over time.
+        - Segmentación de Mercado -> Goal: Organize/Proportions -> Donut Chart (Chart.js) -> Justification: Shows the relationship of parts to a whole clearly.
+        - Hoja de Ruta -> Goal: Change -> Static HTML/CSS Timeline -> Justification: Scannable and clear for a static document.
+        - Arquitectura -> Goal: Organize -> HTML/CSS Diagram -> Justification: Visually represents complex relationships between tech components simply.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #333;
+        }
+        .kpi-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 40vh;
+        }
+        .swot-grid > div {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.375rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 9999px;
+            background-color: #ffffff;
+            border: 3px solid #60a5fa;
+        }
+        /* Estilos para impresión/PDF */
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Contenido Principal Estático -->
+    <main class="w-full max-w-5xl mx-auto">
+        <div class="p-6 md:p-10 space-y-12">
+            
+            <!-- Encabezado del Documento -->
+            <header class="text-center border-b pb-8 border-gray-200">
+                <h1 class="text-4xl font-bold text-gray-800">GT Intelligence</h1>
+                <p class="text-xl text-gray-500 mt-2">Plan de Negocio</p>
+            </header>
+
+            <!-- Secciones del Plan de Negocio (Todas Desplegadas) -->
+            <section id="resumen">
+                <!-- Contenido se insertará aquí -->
+            </section>
+            <section id="mercado">
+                <!-- Contenido se insertará aquí -->
+            </section>
+            <section id="producto">
+                <!-- Contenido se insertará aquí -->
+            </section>
+            <section id="estrategia">
+                <!-- Contenido se insertará aquí -->
+            </section>
+            <section id="finanzas">
+                <!-- Contenido se insertará aquí -->
+            </section>
+            <section id="riesgos">
+                <!-- Contenido se insertará aquí -->
+            </section>
+        </div>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const reportData = {
+            sections: [
+                { id: 'resumen', title: 'Resumen Ejecutivo' },
+                { id: 'mercado', title: 'Análisis de Mercado' },
+                { id: 'producto', title: 'Producto y Tecnología' },
+                { id: 'estrategia', title: 'Estrategia de Mercado' },
+                { id: 'finanzas', title: 'Plan Financiero' },
+                { id: 'riesgos', title: 'Análisis de Riesgos' },
+            ],
+            resumen: {
+                title: 'Resumen Ejecutivo',
+                introduction: 'Una visión general de la misión, el problema que resolvemos y nuestra ventaja competitiva en el mercado de la inteligencia operativa.',
+                kpis: [
+                    { title: 'Misión', content: 'Empoderar a organizaciones con herramientas que transforman datos complejos en decisiones claras, trazables y auditables.' },
+                    { title: 'El Problema', content: 'Procesos manuales, opacos y fragmentados en el sector público y corporativo que generan desconfianza y sobrecostos.' },
+                    { title: 'Nuestra Solución', content: 'GT Intelligence, una plataforma SaaS que automatiza la validación de datos con un motor híbrido de IA y código especializado.' },
+                    { title: 'Ventaja Competitiva', content: 'Tecnología superior, modelo de negocio flexible (White-Label) y visión de futuro con trazabilidad Blockchain.' }
+                ]
+            },
+            mercado: {
+                title: 'Análisis de Mercado',
+                introduction: 'El mercado de la transformación digital en LATAM está en plena expansión. Analizamos el tamaño, los segmentos clave y las necesidades no cubiertas de nuestros clientes potenciales.',
+                segmentationData: {
+                    labels: ['Gobierno (B2G)', 'Corporativo (B2B)'],
+                    data: [65, 35],
+                    backgroundColor: ['#3b82f6', '#10b981']
+                },
+                painPoints: [
+                    'Costos Elevados por procesos manuales.',
+                    'Lentitud en la consolidación de datos.',
+                    'Falta de Transparencia y auditabilidad.',
+                    'Errores Humanos con consecuencias legales.',
+                    'Inflexibilidad de sistemas existentes.'
+                ]
+            },
+            producto: {
+                title: 'Producto y Tecnología',
+                introduction: 'GT Intelligence es una plataforma modular diseñada para ser robusta y escalable. A continuación se detalla su arquitectura y la hoja de ruta de su evolución.',
+                roadmap: [
+                    { version: 'v1.0', quarter: 'Actual', description: 'Centro de Control con visualización de datos de un solo municipio.' },
+                    { version: 'v1.1', quarter: 'Q4 2025', description: 'Dashboard con comparador, filtros y exportación.' },
+                    { version: 'v1.2', quarter: 'Q1 2026', description: 'Módulo de análisis de datos con reportes personalizables.' },
+                    { version: 'v2.0', quarter: 'Q3 2026', description: 'Módulo de configuración de reglas de negocio para B2B.' },
+                    { version: 'v3.0', quarter: '2027', description: 'Piloto de integración Blockchain para trazabilidad inmutable.' }
+                ],
+                architecture: [
+                    { component: 'Frontend', tech: 'JavaScript (React/Vite planeado)' },
+                    { component: 'Backend', tech: 'Python (Flask), Celery, Redis' },
+                    { component: 'Base de Datos', tech: 'SQLAlchemy, PostgreSQL' },
+                    { component: 'IA & Procesamiento', tech: 'Google Gemini 1.5 API' },
+                    { component: 'Infraestructura', tech: 'Docker, Google Cloud Run' }
+                ]
+            },
+            estrategia: {
+                title: 'Estrategia de Marketing y Ventas',
+                introduction: 'Nuestra estrategia Go-to-Market se enfoca en un posicionamiento de alta especialización, apalancando nuestro caso de éxito inicial para penetrar el sector gubernamental y expandirnos luego al corporativo.',
+                pricingTiers: [
+                    { name: 'Gobierno Municipal', description: 'Licencia anual con precio fijo. Incluye el módulo electoral.' },
+                    { name: 'Gobierno Provincial / Corporativo', description: 'Licencia anual basada en volumen de documentos o usuarios.' },
+                    { name: 'Enterprise / White-Label', description: 'Contrato personalizado con licencia de marca blanca y soporte prioritario.' }
+                ]
+            },
+            finanzas: {
+                title: 'Plan Financiero',
+                introduction: 'Las proyecciones financieras muestran un crecimiento sostenido basado en un modelo de ingresos recurrentes por licencias de software, complementado por servicios profesionales.',
+                projections: {
+                    labels: ['Año 1', 'Año 2', 'Año 3'],
+                    datasets: [
+                        {
+                            label: 'Ingresos Recurrentes (ARR)',
+                            data: [45000, 180000, 500000],
+                            backgroundColor: '#3b82f6',
+                        },
+                        {
+                            label: 'Ingresos por Servicios',
+                            data: [15000, 50000, 120000],
+                            backgroundColor: '#10b981',
+                        }
+                    ]
+                }
+            },
+            riesgos: {
+                title: 'Análisis de Riesgos (SWOT)',
+                introduction: 'Un análisis honesto de nuestras fortalezas, debilidades, oportunidades y amenazas es fundamental para la planificación estratégica y la mitigación de riesgos.',
+                swot: {
+                    strengths: ['Tecnología propietaria y superior', 'Caso de éxito validado', 'Modelo de negocio flexible', 'Estructura de costos ágil'],
+                    weaknesses: ['Equipo unipersonal inicial', 'Dependencia del fundador', 'Falta de reconocimiento de marca', 'Ciclos de venta largos en B2G'],
+                    opportunities: ['Gran demanda de digitalización en LATAM', 'Poca competencia directa especializada', 'Expansión a múltiples verticales', 'Avances continuos en IA'],
+                    threats: ['Cambios en regulación de datos', 'Competidores con mayor financiación', 'Inestabilidad económica regional', 'Cambios en precios de APIs de IA']
+                }
+            }
+        };
+
+        function renderContent() {
+            const resumenSection = document.getElementById('resumen');
+            resumenSection.innerHTML = `
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">${reportData.resumen.title}</h2>
+                <p class="text-lg text-gray-600 mb-8 max-w-3xl">${reportData.resumen.introduction}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    ${reportData.resumen.kpis.map(kpi => `
+                        <div class="kpi-card">
+                            <h3 class="font-bold text-lg text-blue-600 mb-2">${kpi.title}</h3>
+                            <p class="text-gray-700">${kpi.content}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            const mercadoSection = document.getElementById('mercado');
+            mercadoSection.innerHTML = `
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">${reportData.mercado.title}</h2>
+                <p class="text-lg text-gray-600 mb-8 max-w-3xl">${reportData.mercado.introduction}</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white p-6 rounded-lg border border-gray-200">
+                         <h3 class="text-xl font-semibold text-center mb-4">Segmentación de Mercado</h3>
+                         <div class="chart-container" style="height:300px; max-height:300px;">
+                            <canvas id="marketChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg border border-gray-200">
+                        <h3 class="text-xl font-semibold mb-4">Puntos de Dolor del Cliente</h3>
+                        <ul class="space-y-3">
+                            ${reportData.mercado.painPoints.map(point => `
+                                <li class="flex items-start">
+                                    <span class="text-blue-500 mr-3 mt-1">&#10003;</span>
+                                    <span>${point}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            const productoSection = document.getElementById('producto');
+            productoSection.innerHTML = `
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">${reportData.producto.title}</h2>
+                <p class="text-lg text-gray-600 mb-8 max-w-3xl">${reportData.producto.introduction}</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg border border-gray-200">
+                        <h3 class="text-xl font-semibold mb-6">Hoja de Ruta Evolutiva</h3>
+                        <div class="relative border-l-2 border-blue-200 pl-10 space-y-10">
+                            ${reportData.producto.roadmap.map(item => `
+                                <div class="timeline-item">
+                                    <h4 class="font-bold text-blue-600">${item.version} <span class="text-sm font-medium text-gray-500 ml-2">${item.quarter}</span></h4>
+                                    <p class="text-gray-700">${item.description}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg border border-gray-200">
+                        <h3 class="text-xl font-semibold mb-4">Arquitectura Tecnológica</h3>
+                        <div class="space-y-4">
+                        ${reportData.producto.architecture.map(item => `
+                            <div class="p-4 bg-gray-50 rounded-md">
+                                <p class="font-semibold text-gray-800">${item.component}</p>
+                                <p class="text-sm text-blue-600">${item.tech}</p>
+                            </div>
+                        `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const estrategiaSection = document.getElementById('estrategia');
+            estrategiaSection.innerHTML = `
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">${reportData.estrategia.title}</h2>
+                <p class="text-lg text-gray-600 mb-8 max-w-3xl">${reportData.estrategia.introduction}</p>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-center">Modelo de Precios por Niveles</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        ${reportData.estrategia.pricingTiers.map(tier => `
+                            <div class="kpi-card text-center">
+                                <h4 class="font-bold text-lg text-blue-600 mb-2">${tier.name}</h4>
+                                <p class="text-gray-700">${tier.description}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            const finanzasSection = document.getElementById('finanzas');
+            finanzasSection.innerHTML = `
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">${reportData.finanzas.title}</h2>
+                <p class="text-lg text-gray-600 mb-8 max-w-3xl">${reportData.finanzas.introduction}</p>
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold text-center mb-4">Proyecciones Financieras a 3 Años (USD)</h3>
+                    <div class="chart-container">
+                        <canvas id="financialChart"></canvas>
+                    </div>
+                </div>
+            `;
+
+            const riesgosSection = document.getElementById('riesgos');
+            riesgosSection.innerHTML = `
+                 <h2 class="text-3xl font-bold text-gray-800 mb-2">${reportData.riesgos.title}</h2>
+                <p class="text-lg text-gray-600 mb-8 max-w-3xl">${reportData.riesgos.introduction}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 swot-grid">
+                    <div class="p-6 rounded-lg">
+                        <h3 class="font-bold text-xl text-green-600 mb-3">Fortalezas</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">${reportData.riesgos.swot.strengths.map(s => `<li>${s}</li>`).join('')}</ul>
+                    </div>
+                    <div class="p-6 rounded-lg">
+                        <h3 class="font-bold text-xl text-red-600 mb-3">Debilidades</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">${reportData.riesgos.swot.weaknesses.map(w => `<li>${w}</li>`).join('')}</ul>
+                    </div>
+                    <div class="p-6 rounded-lg">
+                        <h3 class="font-bold text-xl text-blue-600 mb-3">Oportunidades</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">${reportData.riesgos.swot.opportunities.map(o => `<li>${o}</li>`).join('')}</ul>
+                    </div>
+                    <div class="p-6 rounded-lg">
+                        <h3 class="font-bold text-xl text-yellow-600 mb-3">Amenazas</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">${reportData.riesgos.swot.threats.map(t => `<li>${t}</li>`).join('')}</ul>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function initCharts() {
+            // Desactivar animaciones para una renderización más rápida en PDF
+            Chart.defaults.animation = false;
+
+            const marketCtx = document.getElementById('marketChart').getContext('2d');
+            new Chart(marketCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: reportData.mercado.segmentationData.labels,
+                    datasets: [{
+                        data: reportData.mercado.segmentationData.data,
+                        backgroundColor: reportData.mercado.segmentationData.backgroundColor,
+                        borderColor: '#f8f7f4',
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            const financialCtx = document.getElementById('financialChart').getContext('2d');
+            new Chart(financialCtx, {
+                type: 'bar',
+                data: reportData.finanzas.projections,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) { return '$' + value / 1000 + 'k'; }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) { label += ': '; }
+                                    if (context.parsed.y !== null) {
+                                        label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        renderContent();
+        
+        // Retrasar la inicialización de los gráficos para asegurar que el DOM esté completamente listo
+        // Esto ayuda a wkhtmltopdf a renderizar los gráficos correctamente.
+        setTimeout(initCharts, 500); 
+    });
+    </script>
+</body>
+</html>

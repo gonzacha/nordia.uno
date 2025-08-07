@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from flask_cors import CORS
 from .extensions import db, migrate, login_manager, celery
 from .routes import bp
 from .models import User
@@ -7,8 +8,13 @@ from .models import User
 def create_app():
     app = Flask(__name__, template_folder='templates')
     
-    app.config['SECRET_KEY'] = 'gta_super_secret_key'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///gta_app.db'
+    # --- CONFIGURACIÓN DE CORS ESPECÍFICA Y SEGURA ---
+    # Permite peticiones a las rutas /api/* únicamente desde el origen http://localhost:8080
+    CORS(app, resources={r"/api/*": {"origins": "http://localhost:8080"}})
+    
+    # --- REBRANDING APLICADO ---
+    app.config['SECRET_KEY'] = 'gt_super_secret_key'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///gt_app.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
     # Configuración de Celery
@@ -21,9 +27,7 @@ def create_app():
     migrate.init_app(app, db)
     login_manager.init_app(app)
     
-    # Inicializar Celery
     celery.conf.update(app.config)
-
     app.register_blueprint(bp)
 
     @login_manager.user_loader

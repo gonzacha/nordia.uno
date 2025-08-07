@@ -21,4 +21,6 @@ def create_admin_user(username, email, password):
         print(f"Usuario admin '{username}' creado exitosamente.")
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # --- MODIFICACIÓN CLAVE ---
+    # Cambiamos el puerto por defecto a 5001 para evitar el conflicto.
+    app.run(host='0.0.0.0', port=5001, debug=True)

@@ -1,0 +1,10 @@
+{
+  "municipalities": [
+    { "id": 12, "nombre": "Capital" },
+    { "id": 27, "nombre": "Goya" },
+    { "id": 41, "nombre": "Mercedes" },
+    { "id": 43, "nombre": "Monte Caseros" },
+    { "id": 48, "nombre": "Paso de los Libres" },
+    { "id": 65, "nombre": "Santo Tomé" }
+  ]
+}

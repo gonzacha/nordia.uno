@@ -1,0 +1,15 @@
+# Entorno Virtual
+venv/
+
+# Archivos de caché de Python
+__pycache__/
+*.pyc
+
+# Carpeta de instancia de Flask (contiene la DB)
+instance/
+
+# Archivos de entorno (si los tuvieras)
+.env
+
+# Archivos del sistema operativo
+.DS_Store
