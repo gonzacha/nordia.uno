@@ -13,3 +13,18 @@ instance/
 
 # Archivos del sistema operativo
 .DS_Store
+
+# Entorno virtual de Python
+venv/
+
+# Archivos de caché de Python
+__pycache__/
+*.pyc
+
+# Base de datos SQLite
+*.db
+
+# Scripts de un solo uso
+audit_data.py
+fix_data.py
+export_data_to_json.py
