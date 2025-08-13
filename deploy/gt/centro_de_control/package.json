@@ -1,0 +1,88 @@
+{
+  "name": "gt-intelligence-centro-de-control",
+  "version": "2.0.0",
+  "description": "GT Intelligence - Centro de Control Electoral para la Provincia de Corrientes",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": "python3 -m http.server 8080",
+    "dev-win": "python -m http.server 8080",
+    "build": "echo 'Build system not configured yet - using direct ES6 modules'",
+    "test": "echo 'Testing system not configured yet'",
+    "lint": "echo 'Linting not configured yet'",
+    "serve": "python3 -m http.server 8080",
+    "start": "npm run serve",
+    "preview": "npm run serve"
+  },
+  "keywords": [
+    "elecciones",
+    "corrientes",
+    "resultados",
+    "electorales",
+    "dashboard",
+    "vanilla-js",
+    "es6-modules"
+  ],
+  "author": "GT Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gtteam/gt-intelligence.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gtteam/gt-intelligence/issues"
+  },
+  "homepage": "https://github.com/gtteam/gt-intelligence#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "Chrome >= 61",
+    "Firefox >= 60",
+    "Safari >= 11",
+    "Edge >= 16"
+  ],
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "files": [
+    "src/",
+    "index.html",
+    "style.css",
+    "README.md"
+  ],
+  "directories": {
+    "src": "src",
+    "doc": "docs"
+  },
+  "config": {
+    "port": 8080,
+    "api_url": "http://127.0.0.1:5001"
+  },
+  "gt-intelligence": {
+    "version": "2.0.0",
+    "build_date": "2025-08-10",
+    "architecture": "modular",
+    "modules": [
+      "config",
+      "logger", 
+      "store",
+      "apiService",
+      "LoadingComponent",
+      "ErrorComponent",
+      "MunicipalitySelectorComponent",
+      "ResultsDashboardComponent"
+    ],
+    "backend_compatibility": "flask-api-v1",
+    "features": [
+      "es6-modules",
+      "observer-pattern",
+      "error-recovery",
+      "responsive-design",
+      "chart-visualization"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GTI Test - Error Handling</title>
+  <script>
+    // Point to an invalid API to force error path
+    window.__API_BASE_URL__ = 'http://127.0.0.1:5999';
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div id="app" class="container mx-auto p-4 md:p-8"></div>
+  <script type="module">
+    const waitForChart = () => new Promise((res, rej) => { let i=0; const max=50; (function c(){ if (typeof Chart!=='undefined') return res(); if (i++<max) return setTimeout(c,100); rej(new Error('chart fail')); })(); });
+    await waitForChart();
+    await import('./src/app.js');
+  </script>
+</body>
+</html>
+

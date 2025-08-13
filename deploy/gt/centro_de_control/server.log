@@ -1,0 +1,28 @@
+127.0.0.1 - - [09/Aug/2025 22:43:38] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [09/Aug/2025 22:43:39] "GET /src/app.js HTTP/1.1" 304 -
+127.0.0.1 - - [09/Aug/2025 22:43:39] "GET /src/apiService.js HTTP/1.1" 304 -
+127.0.0.1 - - [09/Aug/2025 22:43:39] "GET /src/config.js HTTP/1.1" 304 -
+127.0.0.1 - - [09/Aug/2025 22:43:39] "GET /src/logger.js HTTP/1.1" 304 -
+127.0.0.1 - - [09/Aug/2025 22:43:39] "GET /src/store.js HTTP/1.1" 304 -
+127.0.0.1 - - [09/Aug/2025 22:43:39] "GET /src/components/LoadingComponent.js HTTP/1.1" 304 -
+127.0.0.1 - - [09/Aug/2025 22:43:39] "GET /src/components/ResultsDashboardComponent.js HTTP/1.1" 304 -
+127.0.0.1 - - [09/Aug/2025 22:43:39] "GET /src/components/MunicipalitySelectorComponent.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Aug/2025 22:43:39] "GET /src/components/ErrorComponent.js HTTP/1.1" 304 -
+127.0.0.1 - - [09/Aug/2025 22:43:43] code 404, message File not found
+127.0.0.1 - - [09/Aug/2025 22:43:43] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 -
+127.0.0.1 - - [10/Aug/2025 02:40:46] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [10/Aug/2025 02:40:46] code 404, message File not found
+127.0.0.1 - - [10/Aug/2025 02:40:46] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 -
+127.0.0.1 - - [10/Aug/2025 02:40:46] "GET /src/app.js HTTP/1.1" 304 -
+127.0.0.1 - - [10/Aug/2025 02:40:46] "GET /src/config.js HTTP/1.1" 304 -
+127.0.0.1 - - [10/Aug/2025 02:40:46] "GET /src/logger.js HTTP/1.1" 304 -
+127.0.0.1 - - [10/Aug/2025 02:40:46] "GET /src/components/ErrorComponent.js HTTP/1.1" 304 -
+127.0.0.1 - - [10/Aug/2025 02:40:46] "GET /src/apiService.js HTTP/1.1" 304 -
+127.0.0.1 - - [10/Aug/2025 02:40:46] "GET /src/components/MunicipalitySelectorComponent.js HTTP/1.1" 304 -
+127.0.0.1 - - [10/Aug/2025 02:40:46] "GET /src/components/LoadingComponent.js HTTP/1.1" 304 -
+127.0.0.1 - - [10/Aug/2025 02:40:46] "GET /src/store.js HTTP/1.1" 304 -
+127.0.0.1 - - [10/Aug/2025 02:40:46] "GET /src/components/ResultsDashboardComponent.js HTTP/1.1" 304 -
+127.0.0.1 - - [10/Aug/2025 03:16:48] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [10/Aug/2025 03:16:48] code 404, message File not found
+127.0.0.1 - - [10/Aug/2025 03:16:48] "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 -
+127.0.0.1 - - [10/Aug/2025 03:16:48] "GET /src/components/MunicipalitySelectorComponent.js HTTP/1.1" 304 -

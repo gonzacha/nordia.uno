@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GTI Test - Dashboard Flow</title>
+  <script>
+    window.__API_BASE_URL__ = 'http://127.0.0.1:5001';
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div id="app" class="container mx-auto p-4 md:p-8"></div>
+  <script type="module">
+    const waitForChart = () => new Promise((res, rej) => { let i=0; const max=50; (function c(){ if (typeof Chart!=='undefined') return res(); if (i++<max) return setTimeout(c,100); rej(new Error('chart fail')); })(); });
+    await waitForChart();
+    const { default: app } = await import('./src/app.js');
+    // Try to auto-select first municipality after initial load
+    // Poll for window.gtApp
+    let tries=0; while(!window.gtApp && tries++<100) await new Promise(r=>setTimeout(r,50));
+    // Fetch list to get a valid id
+    const resp = await fetch('http://127.0.0.1:5001/api/municipios');
+    const data = await resp.json();
+    const id = (data.municipalities && data.municipalities[0] && data.municipalities[0].id) || 1;
+    await window.gtApp.handleMunicipalitySelect(id);
+    // After render, click back programmatically
+    setTimeout(() => {
+      const back = document.getElementById('back-btn');
+      if (back) back.click();
+    }, 1500);
+  </script>
+</body>
+</html>
+

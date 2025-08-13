@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GT Intelligence - Centro de Control</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js UMD (global Chart) con fallback -->
+    <script 
+      src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
+      onerror="(function(){var s=document.createElement('script');s.src='https://unpkg.com/chart.js@4.4.4/dist/chart.umd.min.js';document.head.appendChild(s);})();"
+      crossorigin="anonymous"></script>
+    
+    <!-- Meta información -->
+    <meta name="description" content="GT Intelligence - Centro de Control Electoral para la Provincia de Corrientes">
+    <meta name="keywords" content="elecciones, corrientes, resultados, electorales, GT Intelligence">
+    <meta name="author" content="GT Team">
+    
+    <!-- Favicon (opcional) -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗳️</text></svg>">
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Estilos adicionales para el sistema modular -->
+    <style>
+        /* Estilos específicos que no están en Tailwind */
+        .loading-spinner svg {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Mejoras de accesibilidad */
+        @media (prefers-reduced-motion: reduce) {
+            .loading-spinner svg,
+            .animate-spin,
+            .animate-pulse,
+            .animate-ping {
+                animation: none !important;
+            }
+        }
+        
+        /* Scroll suave para navegación */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Mejoras para el input de búsqueda */
+        #municipality-search:focus {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+        
+        /* Estilos para highlighting de búsqueda */
+        mark {
+            background-color: rgba(59, 130, 246, 0.3) !important;
+            color: rgb(191, 219, 254) !important;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        /* Loading dots animation */
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+        
+        /* FIX: Estilos adicionales para gráficos */
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+        
+        /* Estilos para botones de tipo de gráfico */
+        .chart-type-btn.active {
+            background-color: rgb(37, 99, 235) !important;
+            color: white !important;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-gray-100 antialiased">
+    <!-- Contenedor principal de la aplicación -->
+    <div id="app" class="container mx-auto p-4 md:p-8">
+        <!-- Loading inicial mientras se carga la aplicación -->
+        <div class="flex flex-col items-center justify-center h-screen">
+            <div class="loading-spinner mb-4">
+                <svg class="h-10 w-10 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </div>
+            <p class="text-xl text-gray-400 loading-dots">Iniciando GT Intelligence</p>
+        </div>
+    </div>
+
+    <!-- Scripts de la aplicación modular -->
+    <script type="module">
+        // Verificación de soporte para módulos ES6
+        if (!window.navigator.userAgent.includes('Chrome/')) {
+            // Fallback para navegadores que no soporten módulos
+            console.warn('ES6 modules may not be fully supported in this browser');
+        }
+        
+        // FIX: Verificar que Chart.js esté cargado antes de continuar
+        const waitForChart = () => {
+            return new Promise((resolve, reject) => {
+                let attempts = 0;
+                const maxAttempts = 50; // 5 segundos máximo
+                
+                const checkChart = () => {
+                    if (typeof Chart !== 'undefined') {
+                        console.log('Chart.js loaded successfully');
+                        resolve();
+                    } else if (attempts < maxAttempts) {
+                        attempts++;
+                        setTimeout(checkChart, 100);
+                    } else {
+                        reject(new Error('Chart.js failed to load'));
+                    }
+                };
+                
+                checkChart();
+            });
+        };
+        
+        // Importar y ejecutar la aplicación principal
+        try {
+            // Esperar a que Chart.js esté listo
+            await waitForChart();
+            
+            // Importación dinámica para manejar errores de carga
+            const { default: app } = await import('./src/app.js');
+            
+            // La aplicación se inicializa automáticamente al importarse
+            console.log('GT Intelligence application loaded successfully');
+            
+        } catch (error) {
+            console.error('Failed to load GT Intelligence application:', error);
+            
+            // Mostrar error de fallback en caso de fallo crítico
+            document.getElementById('app').innerHTML = `
+                <div class="flex flex-col items-center justify-center h-screen p-4">
+                    <div class="max-w-md w-full bg-red-900/20 border border-red-700/50 rounded-lg p-6 text-center">
+                        <svg class="w-16 h-16 text-red-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.502 0L4.732 15.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                        <h2 class="text-xl font-bold text-red-300 mb-3">Error de Carga</h2>
+                        <p class="text-red-200 mb-4">No se pudo cargar la aplicación GT Intelligence.</p>
+                        <button onclick="window.location.reload()" class="bg-red-600 hover:bg-red-500 text-white font-semibold py-2 px-4 rounded transition-colors">
+                            Recargar Página
+                        </button>
+                        <div class="mt-4 text-xs text-red-400">
+                            <details>
+                                <summary>Detalles técnicos</summary>
+                                <pre class="mt-2 text-left bg-red-950/50 p-2 rounded text-xs overflow-auto">${error.message}</pre>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+
+    <!-- Fallback para navegadores sin soporte de módulos ES6 -->
+    <script nomodule>
+        console.error('ES6 modules not supported in this browser');
+        document.getElementById('app').innerHTML = `
+            <div class="flex flex-col items-center justify-center h-screen p-4">
+                <div class="max-w-md w-full bg-yellow-900/20 border border-yellow-700/50 rounded-lg p-6 text-center">
+                    <svg class="w-16 h-16 text-yellow-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.502 0L4.732 15.5c-.77.833.192 2.5 1.732 2.5z"/>
+                    </svg>
+                    <h2 class="text-xl font-bold text-yellow-300 mb-3">Navegador No Compatible</h2>
+                    <p class="text-yellow-200 mb-4">
+                        Tu navegador no es compatible con GT Intelligence. 
+                        Necesitas un navegador moderno como Chrome 61+, Firefox 60+, Safari 11+ o Edge 16+.
+                    </p>
+                    <a href="https://browsehappy.com/" target="_blank" class="bg-yellow-600 hover:bg-yellow-500 text-white font-semibold py-2 px-4 rounded transition-colors">
+                        Actualizar Navegador
+                    </a>
+                </div>
+            </div>
+        `;
+    </script>
+</body>
+</html>

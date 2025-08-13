@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard de Validación</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Telegramas pendientes</h1>
+    <form method="get" class="mb-4 flex flex-wrap gap-2">
+      <select name="estado" class="border p-2 rounded">
+        <option value="">Todos los estados</option>
+        <option value="pendiente" {% if estado=='pendiente' %}selected{% endif %}>Pendiente</option>
+        <option value="dudoso" {% if estado=='dudoso' %}selected{% endif %}>Dudoso</option>
+        <option value="error" {% if estado=='error' %}selected{% endif %}>Error</option>
+        <option value="ok" {% if estado=='ok' %}selected{% endif %}>OK</option>
+      </select>
+      <input type="text" name="municipio" value="{{ municipio or '' }}" placeholder="Municipio" class="border p-2 rounded" />
+      <button class="bg-blue-500 text-white px-4 py-2 rounded" type="submit">Filtrar</button>
+    </form>
+    <div class="mb-4">
+      <span class="mr-4">Pendientes: <span id="pend-count">0</span></span>
+      <span class="mr-4">Dudosos: <span id="dud-count">0</span></span>
+      <span class="mr-4">Errores: <span id="err-count">0</span></span>
+      <span>OK: <span id="ok-count">0</span></span>
+    </div>
+    <table class="min-w-full bg-white">
+      <thead>
+        <tr>
+          <th class="p-2 text-left">ID</th>
+          <th class="p-2 text-left">Municipio</th>
+          <th class="p-2 text-left">Estado</th>
+          <th class="p-2 text-left">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in telegramas %}
+        <tr class="border-b {% if t.estado=='error' %}bg-red-100{% elif t.estado=='dudoso' %}bg-yellow-100{% elif t.estado=='ok' %}bg-green-100{% else %}bg-gray-100{% endif %}">
+          <td class="p-2">{{ t.id }}</td>
+          <td class="p-2">{{ t.municipio or '-' }}</td>
+          <td class="p-2 capitalize">{{ t.estado }}</td>
+          <td class="p-2"><a href="{{ url_for('main.validar_telegrama', telegrama_id=t.id) }}" class="text-blue-600">Validar</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <script>
+    async function updateCounts(){
+      const res = await fetch('{{ url_for('main.telegram_counts') }}');
+      const data = await res.json();
+      document.getElementById('pend-count').textContent = data.pendiente;
+      document.getElementById('dud-count').textContent = data.dudoso;
+      document.getElementById('err-count').textContent = data.error;
+      document.getElementById('ok-count').textContent = data.ok;
+    }
+    updateCounts();
+    setInterval(updateCounts, 5000);
+  </script>
+</body>
+</html>

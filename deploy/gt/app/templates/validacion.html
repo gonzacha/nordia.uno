@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Validación Telegrama {{ telegrama.id }}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Validar Telegrama {{ telegrama.id }}</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        {% if telegrama.imagen_path %}
+        <img src="{{ telegrama.imagen_path }}" alt="Telegrama {{ telegrama.id }}" class="w-full border" />
+        {% else %}
+        <div class="p-4 bg-white border">Sin imagen</div>
+        {% endif %}
+      </div>
+      <div>
+        <form method="post" action="{{ url_for('main.accion_telegrama', telegrama_id=telegrama.id) }}" class="bg-white p-4 border">
+          <table class="min-w-full mb-4">
+            <tbody>
+              {% for key, value in (telegrama.datos or {}).items() %}
+              <tr class="border-b">
+                <td class="p-2 font-semibold">{{ key }}</td>
+                <td class="p-2"><input type="text" name="datos[{{ key }}]" value="{{ value }}" class="w-full border p-1" /></td>
+                <td class="p-2 text-sm text-gray-500">{{ telegrama.confianza[key] if telegrama.confianza and key in telegrama.confianza else '' }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <textarea name="comentario" class="w-full border p-2 mb-4" placeholder="Comentarios"></textarea>
+          <div class="flex flex-wrap gap-2">
+            <button name="accion" value="aprobar" class="bg-green-500 text-white px-4 py-2 rounded">Aprobar</button>
+            <button name="accion" value="rechazar" class="bg-red-500 text-white px-4 py-2 rounded">Rechazar</button>
+            <button name="accion" value="corregir" class="bg-blue-500 text-white px-4 py-2 rounded">Corregir</button>
+            <button name="accion" value="reprocesar" class="bg-yellow-500 text-white px-4 py-2 rounded">Reprocesar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

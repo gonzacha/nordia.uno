@@ -1,0 +1,1779 @@
+{
+  "id": 0,
+  "nombre": "PROVINCIA",
+  "alianzas": [
+    {
+      "nombre": "*EXP - 277273/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 277273/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 277273/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"PARTIDO DE LA ESPERANZA S/ PRESENTACION DE CANDIDATURA",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"PARTIDO DE LA ESPERANZA S/ PRESENTACION DE CANDIDATURA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "(PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "(PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N.º",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Efectuado el pertinente contralor de las constancias obrantes en autos y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 277273/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 277273/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 277273/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 277273/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"PARTIDO DE LA ESPERANZA S/ PRESENTACIÓN DE CANDIDATURA",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"PARTIDO DE LA ESPERANZA S/ PRESENTACIÓN DE CANDIDATURA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "(PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "(PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N°",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "PRESENTACIÓN",
+      "candidatos": {
+        "intendente": {
+          "nombre": "SIN DATOS",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CANDIDATURA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "SIN DATOS",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Efectuado el pertinente contralor de las constancias obrantes en autos y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SENADORES TITULARES",
+      "candidatos": {
+        "intendente": {
+          "nombre": "SIN DATOS",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 277641/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 277641/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 277641/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 277641/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"PARTIDO  NUEVO  ENCUENTRO  POR  LA  DEMOCRACIA  Y  LA",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"PARTIDO  NUEVO  ENCUENTRO  POR  LA  DEMOCRACIA  Y  LA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EQUIDAD S/ PRESENTACION DE CANDIDATURA (PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EQUIDAD S/ PRESENTACION DE CANDIDATURA (PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N° 405",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "DEMOCRACIA Y LA EQUIDAD S/ PRESENTACION DE CANDIDATURA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "(PROVINCIAL)”, Expte.  N.º 277641/25;",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Efectuado el pertinente contralor de las constancias obrantes en autos y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 277650/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 277650/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 277650/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 277650/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"PARTIDO  AHORA  S/  PRESENTACION  DE  CANDIDATURA",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"PARTIDO  AHORA  S/  PRESENTACION  DE  CANDIDATURA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "(PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "(PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N.º",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Que, efectuado el pertinente contralor de las constancias obrantes en",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSTANZA “COTY”, D.N.I. N° 32.516.026.-",
+      "candidatos": {
+        "intendente": {
+          "nombre": "2°) Regístrese, Insértese y Notifíquese a los apoderados de marras en",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 277650/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 277650/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 277650/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 277650/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"PARTIDO  AHORA  S/  PRESENTACIÓN  DE  CANDIDATURA",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"PARTIDO  AHORA  S/  PRESENTACIÓN  DE  CANDIDATURA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "(PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "(PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N.º 411",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Efectuado el pertinente contralor de las constancias obrantes en autos y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 276613/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 276613/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 276613/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 276613/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"ENCUENTRO POR CORRIENTES - ECO S/ RECONOCIMIENTO DE",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"ENCUENTRO POR CORRIENTES - ECO S/ RECONOCIMIENTO DE",
+      "candidatos": {
+        "intendente": {
+          "nombre": "ALIANZA (PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "ALIANZA (PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N.º 40",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Efectuado el pertinente contralor de las constancias obrantes en autos y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 276613/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 276613/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 276613/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 276613/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"ENCUENTRO POR CORRIENTES - ECO S/ RECONOCIMIENTO DE",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"ENCUENTRO POR CORRIENTES - ECO S/ RECONOCIMIENTO DE",
+      "candidatos": {
+        "intendente": {
+          "nombre": "ALIANZA (PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "ALIANZA (PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N.º 220",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Efectuado el pertinente contralor de las constancias obrantes en autos y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "ENRIQUE, D.N.I. N° 12.362.509;  2)  MANCINI FRATI, MARÍA EUGENIA DE",
+      "candidatos": {
+        "intendente": {
+          "nombre": "LAS MERCEDES, D.N.I. N.º 22.333.527;  3) AGUIRRE, MANUEL IGNACIO,",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SEIFERT, CINTHIA SILVINA, D.N.I. N° 27.482.582.",
+      "candidatos": {
+        "intendente": {
+          "nombre": "2°) Regístrese, Insértese y Notifíquese a los apoderados de marras en",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 276635/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 276635/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 276635/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 276635/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"CAMBIÁ  CORRIENTES  S/  RECONOCIMIENTO  DE  ALIANZA",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"CAMBIÁ  CORRIENTES  S/  RECONOCIMIENTO  DE  ALIANZA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "(PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "(PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N.º",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"CAMBIÁ  CORRIENTES  S/",
+      "candidatos": {
+        "intendente": {
+          "nombre": "RECONOCIMIENTO DE ALIANZA (PROVINCIAL)\", Expte.  N.º 276635;",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Que, efectuado el pertinente contralor de las constancias obrantes en",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "RAÚL RICARDO, D.N.I. N° 26.342.700.",
+      "candidatos": {
+        "intendente": {
+          "nombre": "2°) Regístrese, Insértese y Notifíquese a los apoderados de marras en",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 276635/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 276635/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 276635/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 276635/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"CAMBIÁ  CORRIENTES  S/  RECONOCIMIENTO  DE  ALIANZA",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"CAMBIÁ  CORRIENTES  S/  RECONOCIMIENTO  DE  ALIANZA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "(PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "(PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N.º 401",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"CAMBIÁ  CORRIENTES  S/",
+      "candidatos": {
+        "intendente": {
+          "nombre": "RECONOCIMIENTO",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "RECONOCIMIENTO",
+      "candidatos": {
+        "intendente": {
+          "nombre": "SIN DATOS",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "(PROVINCIAL)",
+      "candidatos": {
+        "intendente": {
+          "nombre": "SIN DATOS",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Efectuado el pertinente contralor de las constancias obrantes en autos y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 276645/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 276645/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 276645/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 276645/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"VAMOS  CORRIENTES  S/  RECONOCIMIENTO  DE  ALIANZA",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"VAMOS  CORRIENTES  S/  RECONOCIMIENTO  DE  ALIANZA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "(PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "(PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N.º 41",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"VAMOS  CORRIENTES  S/",
+      "candidatos": {
+        "intendente": {
+          "nombre": "RECONOCIMIENTO DE ALIANZA (PROVINCIAL), Expte.  N.º 276645;",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Que, efectuado el pertinente contralor de las constancias obrantes en",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "NÉSTOR PEDRO, D.N.I. N° 11.146.811. -",
+      "candidatos": {
+        "intendente": {
+          "nombre": "2°) Regístrese, Insértese y Notifíquese a los apoderados de marras en",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 276771/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 276771/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 276771/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 276771/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"LIMPIAR  CORRIENTES  -  PROVINCIAL S/  RECONOCIMIENTO  DE",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"LIMPIAR  CORRIENTES  -  PROVINCIAL S/  RECONOCIMIENTO  DE",
+      "candidatos": {
+        "intendente": {
+          "nombre": "ALIANZA (PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "ALIANZA (PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N.º 43",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Que, efectuado el pertinente contralor de las constancias obrantes en",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 276645/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 276645/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 276645/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 276645/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"VAMOS  CORRIENTES  S/  RECONOCIMIENTO  DE  ALIANZA",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"VAMOS  CORRIENTES  S/  RECONOCIMIENTO  DE  ALIANZA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "(PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "(PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N.º",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"VAMOS  CORRIENTES  S/",
+      "candidatos": {
+        "intendente": {
+          "nombre": "RECONOCIMIENTO DE ALIANZA (PROVINCIAL)”, Expte.  N.º 276645;",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Efectuado el pertinente contralor de las constancias obrantes en autos y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "ADOLFO, D.N.I. N° 20.290.623;  2)  GALARZA, SILVIA PATRICIA; D.N.I. .N°",
+      "candidatos": {
+        "intendente": {
+          "nombre": "24.620.365;  3)  FICK,  HENRY JORGE, D.N.I. N°  22.103.309;  4) JETTER,",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "24.620.365;  3)  FICK,  HENRY JORGE, D.N.I. N°  22.103.309;  4) JETTER,",
+      "candidatos": {
+        "intendente": {
+          "nombre": "INGRID,  D.N.I.  Nº  22.321.611;  5) CHAVEZ,  WALTER  ANDRES, D.N.I.  Nº",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "TASSANO, EDUARDO ADOLFO, D.N.I N° 13.636.405; 2) ROMERO, JESSICA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "NATALIA,  D.N.I.  N°  25.594.512;  3) BRANZ,  MARIO  JACINTO,  D.N.I.  N.º",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "HUGO RICARDO; D.N.I.  N° 32.992.939; 6) GIOTTA, ANDREA MARÍA, D.N.I",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N° 21.600.556, 7) BENÍTEZ, EDGAR VICTORIANO, D.N.I. N° 18.164.111; 8)",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "N° 21.600.556, 7) BENÍTEZ, EDGAR VICTORIANO, D.N.I. N° 18.164.111; 8)",
+      "candidatos": {
+        "intendente": {
+          "nombre": "ROTELA CAÑETE, ALBANA VIRGINIA, D.N.I. N° 27.552.898;  9) BENÍTEZ,",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "ROTELA CAÑETE, ALBANA VIRGINIA, D.N.I. N° 27.552.898;  9) BENÍTEZ,",
+      "candidatos": {
+        "intendente": {
+          "nombre": "HUGO DANIEL, D.N.I N.º 13.647.410; 10) MIRANDA, ELVIRA LUISA, D.N.I N.º",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "14.237.930; 11) BARROS PERKINS, ANTONIO JORGE, D.N.I. N° 23.082.416;",
+      "candidatos": {
+        "intendente": {
+          "nombre": "12) GODOY, ESTELA CARMEN, D.N.I. N° 13.637.541; 13) FRETTE, NESTOR",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "12) GODOY, ESTELA CARMEN, D.N.I. N° 13.637.541; 13) FRETTE, NESTOR",
+      "candidatos": {
+        "intendente": {
+          "nombre": "HORACIO,  D.N.I.  N.º  31.102.531;  14)  LÓPEZ, MARTA ITATÍ,  D.N.I.  N.º",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "N°  40.263.379;  3) GORTARI,  MARÍA  CLARA,  D.N.I.  N°  39.565.153;  4)",
+      "candidatos": {
+        "intendente": {
+          "nombre": "FERNÁNDEZ, LUCIO JOSÉ, D.N.I. N° 21.513.844; 5)  PRIETO, LAURA INÉS",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "FERNÁNDEZ, LUCIO JOSÉ, D.N.I. N° 21.513.844; 5)  PRIETO, LAURA INÉS",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JOSEFINA, D.N.I. N.º 16.892.507;  6) CASTILLO, JULIO CESAR, D.N.I. N°",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JAVIER, D.N.I. N° 44.407.745. -",
+      "candidatos": {
+        "intendente": {
+          "nombre": "2°) Regístrese, Insértese y Notifíquese a los apoderados de marras en",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 276771/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 276771/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 276771/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 276771/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"LIMPIAR  CORRIENTES  -  PROVINCIAL S/  RECONOCIMIENTO  DE",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"LIMPIAR  CORRIENTES  -  PROVINCIAL S/  RECONOCIMIENTO  DE",
+      "candidatos": {
+        "intendente": {
+          "nombre": "ALIANZA (PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "ALIANZA (PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N°",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Efectuado el pertinente contralor de las constancias obrantes en autos y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "HADAD,  RAUL EDUARDO,  D.N.I.  N°  32.302.051;  4)  ALEGRE,  PATRICIA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "FABIANA, D.N.I. N.º 28.138.158; 5) ESTOUP, JUSTO ALEJANDRO, D.N.I. N°",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUAN JOSÉ, D.N.I. N° 32.183.448; 3) PATAGUA, GLORIA GABRIELA, D.N.I.",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N.º 32.216.983; para la categoría de DIPUTADOS TITULARES a los Sres.: 1)",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "N°  37.061.347;  3) HELMAN,  CARLOS  DANIEL,  D.N.I.  N°  28.589.879;  4)",
+      "candidatos": {
+        "intendente": {
+          "nombre": "CORNALO,  LIDIA  NILDA,  D.N.I.  N.º  20.999.249;  5) FERRERO,  OSCAR",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 276778/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 276778/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 276778/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 276778/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"LA  LIBERTAD  AVANZA  S/  RECONOCIMIENTO  DE  ALIANZA",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"LA  LIBERTAD  AVANZA  S/  RECONOCIMIENTO  DE  ALIANZA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "(PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "(PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N.º 42",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"LA  LIBERTAD  AVANZA  S/",
+      "candidatos": {
+        "intendente": {
+          "nombre": "RECONOCIMIENTO DE ALIANZA (PROVINCIAL), Expte.  N.º 276778;",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Que, efectuado el pertinente contralor de las constancias obrantes en",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 276778/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 276778/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 276778/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 276778/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"LA  LIBERTAD  AVANZA  S/  RECONOCIMIENTO  DE  ALIANZA",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"LA  LIBERTAD  AVANZA  S/  RECONOCIMIENTO  DE  ALIANZA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "(PROVINCIAL) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "(PROVINCIAL) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N.º    227                                                           Corrientes, 22 de Julio de 2025.-",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"LA  LIBERTAD  AVANZA  S/",
+      "candidatos": {
+        "intendente": {
+          "nombre": "RECONOCIMIENTO  DE  ALIANZA  (PROVINCIAL)\" Expte.  N.º",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Efectuado el pertinente contralor de las constancias obrantes en autos y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "*EXP - 276848/25*",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "*EXP - 276848/25*",
+      "candidatos": {
+        "intendente": {
+          "nombre": "EXP 276848/25",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "EXP 276848/25",
+      "candidatos": {
+        "intendente": {
+          "nombre": "\"ENCUENTRO POR CORRIENTES - ECO S/ RECONOCIMIENTO DE",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "\"ENCUENTRO POR CORRIENTES - ECO S/ RECONOCIMIENTO DE",
+      "candidatos": {
+        "intendente": {
+          "nombre": "ALIANZA (DIPUTADOS PROVINCIALES) \"",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "ALIANZA (DIPUTADOS PROVINCIALES) \"",
+      "candidatos": {
+        "intendente": {
+          "nombre": "N°",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "CONSIDERANDO:",
+      "candidatos": {
+        "intendente": {
+          "nombre": "Efectuado el pertinente contralor de las constancias obrantes en autos y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "RECALDE, EMILIANO, D.N.I. N° 30.826.862;  2) GORTARI, MARÍA CECILIA,",
+      "candidatos": {
+        "intendente": {
+          "nombre": "D.N.I. N° 26.234.618; 3) CHEME, JOSÉ ANTONIO, D.N.I. N.º 17.118.500, 4)",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "ANGEL, D.N.I. N° 12.337.389;  6) MERLO, BLANCALIA BEATRIZ, D.N.I. N°",
+      "candidatos": {
+        "intendente": {
+          "nombre": "20.727.942;  7)  ROJAS,  JUAN  ALEJANDRO,  D.N.I.  N.º  25.876.953,  8)",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "21.907.738;  11) ACOSTA, JULIO CESAR, D.N.I 31.435.921;  12) SILVERO,",
+      "candidatos": {
+        "intendente": {
+          "nombre": "RAMONA EMILCE, D.N.I. N° 26.191.212;  13) MORTOLA, JOSÉ GABRIEL,",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "RAMONA EMILCE, D.N.I. N° 26.191.212;  13) MORTOLA, JOSÉ GABRIEL,",
+      "candidatos": {
+        "intendente": {
+          "nombre": "D.N.I. N° 20.447.999; 14) OCAMPO, SILVIA ELIZABETH, D.N.I. N° 26.860.789;",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "D.N.I. N° 20.447.999; 14) OCAMPO, SILVIA ELIZABETH, D.N.I. N° 26.860.789;",
+      "candidatos": {
+        "intendente": {
+          "nombre": "15) SOLIS, EDGARDO DANIEL, D.N.I. N° 35.438.576; y para la categoría de",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "ALFONZO, JOSÉ  EMANUEL,  D.N.I.  N° 45.845.301;  5)  SEGOVIA, LAURA",
+      "candidatos": {
+        "intendente": {
+          "nombre": "ALEJANDRA, D.N.I. N° 24.144.258, 6) MEDINA, LEANDRO JOSÉ, D.N.I. Nº",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "GONZALEZ",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "SECRETARIA/O",
+      "candidatos": {
+        "intendente": {
+          "nombre": "JUZGADO CIVIL Y",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "JUZGADO CIVIL Y",
+      "candidatos": {
+        "intendente": {
+          "nombre": "COMERCIAL NRO.03",
+          "votos": 0
+        }
+      }
+    },
+    {
+      "nombre": "COMERCIAL NRO.03",
+      "candidatos": {
+        "intendente": {
+          "nombre": "SIN DATOS",
+          "votos": 0
+        }
+      }
+    }
+  ]
+}
