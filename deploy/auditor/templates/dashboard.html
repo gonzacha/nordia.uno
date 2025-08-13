@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>DonWeb Auditor Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>DonWeb Auditor Dashboard</h1>
+    <div id="metrics">Cargando métricas...</div>
+    <script>
+        async function loadMetrics() {
+            const resp = await fetch('/api/metrics');
+            const data = await resp.json();
+            document.getElementById('metrics').innerText = JSON.stringify(data, null, 2);
+        }
+        loadMetrics();
+        setInterval(loadMetrics, 2000);
+    </script>
+</body>
+</html>

@@ -27,4 +27,7 @@ __pycache__/
 # Scripts de un solo uso
 audit_data.py
 fix_data.py
-export_data_to_json.py
+export_data_to_json.py/deploy/**/venv
+/deploy/**/__pycache__
+/deploy/**/.env
+/deploy/**/instance

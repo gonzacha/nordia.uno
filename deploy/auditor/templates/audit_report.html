@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Audit Report</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Audit Report</h1>
+    <pre>{{ report_json | tojson(indent=2) }}</pre>
+</body>
+</html>
