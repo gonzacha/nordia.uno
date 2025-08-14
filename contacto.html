@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NORDIA — Contacto</title>
+  <meta name="description" content="Conecta con nuestro equipo." />
+  <meta property="og:title" content="NORDIA — Contacto" />
+  <meta property="og:description" content="Conecta con nuestro equipo." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nordia.uno/contacto.html" />
+  <meta property="og:image" content="images/og-image.png" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="icon" href="images/favicon.png" />
+  <style>
+    :root{
+      --bg:#0b0f1a; --card:#0e1526; --muted:#9fb3c8; --text:#e6eef7; --brand:#64d3ff; --accent:#90f; --ok:#14cc8a; --warn:#ffcc00; --danger:#ff6b6b;
+      --maxw:1120px; --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:linear-gradient(180deg,#0a0f1d 0%, #0b1022 60%, #0c1228 100%);color:var(--text);font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif}
+    a{color:var(--brand);text-decoration:none}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:24px}
+    header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(10,14,28,.6);border-bottom:1px solid rgba(255,255,255,.06);z-index:10}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.3px}
+    .logo{width:28px;height:28px}
+    .nav a.btn{padding:10px 14px;border:1px solid rgba(255,255,255,.14);border-radius:12px;transition:all .2s ease;color:var(--text)}
+    .nav a.btn.nav-current{color:var(--brand)}
+    .nav a.btn:hover{background:rgba(255,255,255,.08);border-color:var(--brand)}
+    .hero{display:grid;gap:28px;grid-template-columns:1.3fr 1fr;align-items:center;padding:34px 0}
+    .card{background:radial-gradient(1200px 480px at 80% -10%, rgba(100,211,255,.12), transparent 60%), var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .hero .copy{padding:28px}
+    h1{font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 10px}
+    .kicker{color:var(--muted);text-transform:uppercase;letter-spacing:.22em;font-size:.8rem}
+    .lead{color:#d6e6f7;font-size:1.05rem;margin:10px 0 20px}
+    .cta{display:flex;flex-wrap:wrap;gap:12px}
+    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:14px;padding:12px 16px;font-weight:700;transition:all .2s ease}
+    .btn-primary{background:linear-gradient(135deg,#64d3ff 0%, #6f8cff 60%, #9d7bff 100%);color:#06101a;border:none}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(100,211,255,.3)}
+    .btn-secondary{border:1px solid rgba(255,255,255,.18);color:var(--text)}
+    .btn-secondary:hover{background:rgba(255,255,255,.08)}
+    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+    .metric{padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.02),transparent)}
+    .metric h3{font-size:clamp(22px,4vw,32px);margin:0}
+    .metric p{margin:4px 0 0;color:var(--muted);font-size:.9rem}
+    .mock{padding:8px}
+    .mock-inner{aspect-ratio:16/10;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,#111a30,#0b1226);display:flex;align-items:center;justify-content:center;color:#b9c7de;font-weight:600;background-image:url('images/contact-hero.png');background-size:cover;background-position:center}
+    .mock-inner img{width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block}
+
+    section{padding:28px 0}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .four{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    h2{font-size:clamp(22px,4vw,30px);margin:0 0 8px}
+    h3{font-size:clamp(18px,3vw,22px);margin:0 0 6px}
+    ul{margin:10px 0 0 18px;color:#d6e6f7}
+    li{margin:6px 0}
+    .tag{display:inline-block;padding:6px 10px;border:1px solid rgba(255,255,255,.14);border-radius:999px;font-size:.8rem;color:var(--muted)}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .feature{padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);transition:all .2s ease}
+    .feature:hover{transform:translateY(-2px);border-color:var(--brand)}
+
+    .contact-card{padding:22px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);transition:all .2s ease;text-align:center}
+    .contact-card:hover{transform:translateY(-2px);border-color:var(--brand)}
+    .contact-icon{font-size:2.5rem;margin-bottom:12px}
+    .contact-link{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:10px 16px;border-radius:12px;background:rgba(100,211,255,.1);border:1px solid rgba(100,211,255,.2);color:var(--brand);font-weight:600;transition:all .2s ease}
+    .contact-link:hover{background:rgba(100,211,255,.2);border-color:var(--brand)}
+
+    .info-section{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:32px 0}
+    .info-card{padding:24px;border-radius:var(--radius);border:1px solid rgba(255,255,255,.08);background:var(--card)}
+    .info-list{list-style:none;margin:16px 0 0;padding:0}
+    .info-list li{display:flex;align-items:center;gap:12px;margin:12px 0;padding:12px;border-radius:8px;background:rgba(255,255,255,.02)}
+    .info-icon{font-size:1.2rem;min-width:24px}
+
+    footer{border-top:1px solid rgba(255,255,255,.08);padding:24px 0;color:#a9bad0}
+    .foot{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
+
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+      .two,.four{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+      .metrics{grid-template-columns:1fr 1fr}
+      .info-section{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand"><img src="images/logo-small.png" alt="NORDIA Logo" class="logo"> NORDIA</div>
+      <nav>
+        <a class="btn" href="index.html">Inicio</a>
+        <a class="btn" href="servicios.html">Soluciones</a>
+        <a class="btn" href="quienes-somos.html">Empresa</a>
+        <a class="btn nav-current" href="contacto.html">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero card">
+      <div class="copy">
+        <div class="kicker">Contacto</div>
+        <h1>Conecta con nuestro equipo</h1>
+        <p class="lead">Estamos disponibles para pilotos y demos en LATAM desde Corrientes, Argentina.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="mailto:founders@nordia.uno">Enviar email</a>
+        </div>
+      </div>
+      <div class="mock">
+        <div class="mock-inner"><img src="images/contact-hero.png" alt="Contacto NORDIA"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 style="text-align:center;margin-bottom:24px">Canales de Comunicación</h2>
+      <div class="four">
+        <div class="contact-card">
+          <div class="contact-icon">📧</div>
+          <h3>Email Corporativo</h3>
+          <p style="color:var(--muted);margin:8px 0">Para demos, propuestas comerciales y consultas técnicas</p>
+          <a href="mailto:founders@nordia.uno" class="contact-link">founders@nordia.uno</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">💬</div>
+          <h3>WhatsApp Business</h3>
+          <p style="color:var(--muted);margin:8px 0">Consultas rápidas y coordinación de reuniones</p>
+          <a href="https://wa.me/543794281273" class="contact-link" target="_blank">Escribir por WhatsApp</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">💼</div>
+          <h3>LinkedIn</h3>
+          <p style="color:var(--muted);margin:8px 0">Perfil corporativo y red profesional</p>
+          <a href="https://www.linkedin.com/company/nordia-uno" class="contact-link" target="_blank">Seguir en LinkedIn</a>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">🎯</div>
+          <h3>Demos Técnicas</h3>
+          <p style="color:var(--muted);margin:8px 0">Sesiones personalizadas para evaluar casos de uso</p>
+          <a href="mailto:founders@nordia.uno?subject=Demo%20NORDIA" class="contact-link">Solicitar demo</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-card">
+        <h2>🏢 Información Corporativa</h2>
+        <ul class="info-list">
+          <li><span class="info-icon">🏛️</span> <strong>Razón Social:</strong> NORDIA SRL</li>
+          <li><span class="info-icon">📍</span> <strong>Sede:</strong> Corrientes, Argentina</li>
+          <li><span class="info-icon">🌎</span> <strong>Cobertura:</strong> LATAM</li>
+          <li><span class="info-icon">⚖️</span> <strong>Registro:</strong> En proceso</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h2>🕒 Horarios de Atención</h2>
+        <ul class="info-list">
+          <li><span class="info-icon">📧</span> <strong>Email:</strong> 24/7 (respuesta en 4hs)</li>
+          <li><span class="info-icon">💬</span> <strong>WhatsApp:</strong> Lun-Vie 9-18 (GMT-3)</li>
+          <li><span class="info-icon">📞</span> <strong>Videollamadas:</strong> Con cita previa</li>
+          <li><span class="info-icon">🚨</span> <strong>Emergencias:</strong> Según SLA acordado</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="padding:34px;text-align:center">
+      <h2>¿Listo para una demo?</h2>
+      <p class="lead">Agenda una sesión de 30 minutos para ver NORDIA en acción con tus casos de uso específicos.</p>
+      <div class="cta" style="justify-content:center">
+        <a class="btn btn-primary" href="mailto:founders@nordia.uno?subject=Demo%20NORDIA&body=Hola,%0A%0AEstoy%20interesado%20en%20una%20demo%20de%20NORDIA.%0A%0AEmpresa:%0ACaso%20de%20uso:%0AFecha%20preferida:%0A%0AGracias!">Agendar demo</a>
+        <a class="btn btn-secondary" href="servicios.html">Ver verticales</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div>© <span id="y"></span> NORDIA — Situational Intelligence Platform</div>
+      <div class="tag">Hecho en LATAM</div>
+    </div>
+  </footer>
+  <script>document.getElementById('y').textContent='2025'</script>
+</body>
+</html>
