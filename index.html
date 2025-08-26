@@ -1,208 +1,128 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NORDIA — Situational Intelligence Platform</title>
-  <meta name="description" content="Plataforma de inteligencia situacional para gobiernos y organizaciones. OCR avanzado, análisis en tiempo real y trazabilidad completa." />
-  <meta property="og:title" content="NORDIA — Situational Intelligence Platform" />
-  <meta property="og:description" content="Democratizando la transparencia a través de IA." />
+  <title>Nordia — Situational Intelligence R&D</title>
+  <meta name="description" content="Nordia is an R&D company focused on situational intelligence, applied AI, OCR pipelines and mission-critical systems." />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta property="og:title" content="Nordia — Situational Intelligence R&D" />
+  <meta property="og:description" content="Applied AI artifacts, robust OCR, and critical systems engineering." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://nordia.uno" />
-  <meta property="og:image" content="images/og-image.png" />
-  <meta name="theme-color" content="#0f172a" />
-  <link rel="icon" href="images/favicon.png" />
+  <link rel="icon" href="data:,">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root{
-      --bg:#0b0f1a; --card:#0e1526; --muted:#9fb3c8; --text:#e6eef7; --brand:#64d3ff; --accent:#90f; --ok:#14cc8a; --warn:#ffcc00; --danger:#ff6b6b;
-      --maxw:1120px; --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:linear-gradient(180deg,#0a0f1d 0%, #0b1022 60%, #0c1228 100%);color:var(--text);font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif}
-    a{color:var(--brand);text-decoration:none}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:24px}
-    header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(10,14,28,.6);border-bottom:1px solid rgba(255,255,255,.06);z-index:10}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-    .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.3px}
-    .logo{width:28px;height:28px}
-    .nav a.btn{padding:10px 14px;border:1px solid rgba(255,255,255,.14);border-radius:12px;transition:all .2s ease;color:var(--text)}
-    .nav a.btn.nav-current{color:var(--brand)}
-    .nav a.btn:hover{background:rgba(255,255,255,.08);border-color:var(--brand)}
-    .hero{display:grid;gap:28px;grid-template-columns:1.3fr 1fr;align-items:center;padding:34px 0}
-    .card{background:radial-gradient(1200px 480px at 80% -10%, rgba(100,211,255,.12), transparent 60%), var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .hero .copy{padding:28px}
-    h1{font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0 0 10px}
-    .kicker{color:var(--muted);text-transform:uppercase;letter-spacing:.22em;font-size:.8rem}
-    .lead{color:#d6e6f7;font-size:1.05rem;margin:10px 0 20px}
-    .cta{display:flex;flex-wrap:wrap;gap:12px}
-    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:14px;padding:12px 16px;font-weight:700;transition:all .2s ease}
-    .btn-primary{background:linear-gradient(135deg,#64d3ff 0%, #6f8cff 60%, #9d7bff 100%);color:#06101a;border:none}
-    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(100,211,255,.3)}
-    .btn-secondary{border:1px solid rgba(255,255,255,.18);color:var(--text)}
-    .btn-secondary:hover{background:rgba(255,255,255,.08)}
-    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
-    .metric{padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.02),transparent)}
-    .metric h3{font-size:clamp(22px,4vw,32px);margin:0;background:linear-gradient(135deg,var(--brand),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .metric p{margin:4px 0 0;color:var(--muted);font-size:.9rem}
-    .mock{padding:8px}
-    .mock-inner{aspect-ratio:16/10;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,#111a30,#0b1226);display:flex;align-items:center;justify-content:center;color:#b9c7de;font-weight:600;background-image:url('images/dashboard-mockup.png');background-size:cover;background-position:center}
-    .mock-inner img{width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block}
-
-    section{padding:28px 0}
-    .two{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-    h2{font-size:clamp(22px,4vw,30px);margin:0 0 8px}
-    ul{margin:10px 0 0 18px;color:#d6e6f7}
-    li{margin:6px 0}
-    .tag{display:inline-block;padding:6px 10px;border:1px solid rgba(255,255,255,.14);border-radius:999px;font-size:.8rem;color:var(--muted)}
-    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .feature{padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.02),transparent)}
-
-    .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .phase{padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,.08);transition:all .2s ease}
-    .phase:hover{transform:translateY(-2px);border-color:var(--brand)}
-    .phase h3{margin:0 0 6px;color:var(--brand)}
-
-    footer{border-top:1px solid rgba(255,255,255,.08);padding:24px 0;color:#a9bad0}
-    .foot{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
-
-    @media (max-width: 900px){
-      .hero{grid-template-columns:1fr}
-      .two{grid-template-columns:1fr}
-      .grid3,.roadmap{grid-template-columns:1fr}
-      .metrics{grid-template-columns:1fr 1fr}
-    }
+    :root{--bg:#0b1029;--bg2:#151b3f;--panel:rgba(255,255,255,.06);--border:rgba(255,255,255,.12)}
+    body{background:linear-gradient(135deg,var(--bg),var(--bg2));color:#eaf0ff}
+    .glass{background:var(--panel);backdrop-filter:blur(14px);border:1px solid var(--border)}
+    .shine{background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent)}
   </style>
 </head>
-<body>
-  <header>
-    <div class="wrap nav">
-      <div class="brand"><img src="images/logo-small.png" alt="NORDIA Logo" class="logo"> NORDIA</div>
-      <nav>
-        <a class="btn nav-current" href="index.html">Inicio</a>
-        <a class="btn" href="servicios.html">Soluciones</a>
-        <a class="btn" href="quienes-somos.html">Empresa</a>
-        <a class="btn" href="contacto.html">Contacto</a>
+<body class="min-h-screen">
+  <!-- Header -->
+  <header class="glass sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="./" class="font-black text-xl tracking-tight">NORDIA</a>
+      <nav class="text-sm flex gap-5">
+        <a href="#about" class="opacity-80 hover:opacity-100">About</a>
+        <a href="#tech" class="opacity-80 hover:opacity-100">Technology</a>
+        <a href="#portfolio" class="opacity-80 hover:opacity-100">Portfolio</a>
+        <a href="#contact" class="opacity-80 hover:opacity-100">Contact</a>
+        <a href="gt-intelligence.html" class="px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500">Explore GT Intelligence</a>
       </nav>
     </div>
   </header>
 
-  <main class="wrap">
-    <section class="hero card" id="producto">
-      <div class="copy">
-        <div class="kicker">Situational Intelligence</div>
-        <h1>Democratizando la transparencia a través de IA</h1>
-        <p class="lead">Plataforma modular para convertir documentos críticos en datos trazables y auditables en tiempo real.</p>
-        <div class="cta">
-          <a class="btn btn-primary" href="contacto.html">Solicitar demo</a>
-          <a class="btn btn-secondary" href="servicios.html">Ver verticales</a>
-        </div>
-        <div class="metrics">
-          <div class="metric">
-            <h3>99.7%</h3>
-            <p>Precisión OCR</p>
-          </div>
-          <div class="metric">
-            <h3>&lt;30s</h3>
-            <p>Procesamiento</p>
-          </div>
-          <div class="metric">
-            <h3>24/7</h3>
-            <p>Disponibilidad</p>
-          </div>
-        </div>
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
+        Situational Intelligence R&amp;D
+      </h1>
+      <p class="mt-4 text-blue-100/90">
+        We design and validate technological artifacts for high-stakes environments:
+        <b>applied AI</b>, <b>industrial OCR</b>, and <b>mission-critical systems</b>.
+      </p>
+      <div class="mt-6 flex gap-3">
+        <a href="gt-intelligence.html" class="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-500">Explore GT Intelligence</a>
+        <a href="#tech" class="px-5 py-3 rounded-xl bg-purple-600/80 hover:bg-purple-500">Our Stack</a>
       </div>
-      <div class="mock">
-        <div class="mock-inner"><img src="images/dashboard-mockup.png" alt="NORDIA Dashboard"></div>
-      </div>
-    </section>
-
-    <section class="two" id="caso">
-      <div class="card" style="padding:22px">
-        <h2>Caso de Uso: Electoral Intelligence</h2>
-        <p>Primera vertical LIVE procesando actas electorales en tiempo real.</p>
-        <ul>
-          <li>OCR avanzado para documentos escaneados</li>
-          <li>Validación cruzada automática</li>
-          <li>API en tiempo real para resultados</li>
-          <li>Trazabilidad completa end-to-end</li>
-        </ul>
-        <div style="margin-top:16px">
-          <span class="tag">LIVE en Corrientes</span>
-        </div>
-      </div>
-      <div class="card" style="padding:22px">
-        <h2>Arquitectura Confiable</h2>
-        <p>Infraestructura diseñada para procesos críticos.</p>
-        <ul>
-          <li>IA auditable con logs detallados</li>
-          <li>Redundancia y backup automático</li>
-          <li>Seguridad por diseño (encryption)</li>
-          <li>Escalabilidad bajo demanda</li>
-        </ul>
-        <div style="margin-top:16px">
-          <span class="tag">SOC 2 Ready</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="verticales">
-      <h2 style="text-align:center;margin-bottom:24px">Verticales de Inteligencia</h2>
-      <div class="grid3">
-        <div class="feature">
-          <h3>🗳️ Electoral Intelligence</h3>
-          <p>Procesamiento de documentos electorales con OCR de precisión militar y análisis en tiempo real.</p>
-          <span class="tag">LIVE</span>
-        </div>
-        <div class="feature">
-          <h3>🚨 Crisis Intelligence</h3>
-          <p>Detección temprana y coordinación de respuesta para emergencias y crisis operativas.</p>
-          <span class="tag">Q4 2025</span>
-        </div>
-        <div class="feature">
-          <h3>🏢 Corporate Intelligence</h3>
-          <p>Compliance, monitoreo de reputación y detección de fraudes para organizaciones.</p>
-          <span class="tag">Q1 2026</span>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2 style="text-align:center;margin-bottom:24px">Roadmap de Producto</h2>
-      <div class="roadmap">
-        <div class="phase">
-          <h3>Q3 2025</h3>
-          <p><strong>Electoral Intelligence</strong></p>
-          <p>Módulo completo con OCR, validación y API real-time para procesos electorales.</p>
-        </div>
-        <div class="phase">
-          <h3>Q4 2025</h3>
-          <p><strong>Crisis Intelligence</strong></p>
-          <p>Sistema de alerta temprana y coordinación para manejo de emergencias.</p>
-        </div>
-        <div class="phase">
-          <h3>Q1 2026</h3>
-          <p><strong>Corporate Intelligence</strong></p>
-          <p>Suite completa para compliance, riesgo operativo y monitoreo reputacional.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="card" style="padding:34px;text-align:center" id="contacto">
-      <h2>¿Listo para implementar?</h2>
-      <p class="lead">Estamos disponibles para pilotos en LATAM desde Corrientes, Argentina.</p>
-      <div class="cta" style="justify-content:center">
-        <a class="btn btn-primary" href="contacto.html">Contactar equipo</a>
-        <a class="btn btn-secondary" href="quienes-somos.html">Conocer más</a>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap foot">
-      <div>© <span id="y"></span> NORDIA — Situational Intelligence Platform</div>
-      <div class="tag">Hecho en LATAM</div>
     </div>
-  </footer>
-  <script>document.getElementById('y').textContent='2025'</script>
+    <div class="glass rounded-2xl p-6 grid grid-cols-2 gap-4">
+      <div class="rounded-xl p-4 border border-white/15">
+        <div id="m1" class="text-4xl font-black text-emerald-300">0</div>
+        <div class="text-sm opacity-80">Years of research</div>
+      </div>
+      <div class="rounded-xl p-4 border border-white/15">
+        <div id="m2" class="text-4xl font-black text-blue-300">0</div>
+        <div class="text-sm opacity-80">Patents pending</div>
+      </div>
+      <div class="rounded-xl p-4 border border-white/15">
+        <div id="m3" class="text-4xl font-black text-yellow-300">0%</div>
+        <div class="text-sm opacity-80">OCR accuracy (bench)</div>
+      </div>
+      <div class="rounded-xl p-4 border border-white/15">
+        <div id="m4" class="text-4xl font-black text-pink-300">0×</div>
+        <div class="text-sm opacity-80">Throughput gain</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="max-w-6xl mx-auto px-4 py-10">
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-2xl font-bold mb-2">About our R&amp;D</h2>
+      <p class="text-blue-100/90">
+        We investigate robust pipelines for document understanding and decision support.
+        Our work spans: OCR engines, error modelling, human-in-the-loop validation, consistency
+        checking, observability and auditability of data flows.
+      </p>
+    </div>
+  </section>
+
+  <!-- Tech -->
+  <section id="tech" class="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-4">
+    <div class="glass rounded-2xl p-5 border border-white/10">
+      <h3 class="font-bold mb-1">Applied AI</h3>
+      <p class="text-sm opacity-90">Ensembles, confidence calibration, rule engines, and drift monitoring.</p>
+    </div>
+    <div class="glass rounded-2xl p-5 border border-white/10">
+      <h3 class="font-bold mb-1">OCR Pipelines</h3>
+      <p class="text-sm opacity-90">Multi-engine OCR, layout analysis, fuzzy matching and checksum guards.</p>
+    </div>
+    <div class="glass rounded-2xl p-5 border border-white/10">
+      <h3 class="font-bold mb-1">Critical Systems</h3>
+      <p class="text-sm opacity-90">Audit trails, reproducibility, sandboxed validation and resilient UIs.</p>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio" class="max-w-6xl mx-auto px-4 py-10">
+    <h2 class="text-2xl font-bold mb-4">Selected artifacts</h2>
+    <ul class="grid md:grid-cols-3 gap-4 text-sm">
+      <li class="glass rounded-xl p-4 border border-white/10">Document Validator (human-in-the-loop)</li>
+      <li class="glass rounded-xl p-4 border border-white/10">Telemetry &amp; Observability Layer</li>
+      <li class="glass rounded-xl p-4 border border-white/10">White-label Results Dashboard</li>
+    </ul>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact" class="max-w-6xl mx-auto px-4 py-14 text-center">
+    <h3 class="text-xl font-bold mb-3">Ready to explore our product line?</h3>
+    <a href="gt-intelligence.html" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500">Explore GT Intelligence</a>
+  </section>
+
+  <footer class="text-center text-xs opacity-70 py-8">© Nordia — R&D</footer>
+
+  <script>
+    // Simple counters
+    const lerp=(a,b,t)=>a+(b-a)*t;
+    const animate=(el,from,to,suffix='',ms=900)=>{const t0=performance.now();const f=now=>{
+      const p=Math.min(1,(now-t0)/ms);el.textContent=(lerp(from,to,p)|0)+suffix; if(p<1) requestAnimationFrame(f);
+    }; requestAnimationFrame(f);}
+    animate(document.getElementById('m1'),0,8);        // years
+    animate(document.getElementById('m2'),0,3);        // patents
+    animate(document.getElementById('m3'),0,99,'%',1100); // accuracy
+    animate(document.getElementById('m4'),0,3,'×',1000);  // throughput
+  </script>
 </body>
 </html>

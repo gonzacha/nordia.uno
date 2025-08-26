@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Electoral System — Corrientes Implementation</title>
+  <meta name="description" content="Implementación local simulada para Corrientes: pre-carga OCR, validación híbrida, resultados y tablero administrativo." />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="data:,">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root{--bg:#0b1029;--bg2:#151b3f;--panel:rgba(255,255,255,.06);--border:rgba(255,255,255,.12)}
+    body{background:linear-gradient(135deg,var(--bg),var(--bg2));color:#eaf0ff}
+    .glass{background:var(--panel);backdrop-filter:blur(14px);border:1px solid var(--border)}
+    .card{border:1px solid var(--border)}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="glass sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <nav class="text-sm flex gap-4">
+        <a href="gt-intelligence.html" class="opacity-80 hover:opacity-100">← Back to GT Intelligence</a>
+        <a href="#operator" class="opacity-80 hover:opacity-100">Operador</a>
+        <a href="#results" class="opacity-80 hover:opacity-100">Resultados</a>
+        <a href="#admin" class="opacity-80 hover:opacity-100">Admin</a>
+        <a href="#log" class="opacity-80 hover:opacity-100">Actividad</a>
+      </nav>
+      <div class="text-xs opacity-75">Electoral System — Corrientes</div>
+    </div>
+  </header>
+
+  <!-- Overview -->
+  <section class="max-w-7xl mx-auto px-4 py-8 grid md:grid-cols-3 gap-4">
+    <div class="glass rounded-2xl p-5 card">
+      <div class="text-3xl font-black text-emerald-300" id="kpiProcessed">0</div>
+      <div class="text-sm opacity-90">Telegramas procesados</div>
+    </div>
+    <div class="glass rounded-2xl p-5 card">
+      <div class="text-3xl font-black text-blue-300" id="kpiValidated">0%</div>
+      <div class="text-sm opacity-90">Validación efectiva</div>
+    </div>
+    <div class="glass rounded-2xl p-5 card">
+      <div class="text-3xl font-black text-yellow-300" id="kpiParticipation">0%</div>
+      <div class="text-sm opacity-90">Participación estimada</div>
+    </div>
+  </section>
+
+  <!-- Operator Portal -->
+  <section id="operator" class="max-w-7xl mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-3">Portal del Operador — Validación híbrida</h2>
+    <div class="grid lg:grid-cols-2 gap-6">
+      <!-- Telegram mock -->
+      <div class="glass rounded-2xl p-5 card">
+        <h3 class="font-bold mb-2">Telegrama virtual</h3>
+        <div class="rounded-xl border border-white/20 p-4 text-xs opacity-90 bg-black/20">
+          <p><b>Municipio:</b> <span id="tgMunicipio">Capital</span></p>
+          <p><b>Mesa:</b> <span id="tgMesa">00125</span> — <b>Escuela:</b> N° 1231</p>
+          <hr class="my-2 border-white/10">
+          <p><b>OCR crudo</b> (simulado):</p>
+          <pre id="tgOcr" class="mt-2 whitespace-pre-wrap"></pre>
+        </div>
+      </div>
+      <!-- Form -->
+      <div class="glass rounded-2xl p-5 card">
+        <h3 class="font-bold mb-2">Corrección y validación</h3>
+        <form id="frmVal" class="grid grid-cols-2 gap-3 text-sm">
+          <label class="col-span-2">Municipio
+            <select id="selMunicipio" class="w-full mt-1 rounded bg-white/10 border border-white/20 p-2">
+              <option>Capital</option><option>Goya</option><option>Mercedes</option><option>Paso de los Libres</option><option>Curuzú Cuatiá</option>
+            </select>
+          </label>
+          <label>Alianza A<input id="vA" type="number" min="0" class="w-full mt-1 rounded bg-white/10 border border-white/20 p-2"></label>
+          <label>Alianza B<input id="vB" type="number" min="0" class="w-full mt-1 rounded bg-white/10 border border-white/20 p-2"></label>
+          <label>Alianza C<input id="vC" type="number" min="0" class="w-full mt-1 rounded bg-white/10 border border-white/20 p-2"></label>
+          <label>Votos nulos<input id="vN" type="number" min="0" class="w-full mt-1 rounded bg-white/10 border border-white/20 p-2"></label>
+          <label>Votos en blanco<input id="vBla" type="number" min="0" class="w-full mt-1 rounded bg-white/10 border border-white/20 p-2"></label>
+          <div class="col-span-2 flex gap-3 mt-2">
+            <button class="px-4 py-2 rounded bg-emerald-600 hover:bg-emerald-500" type="submit">Validar</button>
+            <button class="px-4 py-2 rounded bg-rose-600/90 hover:bg-rose-500" type="button" id="btnRechazar">Rechazar</button>
+          </div>
+        </form>
+        <p class="text-xs opacity-70 mt-3">La validación impacta en Resultados y en el Log de actividad.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section id="results" class="max-w-7xl mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-3">Resultados en tiempo real</h2>
+    <div class="grid lg:grid-cols-3 gap-6">
+      <div class="glass rounded-2xl p-5 card">
+        <label class="text-sm opacity-90">Municipio</label>
+        <select id="selResMunicipio" class="w-full mt-1 rounded bg-white/10 border border-white/20 p-2">
+          <option>Capital</option><option>Goya</option><option>Mercedes</option><option>Paso de los Libres</option><option>Curuzú Cuatiá</option>
+        </select>
+        <canvas id="chartMunicipio" class="mt-4" aria-label="Resultados municipales" role="img"></canvas>
+      </div>
+      <div class="glass rounded-2xl p-5 card">
+        <h3 class="font-bold">Acumulado provincial</h3>
+        <canvas id="chartProv" aria-label="Resultados provinciales" role="img"></canvas>
+      </div>
+      <div class="glass rounded-2xl p-5 card">
+        <h3 class="font-bold">Participación por minuto</h3>
+        <canvas id="chartPart" aria-label="Participación" role="img"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- Admin -->
+  <section id="admin" class="max-w-7xl mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-3">Dashboard administrativo</h2>
+    <div class="glass rounded-2xl p-5 card grid md:grid-cols-3 gap-4 text-sm">
+      <div class="rounded-xl border border-white/15 p-4">
+        <div class="text-xl font-black" id="admCola">0</div>
+        <div class="opacity-80">Telegramas en cola</div>
+      </div>
+      <div class="rounded-xl border border-white/15 p-4">
+        <div class="text-xl font-black" id="admTiempo">0.0s</div>
+        <div class="opacity-80">Tiempo medio de validación</div>
+      </div>
+      <div class="rounded-xl border border-white/15 p-4">
+        <div class="text-xl font-black" id="admEficiencia">0%</div>
+        <div class="opacity-80">Eficiencia operativa</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Log -->
+  <section id="log" class="max-w-7xl mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-3">Actividad</h2>
+    <div id="logBox" class="glass rounded-2xl p-5 card h-64 overflow-auto text-sm" aria-live="polite" aria-label="Registro de actividad"></div>
+  </section>
+
+  <footer class="text-center text-xs opacity-70 py-8">© Nordia — Corrientes demo</footer>
+
+  <script>
+    // --- Datos base ---
+    const municipios = ['Capital','Goya','Mercedes','Paso de los Libres','Curuzú Cuatiá'];
+    const state = {
+      processed: 0, validated: 0, rejected: 0, participation: 72,
+      cola: 12, tmedio: 5.2, eficiencia: 87,
+      votos: Object.fromEntries(municipios.map(m=>[m,{A:1200,B:1100,C:900,n:30,b:20}]))
+    };
+
+    // Utilidades
+    const $ = q => document.querySelector(q);
+    const log = (msg) => { 
+      const box = $('#logBox'); 
+      const t = new Date().toLocaleTimeString('es-AR');
+      box.insertAdjacentHTML('afterbegin', `<div class="mb-1 opacity-90">[${t}] ${msg}</div>`); 
+    }
+
+    // Poblar telegrama simulado
+    function nuevoTelegrama(){
+      const muni = municipios[Math.floor(Math.random()*municipios.length)];
+      $('#tgMunicipio').textContent = muni;
+      $('#tgMesa').textContent = String(10000+Math.floor(Math.random()*90000));
+      const ocr = {
+        A: 800+Math.floor(Math.random()*600),
+        B: 700+Math.floor(Math.random()*600),
+        C: 600+Math.floor(Math.random()*600),
+        n: 5+Math.floor(Math.random()*40),
+        b: 5+Math.floor(Math.random()*40)
+      };
+      $('#tgOcr').textContent = JSON.stringify(ocr, null, 2);
+      $('#selMunicipio').value = muni;
+      $('#vA').value = ocr.A; $('#vB').value = ocr.B; $('#vC').value = ocr.C; $('#vN').value = ocr.n; $('#vBla').value = ocr.b;
+      state.cola = Math.max(0, state.cola - 1);
+      renderAdmin();
+    }
+
+    // KPIs
+    function renderKpis(){
+      $('#kpiProcessed').textContent = state.processed;
+      const val = state.processed? Math.round((state.validated/state.processed)*100):0;
+      $('#kpiValidated').textContent = val+'%';
+      $('#kpiParticipation').textContent = state.participation+'%';
+    }
+
+    // Admin
+    function renderAdmin(){
+      $('#admCola').textContent = state.cola;
+      $('#admTiempo').textContent = state.tmedio.toFixed(1)+'s';
+      $('#admEficiencia').textContent = state.eficiencia+'%';
+    }
+
+    // Charts
+    const chMunicipio = new Chart($('#chartMunicipio'), {
+      type: 'bar',
+      data: {
+        labels: ['Alianza A','Alianza B','Alianza C'],
+        datasets: [{
+          data: [0,0,0]
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    const chProv = new Chart($('#chartProv'), {
+      type: 'doughnut',
+      data: {
+        labels: ['A','B','C'],
+        datasets: [{
+          data: [0,0,0]
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+
+    const chPart = new Chart($('#chartPart'), {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: '%',
+          data: [],
+          tension: 0.3
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { min: 60, max: 85 }
+        }
+      }
+    });
+
+    function renderMunicipio(nombre){
+      const v = state.votos[nombre];
+      chMunicipio.data.datasets[0].data = [v.A,v.B,v.C];
+      chMunicipio.update();
+    }
+
+    function renderProv(){
+      const sum = {A:0,B:0,C:0};
+      for (const m of municipios){ 
+        const v = state.votos[m]; 
+        sum.A += v.A; 
+        sum.B += v.B; 
+        sum.C += v.C; 
+      }
+      chProv.data.datasets[0].data = [sum.A,sum.B,sum.C];
+      chProv.update();
+    }
+
+    function tickParticipacion(){
+      // Simulación simple
+      const last = chPart.data.labels.length ? chPart.data.datasets[0].data.at(-1) : state.participation;
+      const next = Math.min(85, Math.max(60, last + (Math.random()-.45)));
+      chPart.data.labels.push(new Date().toLocaleTimeString('es-AR',{timeStyle:'short'}));
+      chPart.data.datasets[0].data.push(Number(next.toFixed(1)));
+      chPart.update();
+      state.participation = Math.round(next);
+      renderKpis();
+    }
+
+    // Eventos UI
+    $('#selResMunicipio').addEventListener('change', e => renderMunicipio(e.target.value));
+    
+    $('#frmVal').addEventListener('submit', e => {
+      e.preventDefault();
+      const muni = $('#selMunicipio').value;
+      const t0 = performance.now();
+      const v = state.votos[muni];
+      v.A = Number($('#vA').value)||0; 
+      v.B = Number($('#vB').value)||0; 
+      v.C = Number($('#vC').value)||0;
+      v.n = Number($('#vN').value)||0; 
+      v.b = Number($('#vBla').value)||0;
+      state.processed++; 
+      state.validated++; 
+      state.tmedio = (state.tmedio*0.9 + ((performance.now()-t0)/1000)*0.1);
+      state.eficiencia = Math.min(99, Math.round(state.eficiencia*0.98 + 2));
+      log(`Validado ${muni}: A=${v.A} B=${v.B} C=${v.C} (nulos=${v.n}, blanco=${v.b})`);
+      renderKpis(); 
+      renderMunicipio($('#selResMunicipio').value); 
+      renderProv(); 
+      renderAdmin();
+      nuevoTelegrama();
+    });
+
+    $('#btnRechazar').addEventListener('click', () => {
+      state.processed++; 
+      state.rejected++; 
+      state.cola += 2;
+      log('Telegrama rechazado por inconsistencia. Enviado a revisión.');
+      renderKpis(); 
+      renderAdmin(); 
+      nuevoTelegrama();
+    });
+
+    // Simulación periódica (ingreso automático)
+    setInterval(() => {
+      const muni = municipios[Math.floor(Math.random()*municipios.length)];
+      const v = state.votos[muni];
+      v.A += Math.floor(Math.random()*8);
+      v.B += Math.floor(Math.random()*7);
+      v.C += Math.floor(Math.random()*6);
+      renderMunicipio($('#selResMunicipio').value); 
+      renderProv();
+    }, 4000);
+
+    setInterval(() => tickParticipacion(), 6000);
+
+    // Inicialización
+    $('#selResMunicipio').value = 'Capital';
+    renderMunicipio('Capital'); 
+    renderProv(); 
+    renderKpis(); 
+    renderAdmin(); 
+    nuevoTelegrama();
+  </script>
+</body>
+</html>
