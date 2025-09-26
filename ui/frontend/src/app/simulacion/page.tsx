@@ -1,322 +1,523 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import React, { useState, useEffect } from 'react';
+import { 
+  Users, 
+  DollarSign, 
+  Activity, 
+  CreditCard,
+  Wifi,
+  ShoppingBag,
+  ArrowUp,
+  ArrowDown,
+  TrendingUp,
+  AlertCircle,
+  Settings,
+  LogOut,
+  Home,
+  BarChart3,
+  Package,
+  FileText
+} from 'lucide-react';
 
-interface Cliente {
-  username: string;
-  dni: string;
-  nombre: string;
-  dias_mora: number;
-  monto_deuda: number;
-  excepcion: boolean;
-  telefono: string;
-  estado: "activo" | "procesando" | "cortado";
-}
-
-const clientesReales: Cliente[] = [
-  { username: "juan.perez", dni: "12345678", nombre: "Juan Pérez", dias_mora: 45, monto_deuda: 15000.50, excepcion: false, telefono: "+5493794123456", estado: "activo" },
-  { username: "maria.gonzalez", dni: "23456789", nombre: "María González", dias_mora: 32, monto_deuda: 8500.25, excepcion: false, telefono: "", estado: "activo" },
-  { username: "carlos.martinez", dni: "34567890", nombre: "Carlos Martínez", dias_mora: 67, monto_deuda: 22000.00, excepcion: false, telefono: "+5493794234567", estado: "activo" },
-  { username: "ana.rodriguez", dni: "45678901", nombre: "Ana Rodríguez", dias_mora: 15, monto_deuda: 5500.75, excepcion: true, telefono: "+5493794345678", estado: "activo" },
-  { username: "luis.fernandez", dni: "56789012", nombre: "Luis Fernández", dias_mora: 89, monto_deuda: 35000.00, excepcion: false, telefono: "", estado: "activo" },
-  { username: "patricia.ruiz", dni: "89012345", nombre: "Patricia Ruiz", dias_mora: 34, monto_deuda: 12500.00, excepcion: false, telefono: "+5493794567890", estado: "activo" },
-  { username: "carmen.silva", dni: "01234567", nombre: "Carmen Silva", dias_mora: 41, monto_deuda: 16800.75, excepcion: false, telefono: "", estado: "activo" },
-  { username: "miguel.vargas", dni: "33333333", nombre: "Miguel Vargas", dias_mora: 125, monto_deuda: 45000.25, excepcion: false, telefono: "", estado: "activo" },
-  { username: "natalia.romero", dni: "66666666", nombre: "Natalia Romero", dias_mora: 56, monto_deuda: 19500.30, excepcion: false, telefono: "", estado: "activo" }
-];
-
-export default function SimulacionPage() {
-  const [clientes, setClientes] = useState<Cliente[]>(clientesReales);
-  const [modo, setModo] = useState<"simulacion" | "real">("simulacion");
-  const [ejecutando, setEjecutando] = useState(false);
-  const [progreso, setProgreso] = useState(0);
-  const [clienteActual, setClienteActual] = useState<string>("");
-  const [estadisticas, setEstadisticas] = useState({
-    procesados: 0,
-    cortados: 0,
-    protegidos: 0,
-    total: 0
+export default function SimulacionDashboard() {
+  const [activeTab, setActiveTab] = useState('overview');
+  const [systemStatus, setSystemStatus] = useState({
+    isp: 'online',
+    portal: 'online',
+    pos: 'online'
   });
 
-  const clientesParaCorte = clientes.filter(c => c.dias_mora >= 30 && !c.excepcion);
+  // Simular actualización de estado en tiempo real
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSystemStatus({
+        isp: 'online',
+        portal: Math.random() > 0.1 ? 'online' : 'maintenance',
+        pos: 'online'
+      });
+    }, 30000); // Cada 30 segundos
 
-  const resetSimulacion = () => {
-    setClientes(clientesReales.map(c => ({ ...c, estado: "activo" })));
-    setProgreso(0);
-    setClienteActual("");
-    setEstadisticas({ procesados: 0, cortados: 0, protegidos: 0, total: 0 });
+    return () => clearInterval(interval);
+  }, []);
+
+  // Función para trackear navegación a otros sistemas
+  const navigateToSystem = (system: 'demo' | 'portal' | 'pos') => {
+    console.log(`[Navigation] Accediendo a: ${system}`);
+    
+    const urls = {
+      demo: '/simulacion/demo-completa',
+      portal: '/portal-cautivo',
+      pos: '/nordia-pos'
+    };
+    
+    window.open(urls[system], '_blank');
   };
 
-  const ejecutarCortes = async () => {
-    if (ejecutando) return;
-    
-    setEjecutando(true);
-    resetSimulacion();
-    
-    const clientesACortar = clientesParaCorte;
-    const totalClientes = clientesACortar.length;
-    
-    for (let i = 0; i < totalClientes; i++) {
-      const cliente = clientesACortar[i];
-      setClienteActual(cliente.nombre);
-      
-      setClientes(prev => prev.map(c => 
-        c.username === cliente.username ? { ...c, estado: "procesando" } : c
-      ));
-      
-      await new Promise(resolve => setTimeout(resolve, 1200));
-      
-      setClientes(prev => prev.map(c => 
-        c.username === cliente.username ? { ...c, estado: "cortado" } : c
-      ));
-      
-      const nuevoProgreso = ((i + 1) / totalClientes) * 100;
-      setProgreso(nuevoProgreso);
-      
-      setEstadisticas({
-        procesados: i + 1,
-        cortados: i + 1,
-        protegidos: clientes.filter(c => c.excepcion).length,
-        total: clientes.length
-      });
-    }
-    
-    setClienteActual("");
-    setEjecutando(false);
+  // Datos simulados para el dashboard
+  const stats = {
+    totalClientes: 1234,
+    clientesActivos: 1089,
+    morosos: 145,
+    recuperacionRate: 78,
+    ventasMes: 45678.90,
+    productosVendidos: 234
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-6">
-      <div className="max-w-6xl mx-auto">
-        
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
-          <Link 
-            href="/"
-            className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-4 transition-colors"
-          >
-            <span>←</span> Volver al Dashboard
-          </Link>
-          
-          <h1 className="text-4xl font-bold mb-4">
-            🎮 Simulador de Cortes por Mora
-          </h1>
-          <p className="text-xl text-slate-300 max-w-3xl">
-            Simulá cómo funciona nuestro sistema de gestión automática de morosos con datos CSV reales. 
-            Elegí entre modo simulación (seguro) o ejecución real.
-          </p>
-        </motion.div>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Header */}
+      <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center">
+              <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                Nordia Suite
+              </h1>
+              <span className="ml-3 px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full">
+                Dashboard Demo
+              </span>
+            </div>
+            
+            <div className="flex items-center space-x-4">
+              <button className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                <Settings className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+              </button>
+              <button className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                <LogOut className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
 
-        {/* Selector de Modo y Portal Cautivo */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mb-8"
-        >
-          <div className="flex flex-wrap gap-4">
+      <div className="flex">
+        {/* Sidebar */}
+        <aside className="w-64 bg-white dark:bg-gray-800 h-[calc(100vh-4rem)] border-r border-gray-200 dark:border-gray-700">
+          <nav className="p-4 space-y-2">
             <button
-              onClick={() => setModo("simulacion")}
-              disabled={ejecutando}
-              className={`px-6 py-3 rounded-xl font-medium transition-all ${
-                modo === "simulacion" 
-                  ? "bg-blue-500 text-white" 
-                  : "bg-slate-800 text-slate-300 hover:bg-slate-700"
-              } ${ejecutando ? "opacity-50 cursor-not-allowed" : ""}`}
+              onClick={() => setActiveTab('overview')}
+              className={`w-full flex items-center space-x-3 px-4 py-2 rounded-lg transition-colors ${
+                activeTab === 'overview' 
+                  ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300' 
+                  : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+              }`}
             >
-              🔍 Modo Simulación
-            </button>
-            <button
-              onClick={() => setModo("real")}
-              disabled={ejecutando}
-              className={`px-6 py-3 rounded-xl font-medium transition-all ${
-                modo === "real" 
-                  ? "bg-red-500 text-white" 
-                  : "bg-slate-800 text-slate-300 hover:bg-slate-700"
-              } ${ejecutando ? "opacity-50 cursor-not-allowed" : ""}`}
-            >
-              🔥 Modo Ejecución Real
+              <Home className="w-5 h-5" />
+              <span>Vista General</span>
             </button>
             
-            {/* Portal Cautivo en Dashboard */}
             <button
-              onClick={() => window.open('/portal-cautivo', '_blank')}
-              className="px-6 py-3 rounded-xl font-medium bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white transition-all transform hover:scale-105 shadow-lg"
+              onClick={() => setActiveTab('isp')}
+              className={`w-full flex items-center space-x-3 px-4 py-2 rounded-lg transition-colors ${
+                activeTab === 'isp' 
+                  ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300' 
+                  : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+              }`}
             >
-              🔐 Portal Cautivo
+              <Wifi className="w-5 h-5" />
+              <span>Gestión ISP</span>
             </button>
-          </div>
-        </motion.div>
-
-        {/* KPIs en tiempo real */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
-        >
-          <div className="bg-slate-900/60 rounded-xl p-4 ring-1 ring-white/10">
-            <div className="text-2xl font-bold text-emerald-400">{estadisticas.procesados}</div>
-            <div className="text-sm text-slate-400">Procesados</div>
-          </div>
-          <div className="bg-slate-900/60 rounded-xl p-4 ring-1 ring-white/10">
-            <div className="text-2xl font-bold text-red-400">{estadisticas.cortados}</div>
-            <div className="text-sm text-slate-400">Cortados</div>
-          </div>
-          <div className="bg-slate-900/60 rounded-xl p-4 ring-1 ring-white/10">
-            <div className="text-2xl font-bold text-blue-400">{estadisticas.protegidos}</div>
-            <div className="text-sm text-slate-400">Protegidos</div>
-          </div>
-          <div className="bg-slate-900/60 rounded-xl p-4 ring-1 ring-white/10">
-            <div className="text-2xl font-bold text-slate-300">{estadisticas.total}</div>
-            <div className="text-sm text-slate-400">Total Clientes</div>
-          </div>
-        </motion.div>
-
-        {/* Barra de progreso */}
-        {ejecutando && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mb-6"
-          >
-            <div className="bg-slate-800 rounded-full h-3 mb-2">
-              <motion.div
-                className="bg-gradient-to-r from-emerald-500 to-blue-500 h-3 rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: `${progreso}%` }}
-                transition={{ duration: 0.3 }}
-              />
-            </div>
-            <div className="text-center">
-              <span className="text-slate-300">{Math.round(progreso)}% completado</span>
-              {clienteActual && (
-                <span className="text-emerald-400 ml-4">
-                  Cliente actual: {clienteActual}
-                </span>
-              )}
-            </div>
-          </motion.div>
-        )}
-
-        {/* Botón principal */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-center mb-8"
-        >
-          <button
-            onClick={ejecutarCortes}
-            disabled={ejecutando}
-            className={`text-xl px-8 py-4 rounded-xl font-bold transition-all transform hover:scale-105 ${
-              ejecutando 
-                ? "bg-slate-700 text-slate-400 cursor-not-allowed" 
-                : modo === "real"
-                  ? "bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white shadow-lg"
-                  : "bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600 text-white shadow-lg"
-            }`}
-          >
-            {ejecutando ? (
-              <span className="flex items-center gap-3">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  className="w-5 h-5 border-2 border-current border-t-transparent rounded-full"
-                />
-                PROCESANDO...
-              </span>
-            ) : (
-              `🎮 ${modo === "real" ? "EJECUTAR" : "SIMULAR"} CORTES POR MORA`
-            )}
-          </button>
-          
-          {!ejecutando && (
+            
             <button
-              onClick={resetSimulacion}
-              className="ml-4 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors"
+              onClick={() => setActiveTab('sales')}
+              className={`w-full flex items-center space-x-3 px-4 py-2 rounded-lg transition-colors ${
+                activeTab === 'sales' 
+                  ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300' 
+                  : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+              }`}
             >
-              🔄 Reiniciar
+              <BarChart3 className="w-5 h-5" />
+              <span>Ventas</span>
             </button>
-          )}
-        </motion.div>
+            
+            <button
+              onClick={() => setActiveTab('products')}
+              className={`w-full flex items-center space-x-3 px-4 py-2 rounded-lg transition-colors ${
+                activeTab === 'products' 
+                  ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300' 
+                  : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+              }`}
+            >
+              <Package className="w-5 h-5" />
+              <span>Productos</span>
+            </button>
+            
+            <button
+              onClick={() => setActiveTab('reports')}
+              className={`w-full flex items-center space-x-3 px-4 py-2 rounded-lg transition-colors ${
+                activeTab === 'reports' 
+                  ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300' 
+                  : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+              }`}
+            >
+              <FileText className="w-5 h-5" />
+              <span>Reportes</span>
+            </button>
+          </nav>
 
-        {/* Tabla de clientes */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="bg-slate-900/60 rounded-xl p-6 ring-1 ring-white/10 overflow-x-auto"
-        >
-          <h3 className="text-xl font-bold mb-4">📊 Estados de Clientes en Tiempo Real</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-700">
-                  <th className="text-left p-3">Cliente</th>
-                  <th className="text-left p-3">Días Mora</th>
-                  <th className="text-left p-3">Deuda</th>
-                  <th className="text-left p-3">Estado</th>
-                  <th className="text-left p-3">Protección</th>
-                </tr>
-              </thead>
-              <tbody>
-                {clientes.map((cliente) => (
-                  <motion.tr 
-                    key={cliente.username}
-                    className="border-b border-slate-800"
-                    animate={cliente.estado === "procesando" ? { scale: [1, 1.02, 1] } : {}}
-                    transition={{ duration: 1, repeat: cliente.estado === "procesando" ? Infinity : 0 }}
-                  >
-                    <td className="p-3">
-                      <div>
-                        <div className="font-medium">{cliente.nombre}</div>
-                        <div className="text-xs text-slate-400">{cliente.username}</div>
-                      </div>
-                    </td>
-                    <td className="p-3">
-                      <span className={cliente.dias_mora >= 30 ? "text-red-400 font-medium" : "text-slate-300"}>
-                        {cliente.dias_mora} días
-                      </span>
-                    </td>
-                    <td className="p-3 font-mono">
-                      ${cliente.monto_deuda.toLocaleString()}
-                    </td>
-                    <td className="p-3">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        cliente.estado === "activo" 
-                          ? "bg-emerald-500/20 text-emerald-400" 
-                          : cliente.estado === "procesando"
-                          ? "bg-blue-500/20 text-blue-400"
-                          : "bg-red-500/20 text-red-400"
+          {/* Quick Access Buttons - Los 3 sistemas */}
+          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-3">
+              Acceso Rápido
+            </p>
+            
+            <div className="space-y-2">
+              {/* ISP Suite Button */}
+              <button
+                onClick={() => navigateToSystem('demo')}
+                className="w-full flex items-center justify-between px-3 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-200 hover:scale-[1.02]"
+              >
+                <div className="flex items-center space-x-2">
+                  <Activity className="w-4 h-4" />
+                  <span className="text-sm font-medium">ISP Suite</span>
+                </div>
+                <div className={`w-2 h-2 rounded-full ${
+                  systemStatus.isp === 'online' ? 'bg-green-300 animate-pulse' : 'bg-yellow-300'
+                }`} />
+              </button>
+              
+              {/* Portal Cautivo Button */}
+              <button
+                onClick={() => navigateToSystem('portal')}
+                className="w-full flex items-center justify-between px-3 py-2 bg-gradient-to-r from-green-500 to-teal-600 text-white rounded-lg hover:shadow-lg transition-all duration-200 hover:scale-[1.02]"
+              >
+                <div className="flex items-center space-x-2">
+                  <Wifi className="w-4 h-4" />
+                  <span className="text-sm font-medium">Portal Cautivo</span>
+                </div>
+                <div className={`w-2 h-2 rounded-full ${
+                  systemStatus.portal === 'online' ? 'bg-green-300 animate-pulse' : 'bg-yellow-300'
+                }`} />
+              </button>
+              
+              {/* Nordia POS Button - NUEVO */}
+              <button
+                onClick={() => navigateToSystem('pos')}
+                className="w-full flex items-center justify-between px-3 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg hover:shadow-lg transition-all duration-200 hover:scale-[1.02] relative"
+              >
+                <div className="flex items-center space-x-2">
+                  <ShoppingBag className="w-4 h-4" />
+                  <span className="text-sm font-medium">Nordia POS</span>
+                  <span className="px-1.5 py-0.5 text-[10px] bg-yellow-400 text-gray-900 rounded font-bold">
+                    NEW
+                  </span>
+                </div>
+                <div className={`w-2 h-2 rounded-full ${
+                  systemStatus.pos === 'online' ? 'bg-green-300 animate-pulse' : 'bg-yellow-300'
+                }`} />
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        {/* Main Content */}
+        <main className="flex-1 p-6">
+          {activeTab === 'overview' && (
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                Vista General - Sistema Unificado
+              </h2>
+              
+              {/* Stats Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {/* Clientes Totales */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                      <Users className="w-6 h-6 text-blue-600 dark:text-blue-300" />
+                    </div>
+                    <span className="flex items-center text-sm text-green-600 dark:text-green-400">
+                      <ArrowUp className="w-4 h-4 mr-1" />
+                      12%
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {stats.totalClientes.toLocaleString()}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Clientes Totales
+                  </p>
+                </div>
+
+                {/* Tasa de Recuperación */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-2 bg-green-100 dark:bg-green-900 rounded-lg">
+                      <TrendingUp className="w-6 h-6 text-green-600 dark:text-green-300" />
+                    </div>
+                    <span className="flex items-center text-sm text-green-600 dark:text-green-400">
+                      <ArrowUp className="w-4 h-4 mr-1" />
+                      5%
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {stats.recuperacionRate}%
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Tasa de Recuperación
+                  </p>
+                </div>
+
+                {/* Ventas del Mes */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-2 bg-orange-100 dark:bg-orange-900 rounded-lg">
+                      <DollarSign className="w-6 h-6 text-orange-600 dark:text-orange-300" />
+                    </div>
+                    <span className="flex items-center text-sm text-green-600 dark:text-green-400">
+                      <ArrowUp className="w-4 h-4 mr-1" />
+                      23%
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    ${stats.ventasMes.toLocaleString()}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Ventas del Mes (POS)
+                  </p>
+                </div>
+
+                {/* Clientes Activos */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-2 bg-purple-100 dark:bg-purple-900 rounded-lg">
+                      <Activity className="w-6 h-6 text-purple-600 dark:text-purple-300" />
+                    </div>
+                    <span className="flex items-center text-sm text-green-600 dark:text-green-400">
+                      <ArrowUp className="w-4 h-4 mr-1" />
+                      8%
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {stats.clientesActivos.toLocaleString()}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Clientes Activos
+                  </p>
+                </div>
+
+                {/* Morosos */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-2 bg-red-100 dark:bg-red-900 rounded-lg">
+                      <AlertCircle className="w-6 h-6 text-red-600 dark:text-red-300" />
+                    </div>
+                    <span className="flex items-center text-sm text-red-600 dark:text-red-400">
+                      <ArrowDown className="w-4 h-4 mr-1" />
+                      15%
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {stats.morosos}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Clientes Morosos
+                  </p>
+                </div>
+
+                {/* Productos Vendidos */}
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-2 bg-indigo-100 dark:bg-indigo-900 rounded-lg">
+                      <Package className="w-6 h-6 text-indigo-600 dark:text-indigo-300" />
+                    </div>
+                    <span className="flex items-center text-sm text-green-600 dark:text-green-400">
+                      <ArrowUp className="w-4 h-4 mr-1" />
+                      31%
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {stats.productosVendidos}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Productos Vendidos
+                  </p>
+                </div>
+              </div>
+
+              {/* Integration Status */}
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                  Estado de Integración
+                </h3>
+                
+                <div className="space-y-3">
+                  {/* ISP Suite Status */}
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <Wifi className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                      <span className="font-medium text-gray-900 dark:text-white">ISP Suite</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <span className={`px-2 py-1 text-xs rounded-full ${
+                        systemStatus.isp === 'online' 
+                          ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' 
+                          : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300'
                       }`}>
-                        {cliente.estado === "activo" ? "✅ ACTIVO" : 
-                         cliente.estado === "procesando" ? "🔄 PROCESANDO" : 
-                         "❌ CORTADO"}
+                        {systemStatus.isp === 'online' ? 'Operativo' : 'Mantenimiento'}
                       </span>
-                    </td>
-                    <td className="p-3">
-                      {cliente.excepcion ? (
-                        <span className="text-amber-400 font-medium">🛡️ PROTEGIDO</span>
-                      ) : cliente.dias_mora >= 30 ? (
-                        <span className="text-red-400">🎯 PARA CORTE</span>
-                      ) : (
-                        <span className="text-slate-400">—</span>
-                      )}
-                    </td>
-                  </motion.tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </motion.div>
+                    </div>
+                  </div>
+                  
+                  {/* Portal Cautivo Status */}
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <CreditCard className="w-5 h-5 text-green-600 dark:text-green-400" />
+                      <span className="font-medium text-gray-900 dark:text-white">Portal Cautivo</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <span className={`px-2 py-1 text-xs rounded-full ${
+                        systemStatus.portal === 'online' 
+                          ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' 
+                          : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300'
+                      }`}>
+                        {systemStatus.portal === 'online' ? 'Operativo' : 'Mantenimiento'}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {/* Nordia POS Status */}
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <ShoppingBag className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                      <span className="font-medium text-gray-900 dark:text-white">Nordia POS</span>
+                      <span className="px-2 py-0.5 text-xs bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-bold">
+                        NUEVO
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <span className={`px-2 py-1 text-xs rounded-full ${
+                        systemStatus.pos === 'online' 
+                          ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' 
+                          : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300'
+                      }`}>
+                        {systemStatus.pos === 'online' ? 'Operativo' : 'Mantenimiento'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
 
+                {/* Integration Info */}
+                <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                  <div className="flex items-start space-x-3">
+                    <AlertCircle className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                    <div className="text-sm text-blue-700 dark:text-blue-300">
+                      <p className="font-medium mb-1">Integración Super App</p>
+                      <p className="text-blue-600 dark:text-blue-400">
+                        Los tres sistemas están completamente integrados. Los datos de clientes se sincronizan
+                        automáticamente entre ISP Suite, Portal Cautivo y Nordia POS para una experiencia unificada.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Otras tabs pueden mostrar contenido específico */}
+          {activeTab === 'isp' && (
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                Gestión ISP
+              </h2>
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 text-center">
+                <Wifi className="w-16 h-16 text-blue-600 dark:text-blue-400 mx-auto mb-4" />
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  Accede al módulo completo de gestión ISP
+                </p>
+                <button
+                  onClick={() => navigateToSystem('demo')}
+                  className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-200"
+                >
+                  Abrir ISP Suite
+                </button>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'sales' && (
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                Módulo de Ventas
+              </h2>
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 text-center">
+                <ShoppingBag className="w-16 h-16 text-orange-600 dark:text-orange-400 mx-auto mb-4" />
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  Gestiona todas tus ventas con Nordia POS
+                </p>
+                <button
+                  onClick={() => navigateToSystem('pos')}
+                  className="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg hover:shadow-lg transition-all duration-200"
+                >
+                  Abrir Nordia POS
+                </button>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'products' && (
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                Gestión de Productos
+              </h2>
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 text-center">
+                <Package className="w-16 h-16 text-indigo-600 dark:text-indigo-400 mx-auto mb-4" />
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  Administra tu inventario y catálogo de productos
+                </p>
+                <button
+                  onClick={() => navigateToSystem('pos')}
+                  className="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg hover:shadow-lg transition-all duration-200"
+                >
+                  Gestionar en POS
+                </button>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'reports' && (
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                Reportes Consolidados
+              </h2>
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <p className="text-gray-600 dark:text-gray-400 mb-6">
+                  Visualiza reportes unificados de todos los sistemas
+                </p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                    <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">ISP Suite</h3>
+                    <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+                      <li>• Clientes activos: 1,089</li>
+                      <li>• Ancho de banda: 850 Mbps</li>
+                      <li>• Tickets resueltos: 45</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                    <h3 className="font-semibold text-green-900 dark:text-green-100 mb-2">Portal Cautivo</h3>
+                    <ul className="text-sm text-green-700 dark:text-green-300 space-y-1">
+                      <li>• Morosos recuperados: 112</li>
+                      <li>• Tasa de éxito: 78%</li>
+                      <li>• Monto recuperado: $12,345</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
+                    <h3 className="font-semibold text-orange-900 dark:text-orange-100 mb-2">Nordia POS</h3>
+                    <ul className="text-sm text-orange-700 dark:text-orange-300 space-y-1">
+                      <li>• Ventas del mes: $45,678</li>
+                      <li>• Productos vendidos: 234</li>
+                      <li>• Ticket promedio: $195</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </main>
       </div>
     </div>
   );
