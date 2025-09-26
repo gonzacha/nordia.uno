@@ -1,3 +1,9 @@
+# HOTFIX: Redirect Next.js hardcoded paths to demo subdirectory
+RewriteEngine On
+RewriteRule ^_next/(.*)$      demo/next/$1      [L]
+RewriteRule ^themes/(.*)$     demo/themes/$1    [L]
+RewriteRule ^simulacion/(.*)$ demo/simulacion/$1 [L]
+
 # Allow access to _next directory and files starting with underscore
 <Files ~ "^_">
     Require all granted
