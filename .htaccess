@@ -1,0 +1,20 @@
+# Allow access to _next directory and files starting with underscore
+<Files ~ "^_">
+    Require all granted
+</Files>
+
+# Allow access to demo/_next directory
+<Directory "/demo/_next">
+    Require all granted
+</Directory>
+
+# Ensure proper MIME types for JS and CSS files
+AddType application/javascript .js
+AddType text/css .css
+
+# Enable gzip compression for better performance
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE text/html
+</IfModule>

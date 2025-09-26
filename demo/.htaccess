@@ -1,0 +1,13 @@
+# Allow access to _next directory
+<Files ~ "^_">
+    Require all granted
+</Files>
+
+# Allow access to all files in _next subdirectories
+<Directory "_next">
+    Require all granted
+</Directory>
+
+# Ensure proper MIME types
+AddType application/javascript .js
+AddType text/css .css
