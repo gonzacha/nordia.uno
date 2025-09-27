@@ -1,40 +1,33 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ArrowRight, Wifi, ShoppingBag, Play } from 'lucide-react';
+import { ArrowRight, Wifi, Play } from 'lucide-react';
 
 export default function Hero() {
   const [clickCounts, setClickCounts] = useState({
-    demo: 0,
-    portal: 0,
-    pos: 0
+    whatsapp: 0,
+    demo: 0
   });
 
   // Función para trackear clicks (preparado para analytics)
-  const trackClick = (button: 'demo' | 'portal' | 'pos') => {
+  const trackClick = (button: 'whatsapp' | 'demo') => {
     setClickCounts(prev => ({
       ...prev,
       [button]: prev[button] + 1
     }));
     
-    // Aquí se podría integrar con Google Analytics o cualquier servicio de analytics
+    // Analytics tracking - ready for Google Analytics integration
     console.log(`[Analytics] Click en botón: ${button}, Total clicks: ${clickCounts[button] + 1}`);
+  };
+
+  const handleWhatsAppClick = () => {
+    trackClick('whatsapp');
+    window.open('https://wa.me/5493794281273?text=Hola%2C%20quiero%20una%20consulta%20gratuita%20sobre%20Nordia%20ISP%20Suite%20y%20el%20sistema%20de%20recuperaci%C3%B3n%20de%20morosos', '_blank');
   };
 
   const handleDemoClick = () => {
     trackClick('demo');
     window.open('/simulacion', '_blank');
-  };
-
-  const handlePortalClick = () => {
-    trackClick('portal');
-    window.open('/portal-cautivo', '_blank');
-  };
-
-  const handlePOSClick = () => {
-    trackClick('pos');
-    // URL temporal - preparado para futuro deploy
-    window.open('/nordia-pos', '_blank');
   };
 
   return (
@@ -63,127 +56,129 @@ export default function Hero() {
           {/* Descripción principal */}
           <div className="mb-12 space-y-4">
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              Gestiona tu ISP, recupera morosos automáticamente y aumenta tus ventas con nuestra plataforma todo-en-uno
+              Aumenta tu cobranza del 30% al 85% con monitoreo automático 24/7 y cortes de servicio inteligentes
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
               <span className="flex items-center gap-1">
                 <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                99.9% Uptime
+                85% Recuperación de Morosos
               </span>
               <span className="flex items-center gap-1">
                 <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
-                +500 ISPs Activos
+                Monitoreo 24/7 Automático
               </span>
               <span className="flex items-center gap-1">
                 <span className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></span>
-                +50k Usuarios Gestionados
+                100 Cortes en 5 Minutos
               </span>
             </div>
           </div>
 
-          {/* Botones principales - 3 accesos */}
+          {/* CTA Principal Enterprise */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            {/* Botón Demo en Vivo */}
+            {/* Botón Demostración Principal */}
             <button
               onClick={handleDemoClick}
-              className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25"
+              className="group relative inline-flex items-center justify-center px-12 py-5 text-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30 shadow-xl"
             >
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              <Play className="w-5 h-5 mr-2" />
-              <span className="relative">Ver DEMO en Vivo</span>
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-700 to-purple-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              <Play className="w-6 h-6 mr-3" />
+              <span className="relative">Ver Demostración</span>
+              <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform" />
             </button>
 
-            {/* Botón Portal Cautivo */}
+            {/* Botón WhatsApp */}
             <button
-              onClick={handlePortalClick}
-              className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-gradient-to-r from-green-500 to-teal-600 rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/25"
+              onClick={handleWhatsAppClick}
+              className="group relative inline-flex items-center justify-center px-8 py-5 text-xl font-medium text-gray-800 bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 border-gray-200 hover:border-green-500"
             >
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-green-600 to-teal-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              <Wifi className="w-5 h-5 mr-2" />
-              <span className="relative">Portal Cautivo</span>
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </button>
-
-            {/* Botón Nordia POS - NUEVO */}
-            <button
-              onClick={handlePOSClick}
-              className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-gradient-to-r from-orange-500 to-red-500 rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25"
-            >
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-orange-600 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              <ShoppingBag className="w-5 h-5 mr-2" />
-              <span className="relative">Nordia POS</span>
-              <span className="ml-2 px-2 py-0.5 text-xs bg-yellow-400 text-gray-900 rounded-full font-bold">NUEVO</span>
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              <svg className="w-6 h-6 mr-3 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.382"/>
+              </svg>
+              <span className="relative">Contactar Ahora</span>
             </button>
           </div>
 
-          {/* Features cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-5xl mx-auto">
-            {/* ISP Management */}
-            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-colors">
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mb-4">
-                <Wifi className="w-6 h-6 text-white" />
+          {/* Características Principales - Enterprise Focus */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-20 max-w-4xl mx-auto">
+            {/* Gestión Integral */}
+            <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-[1.02]">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mb-6">
+                <Wifi className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Gestión ISP</h3>
-              <p className="text-gray-400">
-                Control total de tu red, clientes y servicios. Automatiza cobros y gestiona morosos eficientemente.
+              <h3 className="text-2xl font-bold text-white mb-4">Recuperación Automática</h3>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                Sistema automático de recuperación de morosos que aumenta tu cobranza del 30% al 85%. 
+                Integración directa con MikroTik para cortes de servicio automáticos.
               </p>
+              <div className="mt-4 flex items-center text-blue-400 font-medium">
+                <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                Garantía de resultados o devolución
+              </div>
             </div>
 
-            {/* Portal Cautivo */}
-            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-colors">
-              <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-600 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            {/* Tecnología Avanzada */}
+            <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 hover:scale-[1.02]">
+              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-600 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Portal Cautivo</h3>
-              <p className="text-gray-400">
-                Recuperación automática de morosos con portal cautivo inteligente y múltiples opciones de pago.
+              <h3 className="text-2xl font-bold text-white mb-4">Portal de Pagos 24/7</h3>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                Portal automático con notificaciones vía WhatsApp, SMS y email. 
+                Pasarela de pagos integrada disponible las 24 horas del día.
               </p>
-            </div>
-
-            {/* Sistema POS */}
-            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-colors relative">
-              <div className="absolute top-4 right-4">
-                <span className="px-2 py-1 text-xs bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-bold">
-                  NUEVO
-                </span>
+              <div className="mt-4 flex items-center text-green-400 font-medium">
+                <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                Plan Fundador: Solo 5 cupos disponibles
               </div>
-              <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center mb-4">
-                <ShoppingBag className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Sistema POS</h3>
-              <p className="text-gray-400">
-                Punto de venta integrado para gestionar productos, servicios y facturación en un solo lugar.
-              </p>
             </div>
           </div>
 
-          {/* Call to action secundario */}
+          {/* Testimonial Enterprise */}
+          <div className="mt-20 text-center">
+            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 max-w-3xl mx-auto border border-white/10">
+              <blockquote className="text-xl text-gray-300 italic mb-6">
+                "Pasamos del 30% al 85% de cobranza en los primeros 90 días. El sistema automático 
+                de cortes y el portal de pagos 24/7 nos ahorraron horas de trabajo manual diario."
+              </blockquote>
+              <div className="flex items-center justify-center">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-white font-bold">MR</span>
+                </div>
+                <div className="text-left">
+                  <p className="text-white font-semibold">Miguel Rodríguez</p>
+                  <p className="text-gray-400 text-sm">Director, ConectaNet ISP</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Final CTA */}
           <div className="mt-16 text-center">
-            <p className="text-gray-400 mb-4">
-              ¿Listo para transformar tu ISP?
+            <p className="text-gray-300 text-lg mb-6">
+              Plan Fundador: Solo quedan 5 cupos disponibles
             </p>
-            <a
-              href="mailto:contacto@nordia.com"
-              className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors"
-            >
-              Contacta con nosotros
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </a>
-          </div>
-
-          {/* Debug info - Solo visible en desarrollo */}
-          {process.env.NODE_ENV === 'development' && (
-            <div className="mt-8 p-4 bg-black/50 rounded-lg text-xs text-gray-500 max-w-md mx-auto">
-              <p>🔍 Analytics Debug:</p>
-              <p>Demo clicks: {clickCounts.demo}</p>
-              <p>Portal clicks: {clickCounts.portal}</p>
-              <p>POS clicks: {clickCounts.pos}</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <button
+                onClick={handleWhatsAppClick}
+                className="inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-green-600 hover:bg-green-700 rounded-xl transition-colors"
+              >
+                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.382"/>
+                </svg>
+                Consulta Gratuita
+              </button>
+              <button
+                onClick={handleDemoClick}
+                className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors font-medium"
+              >
+                Ver Demo Completa
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </button>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
