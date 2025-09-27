@@ -3,11 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --brand-primary: #312e81;
-  --brand-accent: #f472b6;
-  --brand-surface: rgba(15, 23, 42, 0.8);
+  --brand-primary: #0ea5e9;
+  --brand-secondary: #10b981;
+  --brand-background: #0f172a;
+  --brand-surface: #1e293b;
+  --brand-text: #f8fafc;
+}
+
+.bg-brand-gradient {
+  background: linear-gradient(135deg, var(--brand-background) 0%, #1e293b 100%);
 }
 
 body {
-  @apply bg-slate-950 text-slate-100 antialiased;
+  @apply antialiased;
 }

@@ -1,0 +1,10 @@
+{
+  "id": "default",
+  "name": "Nordia ISP Suite",
+  "tagline": "Automatización white-label para ISPs visionarios",
+  "logo": "/themes/default-logo.svg",
+  "colors": {
+    "primary": "#0ea5e9",
+    "accent": "#10b981"
+  }
+}
