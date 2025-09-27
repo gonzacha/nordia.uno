@@ -1,0 +1,10 @@
+{
+  "id": "default",
+  "name": "Mi Empresa ISP",
+  "tagline": "Administra tu red, automatiza procesos y mantén contentos a tus clientes desde un solo lugar",
+  "logo": "/themes/default-logo.svg",
+  "colors": {
+    "primary": "#312e81",
+    "accent": "#f472b6"
+  }
+}

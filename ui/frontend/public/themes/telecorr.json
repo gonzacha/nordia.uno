@@ -1,0 +1,10 @@
+{
+  "id": "telecorr",
+  "name": "TeleCorrientes Suite",
+  "tagline": "Automatización integral para redes regionales",
+  "logo": "/themes/default-logo.svg",
+  "colors": {
+    "primary": "#0ea5e9",
+    "accent": "#fbbf24"
+  }
+}

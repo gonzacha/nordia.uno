@@ -1,0 +1,25 @@
+[project]
+name = "nordia-isp-suite-backend"
+version = "0.1.0"
+description = "FastAPI backend exposing white-label dashboard endpoints for Nordia ISP Suite"
+requires-python = ">=3.10"
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "pydantic~=2.8",
+  "pandas",
+  "python-multipart",
+  "orjson",
+  "jinja2",
+  "aiofiles"
+]
+
+[tool.uvicorn]
+app = "app.main:app"
+reload = true
+host = "0.0.0.0"
+port = 9000
+
+[build-system]
+requires = ["setuptools>=67.0"]
+build-backend = "setuptools.build_meta"

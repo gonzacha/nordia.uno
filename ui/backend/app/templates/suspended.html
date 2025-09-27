@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicio Suspendido - {{ isp_name }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        
+        .logo {
+            width: 120px;
+            margin-bottom: 30px;
+        }
+        
+        .suspended-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #ff6b6b;
+        }
+        
+        .client-info {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .label {
+            color: #a0a0a0;
+            font-size: 14px;
+        }
+        
+        .value {
+            font-weight: bold;
+            color: #ffffff;
+        }
+        
+        .debt-amount {
+            font-size: 36px;
+            color: #ffd93d;
+            margin: 20px 0;
+        }
+        
+        .pay-button {
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+            font-weight: bold;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .pay-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,210,255,0.4);
+        }
+        
+        .payment-methods {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .method {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .method:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .reference-code {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .countdown {
+            background: rgba(255, 107, 107, 0.2);
+            border: 1px solid #ff6b6b;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .countdown-time {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffd93d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="suspended-icon">⚠️</div>
+        
+        <h1>Servicio Suspendido</h1>
+        <p>Tu servicio de internet está suspendido por falta de pago</p>
+        
+        <div class="client-info">
+            <div class="info-row">
+                <span class="label">Cliente:</span>
+                <span class="value">{{ client.name }}</span>
+            </div>
+            <div class="info-row">
+                <span class="label">DNI:</span>
+                <span class="value">{{ client.dni_masked }}</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Plan:</span>
+                <span class="value">{{ client.plan }}</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Días de mora:</span>
+                <span class="value">{{ client.days_overdue }} días</span>
+            </div>
+        </div>
+        
+        <div class="debt-amount">
+            ${{ "{:,.2f}".format(client.debt_amount) }}
+        </div>
+        
+        <button class="pay-button" onclick="initPayment()">
+            💳 Pagar ahora
+        </button>
+        
+        <div class="payment-methods">
+            <p style="margin-bottom: 10px; color: #a0a0a0;">También podés pagar por:</p>
+            <div class="methods-grid">
+                <div class="method" onclick="selectMethod('mercadopago')">
+                    <div>💳</div>
+                    <small>MercadoPago</small>
+                </div>
+                <div class="method" onclick="selectMethod('transfer')">
+                    <div>🏦</div>
+                    <small>Transferencia</small>
+                </div>
+                <div class="method" onclick="selectMethod('cash')">
+                    <div>💵</div>
+                    <small>Efectivo</small>
+                </div>
+            </div>
+        </div>
+        
+        {% if show_countdown %}
+        <div class="countdown">
+            <p>⏰ Tiempo para reconexión automática:</p>
+            <div class="countdown-time" id="countdown">05:00</div>
+        </div>
+        {% endif %}
+        
+        <div class="reference-code">
+            Código de referencia: ISP-{{ client.id }}-{{ current_date }}
+        </div>
+    </div>
+    
+    <script>
+        // Función para iniciar pago
+        function initPayment() {
+            // Redirigir a MercadoPago o método de pago
+            window.location.href = "{{ payment_url }}";
+        }
+        
+        // Función para seleccionar método de pago
+        function selectMethod(method) {
+            fetch('/api/payment-method', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    client_id: "{{ client.id }}",
+                    method: method
+                })
+            });
+            
+            alert(`Seleccionaste ${method}. Te enviaremos las instrucciones por WhatsApp.`);
+        }
+        
+        // Countdown timer (opcional)
+        {% if show_countdown %}
+        let timeLeft = 300; // 5 minutos
+        const countdownEl = document.getElementById('countdown');
+        
+        setInterval(() => {
+            if (timeLeft > 0) {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                countdownEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft === 0) {
+                    // Check payment status
+                    checkPaymentStatus();
+                }
+            }
+        }, 1000);
+        
+        function checkPaymentStatus() {
+            fetch('/api/check-payment/{{ client.id }}')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.paid) {
+                        window.location.href = '/payment-success';
+                    }
+                });
+        }
+        {% endif %}
+    </script>
+</body>
+</html>
