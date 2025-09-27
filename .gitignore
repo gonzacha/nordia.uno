@@ -1,0 +1,30 @@
+
+# Next.js
+.next/
+out/
+node_modules/
+
+# Dependencies
+venv/
+.venv/
+ui/backend/.venv/
+
+# Environment
+.env*.local
+
+# Debug logs
+*.log
+logs/
+
+# Build outputs
+dist/
+build/
+
+# Cache
+.cache/
+__pycache__/
+
+# Backend specific
+output/
+data/
+

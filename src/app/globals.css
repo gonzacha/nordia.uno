@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-primary: #312e81;
+  --brand-accent: #f472b6;
+  --brand-surface: rgba(15, 23, 42, 0.8);
+}
+
+body {
+  @apply bg-slate-950 text-slate-100 antialiased;
+}
