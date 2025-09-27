@@ -47,7 +47,7 @@ export default function SimulacionDashboard() {
     
     const urls = {
       demo: '/simulacion/demo-completa',
-      portal: '/portal-cautivo',
+      portal: 'http://localhost:8080/',
       pos: '/nordia-pos'
     };
     
