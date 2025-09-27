@@ -9,22 +9,22 @@ export default function NordiaPOSPage() {
 
   const plans = {
     'basico': {
-      name: 'POS Básico',
-      description: 'Para ISPs que venden solo servicios de internet',
-      price: '$25,000/mes',
-      features: ['Planes de internet hasta 100 Mbps', 'Equipamiento básico', 'Servicios técnicos', 'Reportes básicos']
+      name: 'POS ISP Básico',
+      description: 'Para ISPs locales (100-500 clientes)',
+      price: '$125,000/mes',
+      features: ['Gestión de planes residenciales', 'Equipamiento WiFi básico', 'Instalaciones domiciliarias', 'Facturación automática', 'Reportes básicos']
     },
     'profesional': {
-      name: 'POS Profesional', 
-      description: 'Para ISPs con casa de informática',
-      price: '$45,000/mes',
-      features: ['Todos los planes de internet', 'Equipamiento completo', 'Productos informática', 'Gestión de inventario', 'Reportes avanzados']
+      name: 'POS ISP Profesional', 
+      description: 'Para ISPs regionales (500+ clientes)',
+      price: '$185,000/mes',
+      features: ['Planes empresariales', 'Equipamiento profesional', 'Servicios corporativos', 'Múltiples sucursales', 'CRM integrado', 'Reportes avanzados']
     },
     'enterprise': {
-      name: 'POS Enterprise',
-      description: 'Para ISPs diversificados (como Wispana)',
-      price: '$65,000/mes',
-      features: ['Catálogo completo', 'Paneles solares', 'Sistemas de seguridad', 'Multi-sucursal', 'API integración', 'Soporte 24/7']
+      name: 'POS ISP Enterprise',
+      description: 'Para ISPs diversificados y grandes operadores',
+      price: '$285,000/mes',
+      features: ['Catálogo completo ISP', 'Servicios empresariales', 'Productos complementarios', 'Integración con proveedores', 'API completa', 'Soporte 24/7']
     }
   };
 
@@ -136,78 +136,93 @@ export default function NordiaPOSPage() {
                   {selectedPlan === 'basico' && (
                     <>
                       <div className="space-y-2">
-                        <h6 className="font-semibold text-gray-800">🌐 Planes de Internet</h6>
-                        <div>• Internet 1, 2, 5, 10 Mbps</div>
-                        <div>• Internet 20, 30, 50 Mbps</div>
-                        <div>• Internet 100 Mbps</div>
-                        <div>• IP Fija Dedicada</div>
-                        <div>• WiFi Comunitario</div>
+                        <h6 className="font-semibold text-gray-800">🏠 Internet Residencial (Fibra)</h6>
+                        <div>• 100 Mbps - $19,000/mes</div>
+                        <div>• 300 Mbps - $21,000/mes</div>
+                        <div>• 500 Mbps - $21,500/mes</div>
+                        <div>• 1000 Mbps (1 Giga) - $19,000/mes</div>
+                        <div>• Instalación fibra - Bonificada</div>
                       </div>
                       <div className="space-y-2">
-                        <h6 className="font-semibold text-gray-800">🔧 Equipamiento Básico</h6>
-                        <div>• Routers WiFi</div>
-                        <div>• Cables UTP</div>
-                        <div>• Conectores RJ45</div>
-                        <div>• Servicios técnicos</div>
-                        <div>• Instalaciones</div>
+                        <h6 className="font-semibold text-gray-800">📡 Internet Rural (WISP)</h6>
+                        <div>• 10 Mbps Zona 1 - $11,000/mes</div>
+                        <div>• 12 Mbps Zona 2 - $23,700/mes</div>
+                        <div>• Instalación WISP - $45,000-$70,000</div>
+                        <div>• Router incluido</div>
+                        <div>• Soporte técnico - $8,000/visita</div>
                       </div>
                     </>
                   )}
                   {selectedPlan === 'profesional' && (
                     <>
                       <div className="space-y-2">
-                        <h6 className="font-semibold text-gray-800">🌐 Internet Completo</h6>
-                        <div>• Todos los planes hasta 500 Mbps</div>
-                        <div>• Internet Empresarial</div>
-                        <div>• IP Fija y WiFi Comunitario</div>
+                        <h6 className="font-semibold text-gray-800">🏢 Planes Empresariales 2025</h6>
+                        <div>• 100 Mbps Corp - $135,000/mes</div>
+                        <div>• 300 Mbps Corp - $255,000/mes</div>
+                        <div>• 500 Mbps Corp - $450,000/mes</div>
+                        <div>• IP Fija Dedicada - $75,000/mes</div>
+                        <div>• Backup 4G - $55,000/mes</div>
                       </div>
                       <div className="space-y-2">
-                        <h6 className="font-semibold text-gray-800">💻 Casa de Informática</h6>
-                        <div>• Computadoras y Notebooks</div>
-                        <div>• Monitores e Impresoras</div>
-                        <div>• Periféricos completos</div>
-                        <div>• Almacenamiento SSD</div>
+                        <h6 className="font-semibold text-gray-800">🔧 Equipamiento Pro 2025</h6>
+                        <div>• Ubiquiti NanoStation 5GHz - $285,000</div>
+                        <div>• Switch 24 puertos Gigabit - $420,000</div>
+                        <div>• Firewall Mikrotik - $335,000</div>
+                        <div>• ONT Fibra Óptica - $125,000</div>
+                        <div>• UPS 2000VA - $650,000</div>
+                        <div>• Router WiFi Pro - $125,000</div>
                       </div>
                       <div className="space-y-2">
-                        <h6 className="font-semibold text-gray-800">🔧 Equipamiento Pro</h6>
-                        <div>• Antenas Ubiquiti</div>
-                        <div>• Switches Gigabit</div>
-                        <div>• ONT Fibra Óptica</div>
+                        <h6 className="font-semibold text-gray-800">🛠️ Servicios Corporativos 2025</h6>
+                        <div>• Instalación empresarial - $125,000</div>
+                        <div>• Soporte Premium 24hs - $85,000/mes</div>
+                        <div>• Mantenimiento preventivo - $55,000/mes</div>
+                        <div>• Monitoreo 24/7 - $65,000/mes</div>
+                        <div>• Consultoría de red - $155,000</div>
                       </div>
                       <div className="space-y-2">
-                        <h6 className="font-semibold text-gray-800">🛠️ Servicios Técnicos</h6>
-                        <div>• Soporte Premium 24hs</div>
-                        <div>• Instalaciones especializadas</div>
-                        <div>• Mantenimiento preventivo</div>
+                        <h6 className="font-semibold text-gray-800">💻 Servicios Adicionales 2025</h6>
+                        <div>• Hosting web - $25,000/mes</div>
+                        <div>• Email corporativo - $12,000/mes</div>
+                        <div>• Backup en la nube - $35,000/mes</div>
+                        <div>• VPN empresarial - $45,000/mes</div>
+                        <div>• Licencias Office 365 - $35,000/mes</div>
                       </div>
                     </>
                   )}
                   {selectedPlan === 'enterprise' && (
                     <>
                       <div className="space-y-2">
-                        <h6 className="font-semibold text-gray-800">🌐 Internet Enterprise</h6>
-                        <div>• Catálogo completo hasta 500 Mbps</div>
-                        <div>• Planes empresariales dedicados</div>
-                        <div>• Soluciones corporativas</div>
+                        <h6 className="font-semibold text-gray-800">🌐 Enlaces Dedicados 2025</h6>
+                        <div>• Enlace dedicado 10 Mbps - $385,000/mes</div>
+                        <div>• Enlace dedicado 50 Mbps - $1,250,000/mes</div>
+                        <div>• Enlace dedicado 100 Mbps - $2,150,000/mes</div>
+                        <div>• Data center y colocación - $450,000/mes</div>
+                        <div>• Tránsito IP internacional - desde $850,000/mes</div>
                       </div>
                       <div className="space-y-2">
-                        <h6 className="font-semibold text-gray-800">☀️ Paneles Solares</h6>
-                        <div>• Paneles 330W y 450W</div>
-                        <div>• Inversores 3000W y 5000W</div>
-                        <div>• Baterías y reguladores</div>
-                        <div>• Instalación completa</div>
+                        <h6 className="font-semibold text-gray-800">☀️ Energía Solar 2025 (Wispana)</h6>
+                        <div>• Panel 450W - $650,000</div>
+                        <div>• Inversor 5000W - $1,850,000</div>
+                        <div>• Batería Litio 200Ah - $1,350,000</div>
+                        <div>• Kit instalación - $550,000</div>
+                        <div>• Proyecto llave en mano - desde $8,500,000</div>
                       </div>
                       <div className="space-y-2">
-                        <h6 className="font-semibold text-gray-800">🔒 Sistemas de Seguridad</h6>
-                        <div>• Cámaras IP WiFi HD</div>
-                        <div>• Sistemas DVR</div>
-                        <div>• UPS y estabilizadores</div>
+                        <h6 className="font-semibold text-gray-800">💻 Tecnología e Informática</h6>
+                        <div>• PC Empresarial - $2,850,000</div>
+                        <div>• Servidor Dell - $8,500,000</div>
+                        <div>• Licencias Office 365 - $35,000/mes</div>
+                        <div>• Backup enterprise - $125,000/mes</div>
+                        <div>• Soporte especializado - $185,000/mes</div>
                       </div>
                       <div className="space-y-2">
-                        <h6 className="font-semibold text-gray-800">💻 Informática Completa</h6>
-                        <div>• Todo el catálogo informático</div>
-                        <div>• Equipamiento profesional</div>
-                        <div>• Infraestructura de red</div>
+                        <h6 className="font-semibold text-gray-800">🔒 Seguridad y Monitoreo 2025</h6>
+                        <div>• Cámaras IP 4K - $445,000</div>
+                        <div>• DVR 16 canales - $985,000</div>
+                        <div>• Alarmas inteligentes - $295,000</div>
+                        <div>• Monitoreo 24/7 - $125,000/mes</div>
+                        <div>• Control de acceso - $650,000</div>
                       </div>
                     </>
                   )}
