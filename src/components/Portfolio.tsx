@@ -1,70 +1,73 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, FolderOpen } from "lucide-react";
 
 const projects = [
   {
     title: "Nordia POS",
-    description: "Suite de pagos y facturación con flujos operativos controlados.",
+    description: "Sistema de facturación con validación de stock y caja en tiempo real.",
     href: "/nordia-pos",
-    badge: "Producto en vivo",
+    status: "live",
+    label: "En Producción",
   },
   {
-    title: "Simulación",
-    description: "Modelos de escenarios operativos y financieros en tiempo real.",
+    title: "Simulador de Escenarios",
+    description: "Playground financiero para proyectar impacto de inflación y costos.",
     href: "/simulacion",
-    badge: "Playground",
+    status: "demo",
+    label: "Demo Interactiva",
   },
   {
-    title: "Demo completa",
-    description: "Recorrido de punta a punta con casos reales de operación.",
-    href: "/simulacion/demo-completa",
-    badge: "Demo guiada",
-  },
-  {
-    title: "SGIC",
-    description: "Sistema de Gestión Integral de Clientes orientado a equipos de campo.",
+    title: "SGIC - Field Ops",
+    description: "Gestión de técnicos de campo con geolocalización y reporte offline.",
     href: "/demo",
-    badge: "SGIC",
-  },
-  {
-    title: "Yaguareté",
-    description: "Implementación en curso con foco en continuidad y trazabilidad.",
-    href: "/yaguarete",
-    badge: "En desarrollo",
+    status: "dev",
+    label: "En Desarrollo",
   },
 ];
 
 export default function Portfolio() {
   return (
-    <section className="mx-auto max-w-6xl space-y-4">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-300">Portfolio</p>
-          <h2 className="text-2xl font-semibold text-white sm:text-3xl">Casos y rutas disponibles</h2>
-        </div>
-        <p className="text-sm text-slate-400 sm:max-w-sm">Accedé a demos y productos que operamos hoy.</p>
+    <section className="space-y-8">
+      <div className="flex items-center gap-3">
+        <FolderOpen className="h-6 w-6 text-emerald-500" />
+        <h2 className="text-2xl font-bold text-white">Portfolio &amp; Casos</h2>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {projects.map(({ title, description, href, badge }) => (
-          <Link
-            key={href}
-            href={href}
-            className="group flex h-full flex-col justify-between rounded-2xl border border-white/5 bg-slate-900/60 p-5 shadow-lg shadow-emerald-500/5 transition hover:-translate-y-1 hover:border-emerald-500/40"
-          >
-            <div className="space-y-3">
-              <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-200">
-                {badge}
-              </span>
-              <h3 className="text-lg font-semibold text-white">{title}</h3>
-              <p className="text-sm text-slate-300">{description}</p>
-            </div>
-            <div className="mt-4 inline-flex items-center text-sm font-semibold text-emerald-300">
-              Ir al caso
-              <ArrowUpRight className="ml-2 h-4 w-4 transition group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </div>
-          </Link>
-        ))}
+      <div className="grid gap-6 md:grid-cols-3">
+        {projects.map(({ title, description, href, status, label }) => {
+          
+          const statusColors = {
+            live: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+            demo: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+            dev: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+          };
+
+          const colorClass = statusColors[status as keyof typeof statusColors];
+
+          return (
+            <Link
+              key={href}
+              href={href}
+              className="group flex flex-col h-full bg-slate-900 rounded-xl border border-slate-800 hover:border-slate-600 transition-all hover:bg-slate-850 p-6 overflow-hidden relative"
+            >
+              <div className="flex items-start justify-between mb-4">
+                <span className={`text-[10px] font-mono font-semibold uppercase tracking-wider px-2 py-1 rounded border ${colorClass}`}>
+                  {label}
+                </span>
+                <ArrowUpRight className="h-5 w-5 text-slate-500 group-hover:text-white transition-colors group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </div>
+              
+              <div className="mt-auto">
+                <h3 className="text-lg font-bold text-white mb-2 group-hover:underline decoration-emerald-500 decoration-2 underline-offset-4">
+                  {title}
+                </h3>
+                <p className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
+                  {description}
+                </p>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

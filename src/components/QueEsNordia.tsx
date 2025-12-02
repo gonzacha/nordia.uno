@@ -1,38 +1,66 @@
+import { CheckCircle2 } from "lucide-react";
+
+const deliverables = [
+  "Mapas de procesos y roles con métricas claras.",
+  "Dashboards de situación en tiempo real.",
+  "Automatización de tareas repetitivas (IA).",
+  "Protocolos de crisis y respuesta a incidentes.",
+];
+
 export default function QueEsNordia() {
   return (
-    <section className="mx-auto max-w-6xl space-y-4">
-      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-300">¿Qué es Nordia?</p>
-      <div className="rounded-2xl border border-white/5 bg-slate-900/60 p-6 shadow-xl shadow-emerald-500/10">
-        <div className="grid gap-6 md:grid-cols-3 md:gap-10">
-          <div className="md:col-span-2 space-y-3">
-            <h2 className="text-2xl font-semibold text-white sm:text-3xl">Consultora de inteligencia situacional aplicada</h2>
-            <p className="text-base text-slate-300 sm:text-lg">
-              Aterrizamos estrategia en operación diaria. Diseñamos y operamos sistemas que combinan procesos, datos y
-              tecnología para que cada área del negocio sepa qué hacer, cuándo y con qué nivel de riesgo.
-            </p>
-            <p className="text-base text-slate-300 sm:text-lg">
-              Trabajamos con PyMEs que necesitan control sin burocracia: equipos comerciales, operaciones, logística,
-              cobranzas y atención al cliente.
-            </p>
+    <section>
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
+        
+        {/* Left Column: Concept */}
+        <div className="space-y-8">
+          <div className="space-y-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+              ¿Qué es Nordia?
+            </h2>
+            <div className="h-1 w-20 bg-emerald-500 rounded-full" />
           </div>
-          <div className="space-y-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 text-sm text-emerald-100">
-            <p className="font-semibold text-emerald-200">Entregables clave</p>
-            <ul className="space-y-2 text-emerald-50/90">
-              <li className="flex items-start gap-2">
-                <span className="mt-1 h-2 w-2 rounded-full bg-emerald-400" />
-                Mapas de procesos y roles con indicadores accionables.
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 h-2 w-2 rounded-full bg-cyan-400" />
-                Dashboards de situación y protocolos de respuesta.
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1 h-2 w-2 rounded-full bg-amber-400" />
-                Automatizaciones con IA y monitoreo continuo.
-              </li>
-            </ul>
+          
+          <div className="prose prose-lg prose-invert text-slate-300">
+            <p>
+              Somos una consultora de <strong>ingeniería operativa</strong>. No vendemos diapositivas; 
+              construimos la infraestructura invisible que sostiene tu crecimiento.
+            </p>
+            <p>
+              Ayudamos a Founders y Gerentes a recuperar el control de su operación mediante 
+              "Inteligencia Situacional": saber exactamente qué está pasando, qué se rompió 
+              y quién lo está solucionando, sin tener que preguntar.
+            </p>
           </div>
         </div>
+
+        {/* Right Column: Execution Box */}
+        <div className="relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 blur-3xl -z-10" />
+          
+          <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 backdrop-blur-sm shadow-2xl">
+            <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
+              <span className="flex h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
+              Lo que entregamos
+            </h3>
+            
+            <ul className="space-y-4">
+              {deliverables.map((item, index) => (
+                <li key={index} className="flex items-start gap-3 group">
+                  <CheckCircle2 className="h-5 w-5 text-emerald-500/50 shrink-0 mt-0.5 transition-colors group-hover:text-emerald-400" />
+                  <span className="text-slate-300 text-sm sm:text-base group-hover:text-slate-100 transition-colors">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500 italic">
+              "Si no está documentado y medido, es solo buena voluntad."
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
