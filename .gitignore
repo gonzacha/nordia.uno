@@ -27,4 +27,5 @@ __pycache__/
 # Backend specific
 output/
 data/
-
+!src/data/
+!src/data/*.ts
