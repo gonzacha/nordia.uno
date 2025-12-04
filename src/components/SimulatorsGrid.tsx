@@ -1,26 +1,5 @@
 import { simuladores } from "@/data/simuladores";
 
-const PromptBlock = ({ es, en }: { es: string; en: string }) => (
-  <details className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 text-xs text-slate-700">
-    <summary className="cursor-pointer select-none font-semibold text-slate-800">
-      Ver prompts ES/EN
-    </summary>
-    <div className="mt-2 space-y-3 max-h-64 overflow-y-auto">
-      <div>
-        <p className="mb-1 font-semibold text-slate-900">ES</p>
-        <pre className="whitespace-pre-wrap rounded-lg bg-white/80 p-2 text-[11px] leading-relaxed">
-{es}
-        </pre>
-      </div>
-      <div>
-        <p className="mb-1 font-semibold text-slate-900">EN</p>
-        <pre className="whitespace-pre-wrap rounded-lg bg-white/80 p-2 text-[11px] leading-relaxed">
-{en}
-        </pre>
-      </div>
-    </div>
-  </details>
-);
 
 export default function SimulatorsGrid() {
   return (
@@ -114,7 +93,6 @@ export default function SimulatorsGrid() {
                 </button>
               </div>
 
-              <PromptBlock es={simulador.prompts.es} en={simulador.prompts.en} />
             </article>
           ))}
         </div>
