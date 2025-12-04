@@ -42,11 +42,11 @@ export default function Page() {
               <span>WhatsApp Directo</span>
             </a>
             <a 
-              href="mailto:hola@nordia.uno" 
+              href="mailto:founders@nordia.uno" 
               className="group flex items-center gap-2 text-slate-300 hover:text-emerald-400 transition-colors text-sm font-medium"
             >
               <Mail className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
-              <span>hola@nordia.uno</span>
+              <span>founders@nordia.uno</span>
             </a>
           </div>
         </div>
