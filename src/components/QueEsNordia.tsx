@@ -28,8 +28,8 @@ export default function QueEsNordia() {
             </p>
             <p>
               Ayudamos a Founders y Gerentes a recuperar el control de su operación mediante 
-              "Inteligencia Situacional": saber exactamente qué está pasando, qué se rompió 
-              y quién lo está solucionando, sin tener que preguntar.
+              inteligencia situacional: saber exactamente qué está pasando, qué se rompió y 
+              quién lo está solucionando, sin tener que preguntar.
             </p>
           </div>
         </div>
@@ -56,7 +56,7 @@ export default function QueEsNordia() {
             </ul>
 
             <div className="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500 italic">
-              "Si no está documentado y medido, es solo buena voluntad."
+              Si no está documentado y medido, es solo buena voluntad.
             </div>
           </div>
         </div>

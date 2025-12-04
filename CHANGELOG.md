@@ -1,4 +1,6 @@
-# 📋 CHANGELOG - Nordia ISP Suite
+# 📋 CHANGELOG - Nordia · Inteligencia Situacional
+
+> Documento histórico de la etapa previa (ISP Suite). Se conserva para referencia técnica.
 
 ## 2025-09-27 - 13:18 - ✅ PROYECTO COMPLETAMENTE FUNCIONAL
 

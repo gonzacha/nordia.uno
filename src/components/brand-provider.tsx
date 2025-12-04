@@ -11,8 +11,8 @@ interface BrandContextValue {
 }
 
 const defaultBrand: BrandContextValue = {
-  name: "Nordia ISP Suite",
-  tagline: "Automatización white-label para ISPs visionarios",
+  name: "Nordia · Inteligencia Situacional",
+  tagline: "Sistemas y automatizaciones con IA para equipos operativos",
   logo: "/themes/default-logo.svg",
 };
 

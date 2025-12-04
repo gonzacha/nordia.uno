@@ -108,7 +108,7 @@ export default function DemoCompletaPage() {
     }, 4000 / simulationSpeed);
 
     return () => clearInterval(stepInterval);
-  }, [isSimulationRunning, simulationSpeed]);
+  }, [isSimulationRunning, simulationSpeed, simulationSteps.length]);
 
   const toggleSimulation = () => {
     setIsSimulationRunning(!isSimulationRunning);

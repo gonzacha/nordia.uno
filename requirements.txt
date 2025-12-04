@@ -1,5 +1,5 @@
-# Nordia ISP Suite - Dependencias Core
-# Automatización de Cortes por Mora con Mikrotik RouterOS
+# Nordia · Inteligencia Situacional - Dependencias backend legacy
+# Scripts históricos de automatización y prototipos técnicos
 
 # Framework Web
 fastapi==0.104.1

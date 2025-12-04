@@ -1,5 +1,5 @@
-# Nordia ISP Suite - Makefile
-# Comandos útiles para desarrollo y operación
+# Nordia · Inteligencia Situacional - Makefile
+# Utilidades legacy para scripts y backend histórico
 
 .PHONY: help install run test clean format lint setup
 
@@ -14,7 +14,7 @@ FLAKE8 = $(VENV)/bin/flake8
 # Comando por defecto
 help:
 	@echo "════════════════════════════════════════════════════════════════"
-	@echo "              NORDIA ISP SUITE - COMANDOS MAKE"
+	@echo "     NORDIA · INTELIGENCIA SITUACIONAL - COMANDOS MAKE (LEGACY)"
 	@echo "════════════════════════════════════════════════════════════════"
 	@echo ""
 	@echo "Comandos de Setup:"
@@ -59,7 +59,7 @@ setup: install
 
 # Ejecutar script principal
 run:
-	@echo "🚀 Ejecutando Nordia ISP Suite..."
+	@echo "🚀 Ejecutando CLI legacy de Nordia..."
 	$(PYTHON) scripts/cut_service.py --help
 
 # Ejecutar con datos de prueba en modo dry-run

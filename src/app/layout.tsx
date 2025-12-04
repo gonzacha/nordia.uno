@@ -2,9 +2,21 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { BrandProvider } from "../components/brand-provider";
 
+const title = "Nordia · Inteligencia Situacional";
+const description =
+  "Nordia es un estudio de Inteligencia Situacional Aplicada. Diseñamos sistemas, procesos y automatizaciones con IA para que pymes y equipos operativos trabajen con más orden, claridad y resultados.";
+
 export const metadata: Metadata = {
-  title: "Nordia ISP Suite",
-  description: "White-label automation dashboard for ISP partners.",
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+  },
+  twitter: {
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
